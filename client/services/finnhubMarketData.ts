@@ -650,6 +650,41 @@ class FinnhubMarketDataService {
       }
     };
   }
+
+  // Safe initialization method that prevents errors from propagating
+  private async safeInitialUpdate(): Promise<void> {
+    if (this.initializationAttempted) {
+      return;
+    }
+
+    this.initializationAttempted = true;
+
+    try {
+      await this.updateAllData();
+    } catch (error) {
+      console.warn("📊 Initial update failed, ensuring fallback data:", error?.message || "Unknown error");
+
+      // Always ensure we have fallback data
+      if (!this.lastSuccessfulData) {
+        const fallbackData = this.getFallbackMarketData();
+        this.lastSuccessfulData = fallbackData;
+        this.isInitialized = true;
+        this.fallbackMode = true;
+
+        try {
+          this.subscribers.forEach((cb) => {
+            try {
+              cb(fallbackData);
+            } catch (cbError) {
+              console.warn("Error in safe fallback callback:", cbError);
+            }
+          });
+        } catch (notifyError) {
+          console.warn("Error notifying subscribers in safe init:", notifyError);
+        }
+      }
+    }
+  }
 }
 
 // Type definitions
