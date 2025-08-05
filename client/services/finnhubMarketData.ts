@@ -430,18 +430,15 @@ class FinnhubMarketDataService {
       } else {
         try {
           data = await this.fetchAllMarketData();
-        } catch (fetchError) {
-          console.warn(
-            "📊 Fetch failed, switching to fallback:",
-            fetchError.message,
-          );
-          this.fallbackMode = true;
-          data = this.getFallbackMarketData();
-        }
 
-        // If server fails, switch to fallback
-        if (!data) {
-          console.log("📊 Server failed, switching to fallback mode");
+          // If fetchAllMarketData returns null, immediately use fallback
+          if (!data) {
+            console.log("📊 Server returned no data, using fallback");
+            this.fallbackMode = true;
+            data = this.getFallbackMarketData();
+          }
+        } catch (fetchError) {
+          console.warn("📊 Fetch error caught, using fallback:", fetchError?.message || "Unknown error");
           this.fallbackMode = true;
           data = this.getFallbackMarketData();
         }
