@@ -630,23 +630,9 @@ class FinnhubMarketDataService {
         }
       }
 
-      // Initial fetch with small delay to allow all components to subscribe first
+      // Initial fetch with small delay and better error handling
       setTimeout(() => {
-        try {
-          this.updateAllData();
-        } catch (error) {
-          console.error("Error in initial update:", error);
-          // If already have fallback data, don't replace it unless we get better data
-          if (!this.lastSuccessfulData) {
-            const fallbackData = this.getFallbackMarketData();
-            this.lastSuccessfulData = fallbackData;
-            try {
-              this.subscribers.forEach((cb) => cb(fallbackData));
-            } catch (cbError) {
-              console.warn("Error providing backup fallback data:", cbError);
-            }
-          }
-        }
+        this.safeInitialUpdate();
       }, 200); // Slightly longer delay
     }
 
