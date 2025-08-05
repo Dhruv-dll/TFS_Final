@@ -97,9 +97,23 @@ class FinnhubMarketDataService {
     try {
       console.log("📊 Fetching real-time market data from server...");
 
-      // Check if we're already in fallback mode
+      // Check if we're already in fallback mode or initialize it for immediate use
       if (this.fallbackMode) {
         console.log("🔄 Using fallback mode, skipping server API");
+        return this.getFallbackMarketData();
+      }
+
+      // Quick connectivity check - if we detect we're likely to fail, go to fallback immediately
+      try {
+        // Simple test to see if we can even attempt a fetch
+        if (typeof window !== 'undefined' && !navigator.onLine) {
+          console.log("📊 Browser is offline, using fallback mode");
+          this.fallbackMode = true;
+          return this.getFallbackMarketData();
+        }
+      } catch (connectivityError) {
+        console.log("📊 Connectivity check failed, using fallback mode");
+        this.fallbackMode = true;
         return this.getFallbackMarketData();
       }
 
