@@ -31,13 +31,6 @@ export default function EnhancedNavigation({
 
   const navItems = [
     {
-      name: "Home",
-      href: "/",
-      icon: Home,
-      color: "text-finance-electric",
-      hoverIcon: "🏠",
-    },
-    {
       name: "About TFS",
       href: "/about",
       icon: BarChart3,
