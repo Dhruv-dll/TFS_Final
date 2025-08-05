@@ -309,6 +309,7 @@ class FinnhubMarketDataService {
   private fallbackMode = false; // Start with server API, fallback if needed
   private apiFailureCount = 0;
   private isInitialized = false;
+  private initializationAttempted = false;
   private subscribers: ((data: {
     stocks: FinnhubStockData[];
     sentiment: MarketSentiment;
