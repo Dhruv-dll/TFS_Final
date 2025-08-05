@@ -5,8 +5,6 @@ import {
   useTransform,
   useInView,
   AnimatePresence,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
 import {
   Mail,
