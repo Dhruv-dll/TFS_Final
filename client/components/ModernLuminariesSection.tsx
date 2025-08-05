@@ -484,8 +484,7 @@ export default function ModernLuminariesSection() {
         ))}
       </div>
 
-      {/* Optimized Morphing Elements */}
-      {isMobile ? <MobileLightElements /> : <DesktopLightElements />}
+
 
 
       <div className="container mx-auto px-6 relative z-10">
