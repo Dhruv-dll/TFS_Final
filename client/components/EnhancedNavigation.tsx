@@ -144,6 +144,9 @@ export default function EnhancedNavigation({
                 className="relative group cursor-pointer"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 <div
                   className="flex items-center justify-center rounded-xl relative overflow-hidden"
