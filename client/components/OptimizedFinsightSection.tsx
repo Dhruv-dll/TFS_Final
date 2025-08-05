@@ -203,7 +203,7 @@ export default function OptimizedFinsightSection() {
       className="relative min-h-screen py-12 sm:py-16 lg:py-20 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+          "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #2A3B52 100%)",
       }}
     >
       {/* Light Background Elements */}
@@ -248,15 +248,15 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-finance-teal to-finance-cyan rounded-xl flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-gradient-to-br from-[#00D4CC] to-[#FFD700] rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-black" />
             </div>
             <div className="text-left">
               <h2
                 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold"
                 style={{
                   background:
-                    "linear-gradient(135deg, #00D4CC 0%, #00FFFF 50%, #00D4CC 100%)",
+                    "linear-gradient(135deg, #FFD700 0%, #00D4CC 50%, #FFD700 100%)",
                   backgroundClip: "text",
                   WebkitBackgroundClip: "text",
                   color: "transparent",
@@ -265,7 +265,7 @@ export default function OptimizedFinsightSection() {
                 FINSIGHT
               </h2>
               <motion.p
-                className="text-lg sm:text-xl text-white/70 font-medium"
+                className="text-lg sm:text-xl text-[#00D4CC] font-medium"
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -281,13 +281,13 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent" />
             <div className="flex space-x-2">
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
               <Award className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
               <Star className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
             </div>
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent" />
           </motion.div>
 
           <motion.p
