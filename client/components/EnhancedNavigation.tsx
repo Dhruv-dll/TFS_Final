@@ -14,7 +14,6 @@ import {
   PieChart,
   Building2,
   Mail,
-  Home,
 } from "lucide-react";
 
 interface EnhancedNavigationProps {
