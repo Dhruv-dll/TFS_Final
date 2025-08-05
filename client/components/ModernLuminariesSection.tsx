@@ -21,10 +21,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import {
-  DesktopLightElements,
-  MobileLightElements,
-} from "./LightMorphingElements";
+
 
 interface TeamMember {
   id: string;
