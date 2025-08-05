@@ -164,31 +164,12 @@ class FinnhubMarketDataService {
       const errorMessage = error?.message || "Unknown error";
       console.warn(`🔄 Server API failed:`, errorMessage);
 
-      // Track API failures
-      this.apiFailureCount++;
+      // Immediately switch to fallback mode for any error
+      this.fallbackMode = true;
+      this.apiFailureCount = 999; // Prevent further API attempts
 
-      // More aggressive fallback for network errors
-      if (
-        errorMessage.includes("Network error") ||
-        errorMessage.includes("Failed to fetch") ||
-        errorMessage.includes("timeout") ||
-        this.apiFailureCount >= 2
-      ) {
-        this.fallbackMode = true;
-        console.log(
-          "⚠️ Switching to fallback mode due to API issues:",
-          errorMessage,
-        );
-        return this.getFallbackMarketData();
-      }
-
-      // For first failure, try again with fallback
-      if (this.apiFailureCount === 1) {
-        console.log("📊 First API failure, providing fallback data");
-        return this.getFallbackMarketData();
-      }
-
-      return null;
+      console.log("📊 Switching to fallback mode immediately due to error:", errorMessage);
+      return this.getFallbackMarketData();
     }
   }
 
