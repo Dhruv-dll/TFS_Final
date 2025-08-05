@@ -267,26 +267,10 @@ export default function ModernLuminariesSection() {
     offset: ["start end", "end start"],
   });
 
-  // 3D transformation values based on scroll
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+  // Simple scroll effects
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
-  // Floating animation for 3D elements
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 10 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 10 });
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set((e.clientX - window.innerWidth / 2) / 50);
-      mouseY.set((e.clientY - window.innerHeight / 2) / 50);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
 
   const currentMembers =
     activeGroup === "faculty" ? facultyMembers : leadershipMembers;
@@ -457,19 +441,17 @@ export default function ModernLuminariesSection() {
             </motion.div>
           </motion.div>
 
-          {/* 3D Shadow */}
+          {/* Simple Shadow */}
           <motion.div
             className="absolute inset-0 rounded-3xl -z-10"
             style={{
               background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
-              filter: "blur(20px)",
-              transform: "translateZ(-20px) scale(0.95)",
+                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
+                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
+              filter: "blur(15px)",
             }}
             animate={{
-              opacity: isHovered ? 0.6 : 0.3,
-              scale: isHovered ? 1 : 0.95,
+              opacity: isHovered ? 0.4 : 0.2,
             }}
             transition={{ duration: 0.3 }}
           />
@@ -512,82 +494,7 @@ export default function ModernLuminariesSection() {
 
       {/* Optimized Morphing Elements */}
       {isMobile ? <MobileLightElements /> : <DesktopLightElements />}
-      {/* Animated 3D Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Financial Icons */}
-        <motion.div
-          className="absolute top-20 left-10"
-          style={{
-            x: springX,
-            y: springY,
-            rotateX,
-            rotateY,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-24 h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Target className="w-12 h-12 text-blue-400" />
-          </motion.div>
-        </motion.div>
 
-        <motion.div
-          className="absolute top-40 right-20"
-          style={{
-            x: useTransform(springX, (x) => -x * 0.5),
-            y: useTransform(springY, (y) => -y * 0.5),
-            scale,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateY: [0, 360],
-              rotateX: [0, 180, 360],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-32 h-32 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Globe className="w-16 h-16 text-amber-400" />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-20 left-1/4"
-          style={{
-            x: useTransform(springX, (x) => x * 0.8),
-            y: useTransform(springY, (y) => y * 0.8),
-            rotateX: useTransform(scrollYProgress, [0, 1], [0, 360]),
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, -360],
-              scale: [0.8, 1.1, 0.8],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Zap className="w-10 h-10 text-green-400" />
-          </motion.div>
-        </motion.div>
-      </div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Enhanced Section Header */}
