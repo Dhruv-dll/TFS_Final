@@ -112,32 +112,15 @@ class FinnhubMarketDataService {
           })
           .catch((error) => {
             clearTimeout(timeoutId);
-            // Classify different types of errors for better debugging
-            let friendlyError: Error;
+            console.warn("📊 Network fetch failed, switching to fallback mode:", error.message);
 
-            if (error.name === "AbortError") {
-              friendlyError = new Error(
-                "Request timeout - switching to offline mode",
-              );
-            } else if (
-              error.message &&
-              error.message.toLowerCase().includes("failed to fetch")
-            ) {
-              friendlyError = new Error(
-                "Connection failed - using cached data",
-              );
-            } else if (
-              error.message &&
-              error.message.toLowerCase().includes("network")
-            ) {
-              friendlyError = new Error(
-                "Network unavailable - running in offline mode",
-              );
-            } else {
-              friendlyError = new Error(`API unavailable: ${error.message}`);
-            }
+            // Immediately switch to fallback mode for any fetch error
+            this.fallbackMode = true;
+            this.apiFailureCount = 999; // Force permanent fallback
 
-            reject(friendlyError);
+            // Don't reject, instead resolve with a special error response
+            // This prevents the promise chain from breaking
+            reject(new Error("FALLBACK_MODE"));
           });
       });
 
