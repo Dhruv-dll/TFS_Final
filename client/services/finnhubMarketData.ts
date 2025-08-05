@@ -4,6 +4,21 @@ class FinnhubMarketDataService {
     "crm3ck9r01qsa2l9t5u0crm3ck9r01qsa2l9t5ug"; // ✅ Use environment variable
   private readonly BASE_URL = "https://finnhub.io/api/v1";
 
+  constructor() {
+    // Set up global error handler for fetch failures
+    if (typeof window !== 'undefined') {
+      window.addEventListener('unhandledrejection', (event) => {
+        if (event.reason?.message?.includes('Failed to fetch') ||
+            event.reason?.message?.includes('fetch')) {
+          console.warn('🔄 Global fetch error detected, enabling fallback mode');
+          this.fallbackMode = true;
+          this.apiFailureCount = 999;
+          event.preventDefault(); // Prevent error from bubbling up
+        }
+      });
+    }
+  }
+
   private stocks = [
     // ✅ Focus on stocks that Yahoo Finance supports
     {
@@ -213,7 +228,7 @@ class FinnhubMarketDataService {
     };
   }
 
-  // ✅ Enhanced fallback data with more realistic Indian market prices (Updated for 2025)
+  // ��� Enhanced fallback data with more realistic Indian market prices (Updated for 2025)
   private getFallbackStockData(symbol: string): FinnhubStockData | null {
     const baseData: Record<string, { price: number; name: string }> = {
       "^NSEI": { price: 24768, name: "NIFTY 50" }, // Accurate 2025 levels
