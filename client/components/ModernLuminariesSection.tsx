@@ -306,28 +306,26 @@ export default function ModernLuminariesSection() {
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        {/* 3D Card Container */}
+        {/* Card Container */}
         <motion.div
-          className="relative h-80 sm:h-96 perspective-1000"
+          className="relative h-80 sm:h-96"
           style={{
-            rotateX: isHovered ? 5 : 0,
-            rotateY: isHovered ? 2 : 0,
-            scale: isHovered ? 1.05 : 1,
+            scale: isHovered ? 1.03 : 1,
           }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {/* Main Card */}
           <motion.div
-            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer preserve-3d"
+            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
             onClick={() => setSelectedMember(member)}
             style={{
               background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
+                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
+                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
             }}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 20px 40px -10px rgba(255, 215, 0, 0.3)",
+              boxShadow: "0 20px 40px -10px rgba(0, 212, 204, 0.3)",
             }}
             transition={{ duration: 0.3 }}
           >
@@ -486,7 +484,7 @@ export default function ModernLuminariesSection() {
       className="relative min-h-screen py-20 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #000012 0%, #0a0a23 25%, #1a1a2e 50%, #16213e 75%, #0f3460 100%)",
+          "linear-gradient(135deg, #0B1426 0%, #1A2B42 25%, #2A3B52 50%, #1A2B42 75%, #0B1426 100%)",
       }}
     >
       {/* Background Particles */}
@@ -603,17 +601,17 @@ export default function ModernLuminariesSection() {
             className="text-5xl md:text-7xl font-bold mb-6"
             style={{
               background:
-                "linear-gradient(135deg, #00D4CC 0%, #00FFFF 50%, #00D4CC 100%)",
+                "linear-gradient(135deg, #FFD700 0%, #00D4CC 50%, #FFD700 100%)",
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               color: "transparent",
-              textShadow: "0 0 30px rgba(0, 212, 204, 0.5)",
+              textShadow: "0 0 30px rgba(255, 215, 0, 0.5)",
             }}
           >
             Meet Our Luminaries
           </motion.h2>
           <motion.div
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-finance-cyan to-transparent mx-auto mb-6"
+            className="w-32 h-1 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent mx-auto mb-6"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1, delay: 0.5 }}
