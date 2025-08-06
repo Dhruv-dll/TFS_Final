@@ -532,8 +532,8 @@ export default function ModernLuminariesSection() {
             <motion.div
               className="absolute inset-y-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl"
               animate={{
-                x: activeGroup === "faculty" ? "8px" : "calc(50% + 4px)",
-                width: activeGroup === "faculty" ? "calc(50% - 12px)" : "calc(50% - 12px)",
+                x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
+                width: "calc(50% - 4px)",
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
