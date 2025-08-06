@@ -73,6 +73,8 @@ export default {
           accent: "#00D4CC", // Primary accent (teal)
           red: "#FF4757", // Error/negative states
           green: "#00D4CC", // Success using teal
+          gold: "#FFD700", // Golden yellow from image
+          electric: "#00FFFF", // Electric cyan for accents
         },
       },
       borderRadius: {

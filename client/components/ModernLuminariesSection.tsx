@@ -5,8 +5,6 @@ import {
   useTransform,
   useInView,
   AnimatePresence,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
 import {
   Mail,
@@ -16,9 +14,6 @@ import {
   Crown,
   Sparkles,
   Brain,
-  Target,
-  Zap,
-  Globe,
   Award,
   ChevronLeft,
   ChevronRight,
@@ -26,10 +21,6 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import {
-  DesktopLightElements,
-  MobileLightElements,
-} from "./LightMorphingElements";
 
 interface TeamMember {
   id: string;
@@ -267,26 +258,8 @@ export default function ModernLuminariesSection() {
     offset: ["start end", "end start"],
   });
 
-  // 3D transformation values based on scroll
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-
-  // Floating animation for 3D elements
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 10 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 10 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set((e.clientX - window.innerWidth / 2) / 50);
-      mouseY.set((e.clientY - window.innerHeight / 2) / 50);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  // Simple scroll effects
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
   const currentMembers =
     activeGroup === "faculty" ? facultyMembers : leadershipMembers;
@@ -306,28 +279,26 @@ export default function ModernLuminariesSection() {
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        {/* 3D Card Container */}
+        {/* Card Container */}
         <motion.div
-          className="relative h-80 sm:h-96 perspective-1000"
+          className="relative h-80 sm:h-96"
           style={{
-            rotateX: isHovered ? 5 : 0,
-            rotateY: isHovered ? 2 : 0,
-            scale: isHovered ? 1.05 : 1,
+            scale: isHovered ? 1.03 : 1,
           }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           {/* Main Card */}
           <motion.div
-            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer preserve-3d"
+            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
             onClick={() => setSelectedMember(member)}
             style={{
               background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
+                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
+                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
             }}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 20px 40px -10px rgba(255, 215, 0, 0.3)",
+              boxShadow: "0 20px 40px -10px rgba(0, 212, 204, 0.3)",
             }}
             transition={{ duration: 0.3 }}
           >
@@ -459,19 +430,17 @@ export default function ModernLuminariesSection() {
             </motion.div>
           </motion.div>
 
-          {/* 3D Shadow */}
+          {/* Simple Shadow */}
           <motion.div
             className="absolute inset-0 rounded-3xl -z-10"
             style={{
               background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
-              filter: "blur(20px)",
-              transform: "translateZ(-20px) scale(0.95)",
+                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
+                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
+              filter: "blur(15px)",
             }}
             animate={{
-              opacity: isHovered ? 0.6 : 0.3,
-              scale: isHovered ? 1 : 0.95,
+              opacity: isHovered ? 0.4 : 0.2,
             }}
             transition={{ duration: 0.3 }}
           />
@@ -486,7 +455,7 @@ export default function ModernLuminariesSection() {
       className="relative min-h-screen py-20 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #000012 0%, #0a0a23 25%, #1a1a2e 50%, #16213e 75%, #0f3460 100%)",
+          "linear-gradient(135deg, #0B1426 0%, #1A2B42 25%, #2A3B52 50%, #1A2B42 75%, #0B1426 100%)",
       }}
     >
       {/* Background Particles */}
@@ -512,85 +481,6 @@ export default function ModernLuminariesSection() {
         ))}
       </div>
 
-      {/* Optimized Morphing Elements */}
-      {isMobile ? <MobileLightElements /> : <DesktopLightElements />}
-      {/* Animated 3D Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Financial Icons */}
-        <motion.div
-          className="absolute top-20 left-10"
-          style={{
-            x: springX,
-            y: springY,
-            rotateX,
-            rotateY,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-24 h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Target className="w-12 h-12 text-blue-400" />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute top-40 right-20"
-          style={{
-            x: useTransform(springX, (x) => -x * 0.5),
-            y: useTransform(springY, (y) => -y * 0.5),
-            scale,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateY: [0, 360],
-              rotateX: [0, 180, 360],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-32 h-32 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Globe className="w-16 h-16 text-amber-400" />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-20 left-1/4"
-          style={{
-            x: useTransform(springX, (x) => x * 0.8),
-            y: useTransform(springY, (y) => y * 0.8),
-            rotateX: useTransform(scrollYProgress, [0, 1], [0, 360]),
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, -360],
-              scale: [0.8, 1.1, 0.8],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Zap className="w-10 h-10 text-green-400" />
-          </motion.div>
-        </motion.div>
-      </div>
-
       <div className="container mx-auto px-6 relative z-10">
         {/* Enhanced Section Header */}
         <motion.div
@@ -603,17 +493,17 @@ export default function ModernLuminariesSection() {
             className="text-5xl md:text-7xl font-bold mb-6"
             style={{
               background:
-                "linear-gradient(135deg, #00D4CC 0%, #00FFFF 50%, #00D4CC 100%)",
+                "linear-gradient(135deg, #FFD700 0%, #00D4CC 50%, #FFD700 100%)",
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               color: "transparent",
-              textShadow: "0 0 30px rgba(0, 212, 204, 0.5)",
+              textShadow: "0 0 30px rgba(255, 215, 0, 0.5)",
             }}
           >
             Meet Our Luminaries
           </motion.h2>
           <motion.div
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-finance-cyan to-transparent mx-auto mb-6"
+            className="w-32 h-1 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent mx-auto mb-6"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1, delay: 0.5 }}
@@ -636,8 +526,8 @@ export default function ModernLuminariesSection() {
             <motion.div
               className="absolute inset-y-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl"
               animate={{
-                x: activeGroup === "faculty" ? 2 : "50%",
-                width: activeGroup === "faculty" ? "48%" : "48%",
+                x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
+                width: "calc(50% - 4px)",
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />

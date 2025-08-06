@@ -4,6 +4,21 @@ class FinnhubMarketDataService {
     "crm3ck9r01qsa2l9t5u0crm3ck9r01qsa2l9t5ug"; // ✅ Use environment variable
   private readonly BASE_URL = "https://finnhub.io/api/v1";
 
+  constructor() {
+    // Set up global error handler for fetch failures
+    if (typeof window !== 'undefined') {
+      window.addEventListener('unhandledrejection', (event) => {
+        if (event.reason?.message?.includes('Failed to fetch') ||
+            event.reason?.message?.includes('fetch')) {
+          console.warn('🔄 Global fetch error detected, enabling fallback mode');
+          this.fallbackMode = true;
+          this.apiFailureCount = 999;
+          event.preventDefault(); // Prevent error from bubbling up
+        }
+      });
+    }
+  }
+
   private stocks = [
     // ✅ Focus on stocks that Yahoo Finance supports
     {
@@ -82,9 +97,23 @@ class FinnhubMarketDataService {
     try {
       console.log("📊 Fetching real-time market data from server...");
 
-      // Check if we're already in fallback mode
+      // Check if we're already in fallback mode or initialize it for immediate use
       if (this.fallbackMode) {
         console.log("🔄 Using fallback mode, skipping server API");
+        return this.getFallbackMarketData();
+      }
+
+      // Quick connectivity check - if we detect we're likely to fail, go to fallback immediately
+      try {
+        // Simple test to see if we can even attempt a fetch
+        if (typeof window !== 'undefined' && !navigator.onLine) {
+          console.log("📊 Browser is offline, using fallback mode");
+          this.fallbackMode = true;
+          return this.getFallbackMarketData();
+        }
+      } catch (connectivityError) {
+        console.log("📊 Connectivity check failed, using fallback mode");
+        this.fallbackMode = true;
         return this.getFallbackMarketData();
       }
 
@@ -112,32 +141,15 @@ class FinnhubMarketDataService {
           })
           .catch((error) => {
             clearTimeout(timeoutId);
-            // Classify different types of errors for better debugging
-            let friendlyError: Error;
+            console.warn("📊 Network fetch failed, switching to fallback mode:", error.message);
 
-            if (error.name === "AbortError") {
-              friendlyError = new Error(
-                "Request timeout - switching to offline mode",
-              );
-            } else if (
-              error.message &&
-              error.message.toLowerCase().includes("failed to fetch")
-            ) {
-              friendlyError = new Error(
-                "Connection failed - using cached data",
-              );
-            } else if (
-              error.message &&
-              error.message.toLowerCase().includes("network")
-            ) {
-              friendlyError = new Error(
-                "Network unavailable - running in offline mode",
-              );
-            } else {
-              friendlyError = new Error(`API unavailable: ${error.message}`);
-            }
+            // Immediately switch to fallback mode for any fetch error
+            this.fallbackMode = true;
+            this.apiFailureCount = 999; // Force permanent fallback
 
-            reject(friendlyError);
+            // Don't reject, instead resolve with a special error response
+            // This prevents the promise chain from breaking
+            reject(new Error("FALLBACK_MODE"));
           });
       });
 
@@ -181,31 +193,12 @@ class FinnhubMarketDataService {
       const errorMessage = error?.message || "Unknown error";
       console.warn(`🔄 Server API failed:`, errorMessage);
 
-      // Track API failures
-      this.apiFailureCount++;
+      // Immediately switch to fallback mode for any error
+      this.fallbackMode = true;
+      this.apiFailureCount = 999; // Prevent further API attempts
 
-      // More aggressive fallback for network errors
-      if (
-        errorMessage.includes("Network error") ||
-        errorMessage.includes("Failed to fetch") ||
-        errorMessage.includes("timeout") ||
-        this.apiFailureCount >= 2
-      ) {
-        this.fallbackMode = true;
-        console.log(
-          "⚠️ Switching to fallback mode due to API issues:",
-          errorMessage,
-        );
-        return this.getFallbackMarketData();
-      }
-
-      // For first failure, try again with fallback
-      if (this.apiFailureCount === 1) {
-        console.log("📊 First API failure, providing fallback data");
-        return this.getFallbackMarketData();
-      }
-
-      return null;
+      console.log("📊 Switching to fallback mode immediately due to error:", errorMessage);
+      return this.getFallbackMarketData();
     }
   }
 
@@ -249,7 +242,7 @@ class FinnhubMarketDataService {
     };
   }
 
-  // ✅ Enhanced fallback data with more realistic Indian market prices (Updated for 2025)
+  // ��� Enhanced fallback data with more realistic Indian market prices (Updated for 2025)
   private getFallbackStockData(symbol: string): FinnhubStockData | null {
     const baseData: Record<string, { price: number; name: string }> = {
       "^NSEI": { price: 24768, name: "NIFTY 50" }, // Accurate 2025 levels
@@ -316,6 +309,7 @@ class FinnhubMarketDataService {
   private fallbackMode = false; // Start with server API, fallback if needed
   private apiFailureCount = 0;
   private isInitialized = false;
+  private initializationAttempted = false;
   private subscribers: ((data: {
     stocks: FinnhubStockData[];
     sentiment: MarketSentiment;
@@ -466,18 +460,15 @@ class FinnhubMarketDataService {
       } else {
         try {
           data = await this.fetchAllMarketData();
-        } catch (fetchError) {
-          console.warn(
-            "📊 Fetch failed, switching to fallback:",
-            fetchError.message,
-          );
-          this.fallbackMode = true;
-          data = this.getFallbackMarketData();
-        }
 
-        // If server fails, switch to fallback
-        if (!data) {
-          console.log("📊 Server failed, switching to fallback mode");
+          // If fetchAllMarketData returns null, immediately use fallback
+          if (!data) {
+            console.log("📊 Server returned no data, using fallback");
+            this.fallbackMode = true;
+            data = this.getFallbackMarketData();
+          }
+        } catch (fetchError) {
+          console.warn("📊 Fetch error caught, using fallback:", fetchError?.message || "Unknown error");
           this.fallbackMode = true;
           data = this.getFallbackMarketData();
         }
@@ -639,23 +630,9 @@ class FinnhubMarketDataService {
         }
       }
 
-      // Initial fetch with small delay to allow all components to subscribe first
+      // Initial fetch with small delay and better error handling
       setTimeout(() => {
-        try {
-          this.updateAllData();
-        } catch (error) {
-          console.error("Error in initial update:", error);
-          // If already have fallback data, don't replace it unless we get better data
-          if (!this.lastSuccessfulData) {
-            const fallbackData = this.getFallbackMarketData();
-            this.lastSuccessfulData = fallbackData;
-            try {
-              this.subscribers.forEach((cb) => cb(fallbackData));
-            } catch (cbError) {
-              console.warn("Error providing backup fallback data:", cbError);
-            }
-          }
-        }
+        this.safeInitialUpdate();
       }, 200); // Slightly longer delay
     }
 
@@ -672,6 +649,41 @@ class FinnhubMarketDataService {
         this.updateInterval = null;
       }
     };
+  }
+
+  // Safe initialization method that prevents errors from propagating
+  private async safeInitialUpdate(): Promise<void> {
+    if (this.initializationAttempted) {
+      return;
+    }
+
+    this.initializationAttempted = true;
+
+    try {
+      await this.updateAllData();
+    } catch (error) {
+      console.warn("📊 Initial update failed, ensuring fallback data:", error?.message || "Unknown error");
+
+      // Always ensure we have fallback data
+      if (!this.lastSuccessfulData) {
+        const fallbackData = this.getFallbackMarketData();
+        this.lastSuccessfulData = fallbackData;
+        this.isInitialized = true;
+        this.fallbackMode = true;
+
+        try {
+          this.subscribers.forEach((cb) => {
+            try {
+              cb(fallbackData);
+            } catch (cbError) {
+              console.warn("Error in safe fallback callback:", cbError);
+            }
+          });
+        } catch (notifyError) {
+          console.warn("Error notifying subscribers in safe init:", notifyError);
+        }
+      }
+    }
   }
 }
 

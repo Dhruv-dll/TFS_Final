@@ -282,13 +282,13 @@
     transform: scale(1.1);
   }
 
-  /* Perspective utility for 3D effects */
+  /* Simplified perspective for better performance */
   .perspective-1000 {
-    perspective: 1000px;
+    perspective: none;
   }
 
   .preserve-3d {
-    transform-style: preserve-3d;
+    transform-style: flat;
   }
 
   /* Enhanced button hover effects */
@@ -1020,32 +1020,24 @@
       }
     }
 
-    /* Comprehensive mobile animation disabling */
+    /* Comprehensive mobile animation optimizations */
     @media (max-width: 768px) {
-      /* Disable most framer-motion animations */
+      /* Optimize animations for mobile performance */
       .mobile-static {
         opacity: 1 !important;
         transform: none !important;
-        transition: none !important;
+        transition: opacity 0.2s ease !important;
         animation: none !important;
       }
 
-      /* Disable entrance animations globally on mobile */
+      /* Reduce animation complexity on mobile */
       * {
-        animation-duration: 0.1s !important;
+        animation-duration: 0.2s !important;
         animation-delay: 0s !important;
+        transition-duration: 0.2s !important;
       }
 
-      /* Specifically target motion components */
-      [style*="opacity: 0"] {
-        opacity: 1 !important;
-      }
-
-      [style*="transform"] {
-        transform: none !important;
-      }
-
-      /* Disable complex transforms and 3D effects */
+      /* Disable expensive effects on mobile */
       .preserve-3d {
         transform-style: flat !important;
       }
@@ -1054,7 +1046,7 @@
         perspective: none !important;
       }
 
-      /* Smooth scroll behavior */
+      /* Ensure smooth scrolling */
       html {
         scroll-behavior: smooth !important;
       }
@@ -1063,20 +1055,38 @@
       * {
         will-change: auto !important;
         backface-visibility: visible !important;
+        transform: translateZ(0) !important;
       }
 
-      /* Disable hover effects on mobile */
+      /* Optimize hover effects for touch devices */
       *:hover {
         transform: none !important;
         scale: 1 !important;
       }
 
-      /* Ensure text is immediately visible */
-      .text-transparent {
-        color: #ffd700 !important;
-        background: none !important;
-        -webkit-background-clip: unset !important;
-        background-clip: unset !important;
+      /* Ensure gradient text is visible on mobile */
+      .bg-gradient-to-r,
+      .bg-gradient-to-br,
+      .bg-gradient-to-l {
+        background-clip: text !important;
+        -webkit-background-clip: text !important;
+        color: transparent !important;
+      }
+
+      /* Mobile-specific optimizations */
+      .mobile-optimized {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Reduce backdrop blur on mobile for performance */
+      .backdrop-blur-xl {
+        backdrop-filter: blur(8px) !important;
+      }
+
+      .backdrop-blur-2xl {
+        backdrop-filter: blur(10px) !important;
       }
     }
   }
@@ -1176,6 +1186,18 @@
   .mobile-scroll-container {
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+  }
+
+  /* Video performance optimization */
+  video {
+    transform: translateZ(0);
+    will-change: auto;
+  }
+
+  /* Improve rendering performance */
+  .performance-optimized {
+    contain: layout style paint;
+    will-change: auto;
   }
 
   .mobile-tap-highlight {

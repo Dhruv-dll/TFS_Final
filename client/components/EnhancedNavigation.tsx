@@ -14,7 +14,6 @@ import {
   PieChart,
   Building2,
   Mail,
-  Home,
 } from "lucide-react";
 
 interface EnhancedNavigationProps {
@@ -30,13 +29,6 @@ export default function EnhancedNavigation({
   const { scrollToElement } = useSmoothScroll();
 
   const navItems = [
-    {
-      name: "Home",
-      href: "/",
-      icon: Home,
-      color: "text-finance-electric",
-      hoverIcon: "🏠",
-    },
     {
       name: "About TFS",
       href: "/about",
@@ -151,6 +143,9 @@ export default function EnhancedNavigation({
                 className="relative group cursor-pointer"
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 <div
                   className="flex items-center justify-center rounded-xl relative overflow-hidden"
