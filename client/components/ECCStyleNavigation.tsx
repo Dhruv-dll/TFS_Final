@@ -1,0 +1,457 @@
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useSmoothScroll } from "../hooks/useSmoothScroll";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Home,
+  Info,
+  Calendar,
+  TrendingUp,
+  Building2,
+  Users,
+  Mail,
+  Clock,
+} from "lucide-react";
+
+interface ECCStyleNavigationProps {
+  scrolled: boolean;
+}
+
+export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [highlightStyle, setHighlightStyle] = useState({ width: 0, left: 0 });
+  const navRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const { scrollToElement } = useSmoothScroll();
+
+  // ECC Points inspired navigation structure
+  const navItems = [
+    {
+      name: "HOME",
+      href: "/",
+      icon: Home,
+    },
+    {
+      name: "ABOUT",
+      href: "/about",
+      icon: Info,
+      dropdown: [
+        { name: "About TFS", href: "/about", icon: "📊" },
+        { name: "About BAF", href: "/about-baf", icon: "🎓" },
+        { name: "Mission & Vision", href: "/mission", icon: "🎯" },
+      ],
+    },
+    {
+      name: "TFS HOURS",
+      href: "#insights",
+      icon: Clock,
+    },
+    {
+      name: "EVENTS",
+      href: "#events",
+      icon: Calendar,
+      dropdown: [
+        { name: "Saturday Sessions", href: "/events/saturday-sessions", icon: "📚" },
+        { name: "Networking Events", href: "/events/networking", icon: "🤝" },
+        { name: "Flagship Conclave", href: "/events/conclave", icon: "🏆" },
+        { type: "separator" },
+        { name: "Upcoming Events", href: "/events/upcoming", icon: "📅" },
+        { name: "Past Events", href: "/events/past", icon: "📖" },
+      ],
+    },
+    {
+      name: "FINSIGHT",
+      href: "#insights",
+      icon: TrendingUp,
+    },
+    {
+      name: "SPONSORS",
+      href: "#sponsors",
+      icon: Building2,
+      dropdown: [
+        { name: "Past Sponsors", href: "/sponsors/past", icon: "🏛️" },
+        { name: "Present Sponsors", href: "/sponsors/present", icon: "🤝" },
+        { name: "Become a Sponsor", href: "/sponsors/join", icon: "💼" },
+      ],
+    },
+    {
+      name: "CONTACT",
+      href: "/contact",
+      icon: Mail,
+    },
+  ];
+
+  // Calculate highlight bar position and width
+  const updateHighlight = (element: HTMLElement | null) => {
+    if (element && navRef.current) {
+      const navRect = navRef.current.getBoundingClientRect();
+      const itemRect = element.getBoundingClientRect();
+      
+      setHighlightStyle({
+        width: itemRect.width,
+        left: itemRect.left - navRect.left,
+      });
+    }
+  };
+
+  // Handle mouse enter for highlight
+  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
+    updateHighlight(event.currentTarget);
+  };
+
+  // Handle mouse leave to reset highlight
+  const handleMouseLeave = () => {
+    // Find active menu item based on current route
+    const activeItem = navItems.find(item => {
+      if (item.href === '/' && location.pathname === '/') return true;
+      if (item.href !== '/' && location.pathname.startsWith(item.href)) return true;
+      if (item.href.startsWith('#') && location.hash === item.href) return true;
+      return false;
+    });
+
+    if (activeItem) {
+      const activeElement = navRef.current?.querySelector(`[data-nav-item="${activeItem.name}"]`) as HTMLElement;
+      updateHighlight(activeElement);
+    } else {
+      setHighlightStyle({ width: 0, left: 0 });
+    }
+  };
+
+  // Initialize highlight on mount and route change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleMouseLeave();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [location]);
+
+  // Handle dropdown toggles
+  const handleDropdownToggle = (itemName: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    setActiveMenu(activeMenu === itemName ? null : itemName);
+  };
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setActiveMenu(null);
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  return (
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-finance-navy/90 border-b border-finance-teal/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+          : "bg-transparent"
+      }`}
+    >
+      {/* ECC Points style background effect */}
+      {scrolled && (
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-finance-navy/40 via-finance-navy-light/30 to-finance-navy/40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        />
+      )}
+
+      <div className="container mx-auto px-6 py-3 relative">
+        <div className="flex items-center justify-between">
+          {/* Logo Section - ECC Points Style */}
+          <motion.div
+            className="flex items-center space-x-3"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* College Logo */}
+            <motion.div
+              className="relative cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <div className="flex items-center justify-center w-12 h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F73bba102e8354fd08a042b5f690f50cd"
+                  alt="St. Xavier's College"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            {/* TFS Logo */}
+            <motion.div
+              className="relative cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex items-center justify-center w-12 h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990"
+                  alt="The Finance Symposium"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </motion.div>
+
+            {/* Title */}
+            <div className="hidden md:block">
+              <h1 className="text-lg font-bold text-finance-teal">
+                The Finance Symposium
+              </h1>
+              <p className="text-xs text-muted-foreground">
+                St. Xavier's College Mumbai
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Desktop Navigation - ECC Points Style */}
+          <div className="hidden lg:flex items-center">
+            <div
+              ref={navRef}
+              className="relative flex items-center space-x-1"
+              onMouseLeave={handleMouseLeave}
+            >
+              {/* Dynamic Highlight Bar */}
+              <motion.div
+                className="absolute top-0 h-full bg-finance-teal/20 rounded-lg border border-finance-teal/40"
+                style={{
+                  width: highlightStyle.width,
+                  left: highlightStyle.left,
+                }}
+                initial={false}
+                animate={{
+                  width: highlightStyle.width,
+                  left: highlightStyle.left,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 30,
+                  mass: 0.8,
+                }}
+              />
+
+              {navItems.map((item, index) => (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.08 }}
+                >
+                  {item.dropdown ? (
+                    <div className="relative">
+                      <button
+                        data-nav-item={item.name}
+                        onClick={(e) => handleDropdownToggle(item.name, e)}
+                        onMouseEnter={handleMouseEnter}
+                        className="flex items-center space-x-2 px-4 py-3 text-sm font-medium text-foreground hover:text-finance-teal transition-all duration-300 relative z-10 whitespace-nowrap"
+                      >
+                        <item.icon className="w-4 h-4" />
+                        <span>{item.name}</span>
+                        <ChevronDown 
+                          className={`w-3 h-3 transition-transform duration-300 ${
+                            activeMenu === item.name ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+
+                      {/* Dropdown Menu */}
+                      <AnimatePresence>
+                        {activeMenu === item.name && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute top-full mt-2 min-w-[200px] backdrop-blur-xl bg-finance-navy/90 rounded-lg shadow-2xl border border-finance-teal/20 overflow-hidden z-50"
+                          >
+                            {item.dropdown.map((dropdownItem, dropdownIndex) => {
+                              if (dropdownItem.type === "separator") {
+                                return (
+                                  <div
+                                    key={dropdownIndex}
+                                    className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2 mx-4"
+                                  />
+                                );
+                              }
+                              return (
+                                <Link
+                                  key={dropdownIndex}
+                                  to={dropdownItem.href}
+                                  className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-finance-teal hover:bg-finance-teal/10 transition-all duration-200"
+                                  onClick={() => setActiveMenu(null)}
+                                >
+                                  <span className="text-base">{dropdownItem.icon}</span>
+                                  <span>{dropdownItem.name}</span>
+                                </Link>
+                              );
+                            })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      data-nav-item={item.name}
+                      onMouseEnter={handleMouseEnter}
+                      onClick={(e) => {
+                        if (item.href.startsWith("#")) {
+                          e.preventDefault();
+                          scrollToElement(item.href);
+                        }
+                      }}
+                      className="flex items-center space-x-2 px-4 py-3 text-sm font-medium text-foreground hover:text-finance-teal transition-all duration-300 relative z-10 whitespace-nowrap"
+                    >
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.name}</span>
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-lg bg-finance-navy/50 border border-finance-teal/30 backdrop-blur-sm"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <AnimatePresence mode="wait">
+              {mobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-5 h-5 text-finance-teal" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-5 h-5 text-finance-teal" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="lg:hidden mt-4 backdrop-blur-xl bg-finance-navy/80 rounded-lg p-4 border border-finance-teal/20 overflow-hidden"
+            >
+              <div className="space-y-2">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    {item.dropdown ? (
+                      <div>
+                        <button
+                          onClick={(e) => handleDropdownToggle(item.name, e)}
+                          className="flex items-center justify-between w-full text-left py-3 px-4 text-foreground hover:text-finance-teal hover:bg-finance-teal/10 rounded-lg transition-all duration-200"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <item.icon className="w-4 h-4" />
+                            <span className="font-medium">{item.name}</span>
+                          </div>
+                          <ChevronDown 
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              activeMenu === item.name ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </button>
+
+                        <AnimatePresence>
+                          {activeMenu === item.name && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="ml-6 mt-2 space-y-1 overflow-hidden"
+                            >
+                              {item.dropdown.map((dropdownItem, dropdownIndex) => {
+                                if (dropdownItem.type === "separator") {
+                                  return (
+                                    <div
+                                      key={dropdownIndex}
+                                      className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2"
+                                    />
+                                  );
+                                }
+                                return (
+                                  <Link
+                                    key={dropdownIndex}
+                                    to={dropdownItem.href}
+                                    className="flex items-center space-x-3 py-2 px-3 text-sm text-muted-foreground hover:text-finance-teal hover:bg-finance-teal/5 rounded-lg transition-colors duration-200"
+                                    onClick={() => {
+                                      setMobileMenuOpen(false);
+                                      setActiveMenu(null);
+                                    }}
+                                  >
+                                    <span>{dropdownItem.icon}</span>
+                                    <span>{dropdownItem.name}</span>
+                                  </Link>
+                                );
+                              })}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <Link
+                        to={item.href}
+                        className="flex items-center space-x-3 py-3 px-4 text-foreground hover:text-finance-teal hover:bg-finance-teal/10 rounded-lg transition-all duration-200"
+                        onClick={(e) => {
+                          if (item.href.startsWith("#")) {
+                            e.preventDefault();
+                            scrollToElement(item.href);
+                          }
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        <item.icon className="w-4 h-4" />
+                        <span className="font-medium">{item.name}</span>
+                      </Link>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.nav>
+  );
+}
