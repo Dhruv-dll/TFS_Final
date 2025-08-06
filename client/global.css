@@ -193,6 +193,38 @@
 }
 
 @layer components {
+  /* Force ECC Points fonts on all component libraries and frameworks */
+  [class*="motion-"],
+  [class*="framer-"],
+  [class*="radix-"],
+  [class*="shadcn-"],
+  [class*="ui-"],
+  [class*="component-"],
+  [data-radix-collection-item],
+  [data-state],
+  .lucide,
+  .icon,
+  svg text,
+  .text-*,
+  .font-*,
+  .typography-*,
+  .prose *,
+  .markdown * {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  }
+
+  /* Ensure all headings use Roboto Slab */
+  [class*="heading-"],
+  [class*="title-"],
+  [class*="banner-"],
+  [role="heading"],
+  .hero *,
+  .banner *,
+  .title,
+  .heading {
+    font-family: "Roboto Slab", serif !important;
+  }
+
   .professional-hover {
     position: relative;
     overflow: hidden;
