@@ -105,14 +105,39 @@
     @apply border-border;
   }
 
+  /* Comprehensive Global Font Application - ECC Points Website Fonts */
+  body,
+  h1, h2, h3, h4, h5, h6,
+  .section-title, .card-title, .menu-title, .btn, .navbar, .dashboard-title, .custom-heading,
+  .nav-title, .hero-title, .banner-title, .component-title, .feature-title,
+  button, .button, a, .link,
+  p, .text, .paragraph, .content,
+  span, .label, .caption, .description,
+  div, .container, .wrapper,
+  nav, .navigation, .menu,
+  header, .header, footer, .footer,
+  main, .main, section, .section,
+  article, .article, aside, .aside,
+  input, textarea, select, .form-control,
+  .card, .panel, .widget, .component,
+  .motion-h1, .motion-h2, .motion-h3, .motion-h4, .motion-h5, .motion-h6,
+  .finance-heading, .professional-text, .terminal-font, .data-display {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* Specific heading fonts using Roboto Slab for emphasis */
+  h1, h2, h3, h4, h5, h6,
+  .section-title, .hero-title, .banner-title, .finance-heading,
+  .motion-h1, .motion-h2, .motion-h3, .motion-h4, .motion-h5, .motion-h6 {
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-family:
-      "Roboto",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     font-weight: 400;
     letter-spacing: 0.01em;
     overflow-x: hidden;
@@ -122,47 +147,48 @@
 
   html {
     scroll-behavior: smooth;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   }
 }
 
 @layer base {
-  /* ECC Points Typography */
+  /* ECC Points Typography - Enhanced with !important */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: "Roboto Slab", serif;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.3;
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.3 !important;
   }
 
   .terminal-font {
-    font-family: "Roboto", "Consolas", "Monaco", monospace;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-family: "Roboto", "Consolas", "Monaco", monospace !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em !important;
   }
 
   .finance-heading {
-    font-family: "Roboto Slab", serif;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    line-height: 1.2;
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
   }
 
   .professional-text {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 1.6;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.6 !important;
   }
 
   .data-display {
-    font-family: "Roboto", monospace;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-family: "Roboto", monospace !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
   }
 }
 
