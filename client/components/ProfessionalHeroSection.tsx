@@ -217,7 +217,7 @@ export default function ProfessionalHeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden performance-optimized">
       {/* Professional Background Video */}
       <motion.div
         className="absolute inset-0 z-0"
