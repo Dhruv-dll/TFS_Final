@@ -285,16 +285,16 @@ export default function ProfessionalHeroSection() {
         <div className="text-center px-6 max-w-6xl mx-auto">
           {/* Professional Typography */}
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight finance-heading"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <span className="block text-finance-cyan font-light mb-2">
+            <span className="block text-finance-cyan font-light mb-2 drop-shadow-lg">
               The Finance
             </span>
-            <span className="block text-white font-bold">Symposium</span>
-            <span className="block text-finance-teal text-2xl md:text-4xl lg:text-5xl font-normal mt-4">
+            <span className="block text-white font-bold drop-shadow-xl">Symposium</span>
+            <span className="block text-finance-teal text-2xl md:text-4xl lg:text-5xl font-normal mt-4 drop-shadow-lg">
               2025-2026
             </span>
           </motion.h1>
