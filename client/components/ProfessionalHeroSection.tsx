@@ -229,6 +229,7 @@ export default function ProfessionalHeroSection() {
           loop
           muted
           playsInline
+          preload="metadata"
           poster="https://cdn.builder.io/api/v1/image/assets%2F36935fa7f48a46018f23cf61a4fdb3c0%2Fd9eef1906b5249c48c2b4343dc694cba?format=webp&width=1920"
         >
           <source src="https://videos.pexels.com/video-files/7693394/7693394-hd_1920_1080_25fps.mp4" type="video/mp4" />
