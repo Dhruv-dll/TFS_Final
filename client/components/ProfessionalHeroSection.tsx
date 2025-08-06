@@ -244,13 +244,21 @@ export default function ProfessionalHeroSection() {
         </video>
       </motion.div>
 
-      {/* Professional Overlay */}
+      {/* Professional Overlay - Enhanced for video background */}
       <motion.div
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(135deg, rgba(11, 20, 38, 0.6) 0%, rgba(26, 43, 66, 0.4) 50%, rgba(30, 58, 95, 0.3) 100%)",
+            "linear-gradient(135deg, rgba(11, 20, 38, 0.8) 0%, rgba(26, 43, 66, 0.6) 50%, rgba(30, 58, 95, 0.5) 100%)",
           opacity: overlayOpacity,
+        }}
+      />
+
+      {/* Additional overlay for better text contrast */}
+      <div
+        className="absolute inset-0 z-15"
+        style={{
+          background: "rgba(0, 0, 0, 0.3)"
         }}
       />
 
