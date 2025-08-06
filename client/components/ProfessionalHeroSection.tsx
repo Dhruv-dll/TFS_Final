@@ -258,19 +258,8 @@ export default function ProfessionalHeroSection() {
         }}
       />
 
-      {/* Geometric wireframe pattern overlay */}
-      <div
-        className="absolute inset-0 z-20 opacity-15"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0, 212, 204, 0.4) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 204, 0.4) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px),
-            linear-gradient(-45deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px, 60px 60px, 30px 30px, 30px 30px",
-        }}
-      />
+      {/* Geometric wireframe pattern overlay - Using CSS classes instead of inline styles */}
+      <div className="absolute inset-0 z-20 opacity-15 bg-gradient-to-br from-finance-teal/20 via-transparent to-finance-cyan/10" />
 
       {/* Hero Content */}
       <motion.div
