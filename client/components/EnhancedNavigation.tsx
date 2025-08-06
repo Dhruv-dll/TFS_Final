@@ -147,19 +147,13 @@ export default function EnhancedNavigation({
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                <div
-                  className="flex items-center justify-center rounded-xl relative overflow-hidden"
-                  style={{
-                    backgroundImage:
-                      "url(https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    width: "75px",
-                    height: "75px",
-                    marginTop: "-5px",
-                  }}
-                />
+                <div className="flex items-center justify-center rounded-xl relative overflow-hidden bg-finance-navy w-[75px] h-[75px] -mt-[5px] border border-finance-teal/30">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990"
+                    alt="TFS Logo"
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-finance-gold to-finance-electric rounded-xl opacity-50 blur-md -z-10"
                   animate={{
@@ -180,19 +174,13 @@ export default function EnhancedNavigation({
                 whileHover={{ scale: 1.1 }}
                 transition={{ duration: 0.3 }}
               >
-                <div
-                  className="flex items-center justify-center border border-finance-electric/30 rounded-xl"
-                  style={{
-                    backgroundImage:
-                      "url(https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F73bba102e8354fd08a042b5f690f50cd)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                    backgroundSize: "cover",
-                    width: "75px",
-                    height: "75px",
-                    margin: "1px 0 0 -5px",
-                  }}
-                />
+                <div className="flex items-center justify-center border border-finance-electric/30 rounded-xl bg-finance-navy w-[75px] h-[75px] mt-[1px] ml-[-5px]">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F73bba102e8354fd08a042b5f690f50cd"
+                    alt="St. Xavier's Logo"
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-br from-finance-navy-light to-finance-electric rounded-xl opacity-0 group-hover:opacity-40 blur-lg -z-10 transition-opacity duration-300"></div>
               </motion.div>
             </div>
