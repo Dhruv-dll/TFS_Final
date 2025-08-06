@@ -376,7 +376,7 @@ export default function Index() {
           {/* Main Content */}
           {!showLoader && (
             <>
-              <ProfessionalNavigation scrolled={scrolled} />
+              <ECCStyleNavigation scrolled={scrolled} />
               <ScrollProgressIndicator />
               <NetworkStatusIndicator isOnline={isOnline} />
               <FloatingMarketIcon />
