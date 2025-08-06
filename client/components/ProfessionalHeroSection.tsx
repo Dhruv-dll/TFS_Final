@@ -264,7 +264,7 @@ export default function ProfessionalHeroSection() {
 
       {/* Geometric wireframe pattern overlay */}
       <div
-        className="absolute inset-0 z-10 opacity-15"
+        className="absolute inset-0 z-20 opacity-15"
         style={{
           backgroundImage: `
             linear-gradient(rgba(0, 212, 204, 0.4) 1px, transparent 1px),
