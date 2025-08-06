@@ -225,6 +225,95 @@
     font-family: "Roboto Slab", serif !important;
   }
 
+  /* ECC Points Navigation Specific Styles */
+  .ecc-nav-highlight {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: rgba(0, 212, 204, 0.15);
+    border: 1px solid rgba(0, 212, 204, 0.4);
+    border-radius: 0.5rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ecc-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgb(var(--foreground));
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  .ecc-nav-item:hover {
+    color: rgb(0, 212, 204);
+  }
+
+  /* Perfect fit highlight bars */
+  .ecc-nav-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Mobile navigation specific */
+  .ecc-mobile-nav {
+    backdrop-filter: blur(16px);
+    background: rgba(11, 20, 38, 0.9);
+    border: 1px solid rgba(0, 212, 204, 0.2);
+    border-radius: 0.75rem;
+  }
+
+  .ecc-mobile-nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    color: rgb(var(--foreground));
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+  }
+
+  .ecc-mobile-nav-item:hover {
+    color: rgb(0, 212, 204);
+    background: rgba(0, 212, 204, 0.1);
+  }
+
+  /* Dropdown menus */
+  .ecc-dropdown {
+    position: absolute;
+    top: 100%;
+    min-width: 200px;
+    backdrop-filter: blur(16px);
+    background: rgba(11, 20, 38, 0.9);
+    border: 1px solid rgba(0, 212, 204, 0.2);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 50;
+  }
+
+  .ecc-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: rgb(var(--foreground));
+    transition: all 0.2s ease;
+  }
+
+  .ecc-dropdown-item:hover {
+    color: rgb(0, 212, 204);
+    background: rgba(0, 212, 204, 0.1);
+  }
+
   .professional-hover {
     position: relative;
     overflow: hidden;
