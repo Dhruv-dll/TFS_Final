@@ -22,7 +22,6 @@ import {
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 
-
 interface TeamMember {
   id: string;
   name: string;
@@ -262,8 +261,6 @@ export default function ModernLuminariesSection() {
   // Simple scroll effects
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
-
-
   const currentMembers =
     activeGroup === "faculty" ? facultyMembers : leadershipMembers;
 
@@ -483,9 +480,6 @@ export default function ModernLuminariesSection() {
           />
         ))}
       </div>
-
-
-
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Enhanced Section Header */}
