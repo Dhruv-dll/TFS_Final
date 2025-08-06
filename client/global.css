@@ -943,6 +943,61 @@
     }
   }
 
+  /* ECC Points Navigation Responsive Design */
+  @media (max-width: 1024px) {
+    .ecc-nav-item {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .ecc-nav-container {
+      gap: 0.125rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ecc-nav-highlight {
+      display: none; /* Hide highlight on mobile for better UX */
+    }
+
+    .ecc-mobile-nav {
+      margin-top: 1rem;
+      padding: 1rem;
+    }
+
+    .ecc-mobile-nav-item {
+      padding: 1rem;
+      min-height: 48px; /* Touch-friendly */
+    }
+
+    .ecc-dropdown {
+      position: static;
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-left: 1.5rem;
+      box-shadow: none;
+      background: rgba(0, 212, 204, 0.05);
+      border: 1px solid rgba(0, 212, 204, 0.1);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ecc-nav-item {
+      font-size: 0.75rem;
+      padding: 0.5rem;
+    }
+
+    .ecc-mobile-nav-item {
+      padding: 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    .ecc-dropdown-item {
+      padding: 0.625rem 0.875rem;
+      font-size: 0.8rem;
+    }
+  }
+
   /* Mobile Touch Optimizations */
   @media (hover: none) and (pointer: coarse) {
     /* Touch devices */
