@@ -147,7 +147,7 @@ function ProfessionalMarketTicker() {
           </div>
 
           <div className="flex-1 overflow-hidden ml-8">
-            <div className="flex space-x-6 animate-scroll">
+            <div className="flex space-x-6 animate-scroll will-change-transform">
               {stockData.map((stock, index) => (
                 <div
                   key={`${stock.symbol}-${index}`}
