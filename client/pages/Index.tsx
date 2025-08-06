@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProfessionalNavigation from "../components/ProfessionalNavigation";
+import ECCStyleNavigation from "../components/ECCStyleNavigation";
 import ProfessionalHeroSection from "../components/ProfessionalHeroSection";
 import TerminalLoader from "../components/TerminalLoader";
 import ModernLuminariesSection from "../components/ModernLuminariesSection";
