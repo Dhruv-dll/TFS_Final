@@ -232,7 +232,7 @@ export default function ProfessionalHeroSection() {
           preload="metadata"
           poster="https://cdn.builder.io/api/v1/image/assets%2F36935fa7f48a46018f23cf61a4fdb3c0%2Fd9eef1906b5249c48c2b4343dc694cba?format=webp&width=1920"
         >
-          <source src="https://videos.pexels.com/video-files/7693394/7693394-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          <source src="https://cdn.builder.io/o/assets%2Fe85dfdd564234742bab315fb42ca6cc0%2Fcdaa0c914f444ba09397c133c8f6cab0?alt=media&token=89c8ffc7-fcb7-4ac8-95e3-4e03a2ebfee4&apiKey=e85dfdd564234742bab315fb42ca6cc0" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           <div
             className="w-full h-full bg-cover bg-center bg-no-repeat"
