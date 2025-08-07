@@ -194,7 +194,7 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your name"
-                    className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
+                    className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
                   />
                 </div>
                 <div>
@@ -207,7 +207,7 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your@email.com"
-                    className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
+                    className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
                   />
                 </div>
               </div>
@@ -221,7 +221,7 @@ export default function ContactSection() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   placeholder="What's this about?"
-                  className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
+                  className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
                 />
               </div>
 
