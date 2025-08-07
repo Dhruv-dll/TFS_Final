@@ -78,7 +78,7 @@ export default function ContactSection() {
           <div className="w-24 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
             Ready to join our financial community? TFS is proudly organized by the
-            Bachelor of Accounting & Finance programme students.
+            Department of Accounting and Finance.
           </p>
         </motion.div>
 
