@@ -107,6 +107,23 @@ class FinnhubMarketDataService {
     sentiment: MarketSentiment;
     currencies?: CurrencyRate[];
   } | null> {
+    // Ultimate safety wrapper
+    try {
+      return await this._fetchAllMarketDataInternal();
+    } catch (error) {
+      console.warn("📊 Ultimate fallback triggered due to error:", error?.message || "Unknown error");
+      this.fallbackMode = true;
+      this.apiFailureCount = 999;
+      return this.getFallbackMarketData();
+    }
+  }
+
+  // Internal method with the actual implementation
+  private async _fetchAllMarketDataInternal(): Promise<{
+    stocks: FinnhubStockData[];
+    sentiment: MarketSentiment;
+    currencies?: CurrencyRate[];
+  } | null> {
     try {
       console.log("📊 Fetching real-time market data from server...");
 
