@@ -150,7 +150,7 @@ const leadershipMembers: TeamMember[] = [
     id: "aaradhy-mehra",
     name: "Aaradhy Mehra",
     title: "Chairperson – The Finance Symposium (TFS)",
-    bio: "Aaradhy Mehra is a driven student-leader and aspiring entrepreneur from the BAF batch of 2026��27 at St. Xavier's College, Mumbai. As Chairperson of The Finance Symposium, he curates strategic initiatives that connect finance, innovation, and enterprise through student-led forums and industry collaborations. He serves as Editor-in-Chief of Currency of Change, leading its editorial vision while mentoring contributors. A former Summer Intern at SBI Securities and a CUET 98%iler, Aaradhy pairs strong analytical thinking with a forward-looking approach to market trends and institutional strategy. His deep interests in technology, automobiles, and design reflect in his digital presence, where he has garnered over 1.5 million views on YouTube and built a professional network of 5,000+ followers on LinkedIn.",
+    bio: "Aaradhy Mehra is a driven student-leader and aspiring entrepreneur from the BAF batch of 2026–27 at St. Xavier's College, Mumbai. As Chairperson of The Finance Symposium, he curates strategic initiatives that connect finance, innovation, and enterprise through student-led forums and industry collaborations. He serves as Editor-in-Chief of Currency of Change, leading its editorial vision while mentoring contributors. A former Summer Intern at SBI Securities and a CUET 98%iler, Aaradhy pairs strong analytical thinking with a forward-looking approach to market trends and institutional strategy. His deep interests in technology, automobiles, and design reflect in his digital presence, where he has garnered over 1.5 million views on YouTube and built a professional network of 5,000+ followers on LinkedIn.",
     image: "/placeholder.svg",
     email: "aaradhy.mehra@student.xaviers.edu",
     linkedin: "aaradhy-mehra",
@@ -389,7 +389,7 @@ export default function ModernLuminariesSection() {
             <span className="text-finance-teal">Luminaries</span>
           </motion.h2>
           <motion.div
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent mx-auto mb-6"
+            className="w-32 h-1 bg-finance-teal mx-auto mb-6 rounded-full"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1, delay: 0.5 }}
