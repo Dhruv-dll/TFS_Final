@@ -201,7 +201,7 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
               transition={{ duration: 0.3 }}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <div className="flex items-center justify-center w-12 h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
+              <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F73bba102e8354fd08a042b5f690f50cd"
                   alt="St. Xavier's College"
@@ -216,7 +216,7 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex items-center justify-center w-12 h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
+              <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990"
                   alt="The Finance Symposium"
@@ -226,8 +226,8 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
             </motion.div>
 
             {/* Title */}
-            <div className="hidden md:block">
-              <h1 className="text-lg font-bold text-finance-teal">
+            <div className="hidden sm:block">
+              <h1 className="text-sm md:text-lg font-bold text-finance-teal">
                 The Finance Symposium
               </h1>
               <p className="text-xs text-muted-foreground">
