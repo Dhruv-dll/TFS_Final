@@ -13,7 +13,6 @@ import AboutBAFSection from "../components/AboutBAFSection";
 import ContactSection from "../components/ContactSection";
 import SponsorsSection from "../components/SponsorsSection";
 import FloatingMarketIcon from "../components/FloatingMarketIcon";
-import ScrollProgressIndicator from "../components/ScrollProgressIndicator";
 import AdminEventsPanel from "../components/AdminEventsPanel";
 import AdminLogin from "../components/AdminLogin";
 import { EventPopupProvider } from "../hooks/useEventPopup";
