@@ -246,6 +246,16 @@ export default function ModernLuminariesSection() {
   const leadershipButtonRef = useRef<HTMLButtonElement>(null);
   const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
 
+  const updateSliderPosition = () => {
+    const activeButton = activeGroup === "faculty" ? facultyButtonRef.current : leadershipButtonRef.current;
+    if (activeButton) {
+      setSliderStyle({
+        width: activeButton.offsetWidth,
+        left: activeButton.offsetLeft,
+      });
+    }
+  };
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -254,6 +264,17 @@ export default function ModernLuminariesSection() {
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    // Update slider position when active group changes
+    updateSliderPosition();
+  }, [activeGroup]);
+
+  useEffect(() => {
+    // Update slider position after initial render
+    const timer = setTimeout(updateSliderPosition, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   const { scrollYProgress } = useScroll({
