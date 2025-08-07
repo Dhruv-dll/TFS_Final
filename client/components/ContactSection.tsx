@@ -168,7 +168,7 @@ export default function ContactSection() {
             </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Google Maps Embed */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -176,74 +176,32 @@ export default function ContactSection() {
             className="bg-finance-navy-light/95 rounded-xl p-8 border border-finance-teal/30 shadow-lg"
           >
             <h3 className="text-2xl font-bold text-finance-teal mb-6">
-              Send us a Message
+              Find Us Here
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="relative w-full h-96 rounded-lg overflow-hidden border border-finance-teal/30">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0458756451495!2d72.8311188!3d18.9295024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sSt.%20Xavier%27s%20College%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="St. Xavier's College, Mumbai Location"
+                className="filter brightness-90 contrast-110"
+              />
+            </div>
+
+            <div className="mt-6 p-4 bg-finance-navy-medium/50 rounded-lg border border-finance-teal/20">
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-5 h-5 text-finance-teal flex-shrink-0" />
                 <div>
-                  <label className="block text-sm font-medium text-finance-teal mb-2">
-                    Name
-                  </label>
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Your name"
-                    className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-finance-teal mb-2">
-                    Email
-                  </label>
-                  <Input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="your@email.com"
-                    className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
-                  />
+                  <p className="text-white/90 font-medium">St. Xavier's College, Mumbai</p>
+                  <p className="text-white/70 text-sm">5, Mahapalika Marg, Mumbai 400001</p>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-finance-teal mb-2">
-                  Subject
-                </label>
-                <Input
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  placeholder="What's this about?"
-                  className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-finance-teal mb-2">
-                  Message
-                </label>
-                <Textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  placeholder="Tell us more..."
-                  rows={6}
-                  className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-finance-teal text-white hover:bg-finance-teal-dark transition-all duration-300"
-                size="lg"
-              >
-                Send Message
-                <Send className="w-4 h-4 ml-2" />
-              </Button>
-            </form>
+            </div>
           </motion.div>
         </div>
       </div>
