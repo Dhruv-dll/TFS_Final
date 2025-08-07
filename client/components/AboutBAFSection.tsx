@@ -96,22 +96,15 @@ export default function AboutBAFSection() {
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                 className="relative group"
               >
-                <div
-                  className={`bg-gradient-to-br ${feature.gradient} p-6 rounded-xl text-center transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl`}
-                >
-                  <feature.icon className="w-8 h-8 mx-auto mb-3 text-white drop-shadow-lg" />
-                  <div className="text-lg font-bold text-white mb-2">
+                <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/40 shadow-lg hover:shadow-xl">
+                  <feature.icon className="w-8 h-8 mx-auto mb-3 text-finance-teal" />
+                  <div className="text-lg font-bold text-finance-navy mb-2">
                     {feature.title}
                   </div>
-                  <div className="text-white/90 text-xs leading-tight">
+                  <div className="text-finance-navy/80 text-xs leading-tight">
                     {feature.description}
                   </div>
                 </div>
-
-                {/* Glow effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10 blur-xl`}
-                />
               </motion.div>
             ))}
           </motion.div>
@@ -124,29 +117,29 @@ export default function AboutBAFSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-electric/20">
-            <h4 className="text-xl font-semibold text-finance-electric mb-3">
+          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Programme Duration
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-finance-navy/80">
               3-year undergraduate program with comprehensive curriculum
             </p>
           </div>
 
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-gold/20">
-            <h4 className="text-xl font-semibold text-finance-gold mb-3">
+          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               University Affiliation
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-finance-navy/80">
               Affiliated to the University of Mumbai with recognized degree
             </p>
           </div>
 
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-green/20">
-            <h4 className="text-xl font-semibold text-finance-green mb-3">
+          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Professional Focus
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-finance-navy/80">
               Designed for career transformation in accounting and finance
             </p>
           </div>
