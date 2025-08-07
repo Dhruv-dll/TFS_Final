@@ -21,7 +21,9 @@ interface ECCStyleNavigationProps {
   scrolled: boolean;
 }
 
-export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps) {
+export default function ECCStyleNavigation({
+  scrolled,
+}: ECCStyleNavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [highlightStyle, setHighlightStyle] = useState({ width: 0, left: 0 });
@@ -82,7 +84,16 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
 
   // Get current active section based on scroll position
   const getCurrentSection = () => {
-    const sections = ['home', 'about', 'about-baf', 'luminaries', 'events', 'insights', 'sponsors', 'contact'];
+    const sections = [
+      "home",
+      "about",
+      "about-baf",
+      "luminaries",
+      "events",
+      "insights",
+      "sponsors",
+      "contact",
+    ];
 
     for (const section of sections) {
       const element = document.getElementById(section);
@@ -96,7 +107,7 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
 
     // Default to home if at top
     if (window.scrollY < 100) {
-      return '#home';
+      return "#home";
     }
 
     return null;
@@ -124,10 +135,12 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
   const handleMouseLeave = () => {
     // Find active menu item based on current scroll position
     const currentSection = getCurrentSection();
-    const activeItem = navItems.find(item => item.href === currentSection);
+    const activeItem = navItems.find((item) => item.href === currentSection);
 
     if (activeItem) {
-      const activeElement = navRef.current?.querySelector(`[data-nav-item="${activeItem.name}"]`) as HTMLElement;
+      const activeElement = navRef.current?.querySelector(
+        `[data-nav-item="${activeItem.name}"]`,
+      ) as HTMLElement;
       updateHighlight(activeElement);
     } else {
       setHighlightStyle({ width: 0, left: 0 });
@@ -144,11 +157,11 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
       handleMouseLeave();
     }, 100);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -202,7 +215,7 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
               className="relative cursor-pointer"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-finance-navy border border-finance-teal/40 rounded-lg overflow-hidden">
                 <img
@@ -284,9 +297,9 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                       >
                         <item.icon className="w-4 h-4" />
                         <span>{item.name}</span>
-                        <ChevronDown 
+                        <ChevronDown
                           className={`w-3 h-3 transition-transform duration-300 ${
-                            activeMenu === item.name ? 'rotate-180' : ''
+                            activeMenu === item.name ? "rotate-180" : ""
                           }`}
                         />
                       </button>
@@ -301,30 +314,34 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                             transition={{ duration: 0.2, ease: "easeOut" }}
                             className="absolute top-full mt-2 min-w-[200px] backdrop-blur-xl bg-finance-navy/90 rounded-lg shadow-2xl border border-finance-teal/20 overflow-hidden z-50"
                           >
-                            {item.dropdown.map((dropdownItem, dropdownIndex) => {
-                              if (dropdownItem.type === "separator") {
+                            {item.dropdown.map(
+                              (dropdownItem, dropdownIndex) => {
+                                if (dropdownItem.type === "separator") {
+                                  return (
+                                    <div
+                                      key={dropdownIndex}
+                                      className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2 mx-4"
+                                    />
+                                  );
+                                }
                                 return (
-                                  <div
+                                  <button
                                     key={dropdownIndex}
-                                    className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2 mx-4"
-                                  />
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      scrollToElement(dropdownItem.href);
+                                      setActiveMenu(null);
+                                    }}
+                                    className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-finance-teal hover:bg-finance-teal/10 transition-all duration-200"
+                                  >
+                                    <span className="text-base">
+                                      {dropdownItem.icon}
+                                    </span>
+                                    <span>{dropdownItem.name}</span>
+                                  </button>
                                 );
-                              }
-                              return (
-                                <button
-                                  key={dropdownIndex}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollToElement(dropdownItem.href);
-                                    setActiveMenu(null);
-                                  }}
-                                  className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-finance-teal hover:bg-finance-teal/10 transition-all duration-200"
-                                >
-                                  <span className="text-base">{dropdownItem.icon}</span>
-                                  <span>{dropdownItem.name}</span>
-                                </button>
-                              );
-                            })}
+                              },
+                            )}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -409,9 +426,9 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                             <item.icon className="w-4 h-4" />
                             <span className="font-medium">{item.name}</span>
                           </div>
-                          <ChevronDown 
+                          <ChevronDown
                             className={`w-4 h-4 transition-transform duration-200 ${
-                              activeMenu === item.name ? 'rotate-180' : ''
+                              activeMenu === item.name ? "rotate-180" : ""
                             }`}
                           />
                         </button>
@@ -424,31 +441,33 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                               exit={{ opacity: 0, height: 0 }}
                               className="ml-6 mt-2 space-y-1 overflow-hidden"
                             >
-                              {item.dropdown.map((dropdownItem, dropdownIndex) => {
-                                if (dropdownItem.type === "separator") {
+                              {item.dropdown.map(
+                                (dropdownItem, dropdownIndex) => {
+                                  if (dropdownItem.type === "separator") {
+                                    return (
+                                      <div
+                                        key={dropdownIndex}
+                                        className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2"
+                                      />
+                                    );
+                                  }
                                   return (
-                                    <div
+                                    <button
                                       key={dropdownIndex}
-                                      className="h-px bg-gradient-to-r from-transparent via-finance-teal/40 to-transparent my-2"
-                                    />
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        scrollToElement(dropdownItem.href);
+                                        setMobileMenuOpen(false);
+                                        setActiveMenu(null);
+                                      }}
+                                      className="w-full flex items-center space-x-3 py-2 px-3 text-sm text-muted-foreground hover:text-finance-teal hover:bg-finance-teal/5 rounded-lg transition-colors duration-200"
+                                    >
+                                      <span>{dropdownItem.icon}</span>
+                                      <span>{dropdownItem.name}</span>
+                                    </button>
                                   );
-                                }
-                                return (
-                                  <button
-                                  key={dropdownIndex}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollToElement(dropdownItem.href);
-                                    setMobileMenuOpen(false);
-                                    setActiveMenu(null);
-                                  }}
-                                  className="w-full flex items-center space-x-3 py-2 px-3 text-sm text-muted-foreground hover:text-finance-teal hover:bg-finance-teal/5 rounded-lg transition-colors duration-200"
-                                >
-                                    <span>{dropdownItem.icon}</span>
-                                  <span>{dropdownItem.name}</span>
-                                </button>
-                                );
-                              })}
+                                },
+                              )}
                             </motion.div>
                           )}
                         </AnimatePresence>
