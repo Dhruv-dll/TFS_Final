@@ -206,32 +206,12 @@ export default function OptimizedFinsightSection() {
           "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #2A3B52 100%)",
       }}
     >
-      {/* Light Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <motion.div
-          className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-10 w-24 h-24 bg-purple-500/10 rounded-full"
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -180, -360],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
+      {/* Professional Grid Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px'
+        }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -248,24 +228,15 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-[#00D4CC] to-[#FFD700] rounded-xl flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-black" />
+            <div className="w-12 h-12 bg-finance-teal rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-finance-navy" />
             </div>
             <div className="text-left">
-              <h2
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #FFD700 0%, #00D4CC 50%, #FFD700 100%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                FINSIGHT
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white">
+                <span className="text-finance-teal">FINSIGHT</span>
               </h2>
               <motion.p
-                className="text-lg sm:text-xl text-[#00D4CC] font-medium"
+                className="text-lg sm:text-xl text-finance-teal font-medium"
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -281,13 +252,13 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-finance-teal to-transparent" />
             <div className="flex space-x-2">
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
-              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
+              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
             </div>
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-finance-teal to-transparent" />
           </motion.div>
 
           <motion.p
