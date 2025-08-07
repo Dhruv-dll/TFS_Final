@@ -116,12 +116,12 @@ export default function AboutSection() {
                 }
                 className="relative group"
               >
-                <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/40 shadow-lg hover:shadow-xl">
+                <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/50 shadow-lg hover:shadow-xl">
                   <stat.icon className="w-8 h-8 mx-auto mb-3 text-finance-teal" />
-                  <div className="text-3xl font-bold text-finance-navy mb-1">
+                  <div className="text-3xl font-bold text-white mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-finance-navy/80 text-sm font-medium">
+                  <div className="text-white/80 text-sm font-medium">
                     {stat.label}
                   </div>
                 </div>
