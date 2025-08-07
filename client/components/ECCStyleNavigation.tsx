@@ -468,6 +468,27 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                     )}
                   </motion.div>
                 ))}
+
+                {/* Market Dashboard Button for Mobile */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: navItems.length * 0.05 }}
+                >
+                  <button
+                    onClick={() => {
+                      toggleOpen();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center space-x-3 py-3 px-4 text-foreground hover:text-finance-teal hover:bg-finance-teal/10 rounded-lg transition-all duration-200 border-t border-finance-teal/20 mt-2 pt-4"
+                  >
+                    <BarChart3 className="w-4 h-4" />
+                    <span className="font-medium">Market Dashboard</span>
+                    <div className="ml-auto">
+                      <div className="w-2 h-2 bg-finance-green rounded-full animate-pulse"></div>
+                    </div>
+                  </button>
+                </motion.div>
               </div>
             </motion.div>
           )}
