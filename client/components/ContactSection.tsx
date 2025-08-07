@@ -186,7 +186,7 @@ export default function ContactSection() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-finance-gold mb-2">
+                  <label className="block text-sm font-medium text-finance-teal mb-2">
                     Name
                   </label>
                   <Input
@@ -194,11 +194,11 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Your name"
-                    className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
+                    className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-finance-gold mb-2">
+                  <label className="block text-sm font-medium text-finance-teal mb-2">
                     Email
                   </label>
                   <Input
@@ -207,13 +207,13 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="your@email.com"
-                    className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
+                    className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-finance-gold mb-2">
+                <label className="block text-sm font-medium text-finance-teal mb-2">
                   Subject
                 </label>
                 <Input
@@ -221,12 +221,12 @@ export default function ContactSection() {
                   value={formData.subject}
                   onChange={handleInputChange}
                   placeholder="What's this about?"
-                  className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
+                  className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-finance-gold mb-2">
+                <label className="block text-sm font-medium text-finance-teal mb-2">
                   Message
                 </label>
                 <Textarea
@@ -235,13 +235,13 @@ export default function ContactSection() {
                   onChange={handleInputChange}
                   placeholder="Tell us more..."
                   rows={6}
-                  className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold resize-none"
+                  className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-all duration-300"
+                className="w-full bg-finance-teal text-white hover:bg-finance-teal-dark transition-all duration-300"
                 size="lg"
               >
                 Send Message
