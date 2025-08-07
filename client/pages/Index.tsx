@@ -383,7 +383,7 @@ export default function Index() {
 
               {/* Hero Section */}
               <MarketDataErrorBoundary>
-                <section id="hero">
+                <section id="home">
                   <ProfessionalHeroSection />
                 </section>
               </MarketDataErrorBoundary>
@@ -399,7 +399,7 @@ export default function Index() {
               </section>
 
               {/* Meet the Team Section */}
-              <section id="team">
+              <section id="luminaries">
                 <ModernLuminariesSection />
               </section>
 
