@@ -127,6 +127,26 @@ class FinnhubMarketDataService {
     try {
       console.log("📊 Fetching real-time market data from server...");
 
+      // Early detection of problematic environments - immediately use fallback
+      try {
+        if (typeof fetch === 'undefined' || typeof window === 'undefined') {
+          console.log("📊 No fetch or window available, using fallback mode");
+          this.fallbackMode = true;
+          return this.getFallbackMarketData();
+        }
+
+        // Test if fetch is actually functional
+        if (typeof fetch !== 'function') {
+          console.log("📊 Fetch not a function, using fallback mode");
+          this.fallbackMode = true;
+          return this.getFallbackMarketData();
+        }
+      } catch (envError) {
+        console.log("📊 Environment check failed, using fallback mode:", envError?.message || "Unknown env error");
+        this.fallbackMode = true;
+        return this.getFallbackMarketData();
+      }
+
       // Check if we're already in fallback mode or initialize it for immediate use
       if (this.fallbackMode) {
         console.log("🔄 Using fallback mode, skipping server API");
