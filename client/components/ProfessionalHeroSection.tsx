@@ -285,6 +285,21 @@ export default function ProfessionalHeroSection() {
             </span>
           </motion.h1>
 
+          {/* Department Initiative Badge */}
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-finance-teal/20 to-finance-cyan/20 border border-finance-teal/50 rounded-full backdrop-blur-sm">
+              <div className="w-2 h-2 bg-finance-teal rounded-full mr-3 animate-pulse"></div>
+              <span className="text-finance-teal font-semibold text-sm md:text-base tracking-wide">
+                AN INITIATIVE BY DEPARTMENT OF ACCOUNTING AND FINANCE
+              </span>
+            </div>
+          </motion.div>
+
           <motion.div
             className="mb-12"
             initial={{ opacity: 0, y: 20 }}
