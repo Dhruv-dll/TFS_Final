@@ -163,7 +163,7 @@ export default function OptimizedFinsightSection() {
 
           {/* Hover Overlay */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent opacity-0 rounded-2xl"
+            className="absolute inset-0 bg-gradient-to-t from-finance-teal/5 to-transparent opacity-0 rounded-2xl"
             animate={{
               opacity: isHovered ? 1 : 0,
             }}
@@ -171,16 +171,15 @@ export default function OptimizedFinsightSection() {
           />
         </motion.div>
 
-        {/* Simple Glow Effect */}
+        {/* Subtle Glow Effect */}
         <motion.div
           className="absolute inset-0 rounded-2xl -z-10"
           style={{
-            background:
-              "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)",
+            background: "rgba(0, 212, 204, 0.1)",
             filter: "blur(15px)",
           }}
           animate={{
-            opacity: isHovered ? 0.4 : 0.2,
+            opacity: isHovered ? 0.3 : 0.1,
             scale: isHovered ? 1.02 : 1,
           }}
           transition={{ duration: 0.3 }}
