@@ -15,7 +15,7 @@ import {
   Mail,
   BarChart3,
 } from "lucide-react";
-import { useMarketDashboard } from "../hooks/useMarketDashboard";
+import { useMarketDashboard } from "../contexts/MarketDashboardContext";
 
 interface ECCStyleNavigationProps {
   scrolled: boolean;
