@@ -343,7 +343,7 @@ export default function ModernLuminariesSection() {
                 <div className="pt-4">
                   <Button
                     size="sm"
-                    className="bg-finance-teal text-white hover:bg-finance-teal-dark transition-all duration-300 px-4 py-2"
+                    className="bg-finance-teal text-white hover:bg-finance-teal-dark hover:shadow-lg transition-all duration-300 px-4 py-2 font-semibold border border-finance-teal/30"
                   >
                     <Brain className="w-4 h-4 mr-2" />
                     <span>Learn More</span>
@@ -408,9 +408,9 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <div className="relative bg-white/95 rounded-xl p-1 border border-finance-teal/20 shadow-lg">
+          <div className="relative bg-finance-navy-medium/80 backdrop-blur-xl rounded-xl p-1 border border-finance-teal/30 shadow-lg">
             <motion.div
-              className="absolute top-1 bottom-1 bg-finance-teal rounded-lg"
+              className="absolute top-1 bottom-1 bg-finance-teal rounded-lg shadow-md"
               animate={{
                 x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
                 width: "calc(50% - 4px)",
