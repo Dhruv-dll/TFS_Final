@@ -117,29 +117,29 @@ export default function AboutBAFSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
             <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Programme Duration
             </h4>
-            <p className="text-finance-navy/80">
+            <p className="text-white/80">
               3-year undergraduate program with comprehensive curriculum
             </p>
           </div>
 
-          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
             <h4 className="text-xl font-semibold text-finance-teal mb-3">
               University Affiliation
             </h4>
-            <p className="text-finance-navy/80">
+            <p className="text-white/80">
               Affiliated to the University of Mumbai with recognized degree
             </p>
           </div>
 
-          <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl shadow-lg">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
             <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Professional Focus
             </h4>
-            <p className="text-finance-navy/80">
+            <p className="text-white/80">
               Designed for career transformation in accounting and finance
             </p>
           </div>
