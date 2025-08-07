@@ -317,8 +317,7 @@ export default function MobileOptimizedEventsSection() {
       id="events"
       className="relative min-h-screen py-12 sm:py-16 md:py-20 overflow-hidden mobile-container"
       style={{
-        background:
-          "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #2A3B52 100%)",
+        backgroundColor: "#101E36", // Solid navy background
       }}
     >
       {/* Professional grid background */}
