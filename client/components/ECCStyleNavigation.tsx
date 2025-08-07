@@ -308,15 +308,18 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                                 );
                               }
                               return (
-                                <Link
+                                <button
                                   key={dropdownIndex}
-                                  to={dropdownItem.href}
-                                  className="flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-finance-teal hover:bg-finance-teal/10 transition-all duration-200"
-                                  onClick={() => setActiveMenu(null)}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    scrollToElement(dropdownItem.href);
+                                    setActiveMenu(null);
+                                  }}
+                                  className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-foreground hover:text-finance-teal hover:bg-finance-teal/10 transition-all duration-200"
                                 >
                                   <span className="text-base">{dropdownItem.icon}</span>
                                   <span>{dropdownItem.name}</span>
-                                </Link>
+                                </button>
                               );
                             })}
                           </motion.div>
@@ -324,21 +327,18 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                       </AnimatePresence>
                     </div>
                   ) : (
-                    <Link
-                      to={item.href}
+                    <button
                       data-nav-item={item.name}
                       onMouseEnter={handleMouseEnter}
                       onClick={(e) => {
-                        if (item.href.startsWith("#")) {
-                          e.preventDefault();
-                          scrollToElement(item.href);
-                        }
+                        e.preventDefault();
+                        scrollToElement(item.href);
                       }}
                       className="flex items-center space-x-2 px-4 py-3 text-sm font-medium text-foreground hover:text-finance-teal transition-all duration-300 relative z-10 whitespace-nowrap"
                     >
                       <item.icon className="w-4 h-4" />
                       <span>{item.name}</span>
-                    </Link>
+                    </button>
                   )}
                 </motion.div>
               ))}
@@ -431,18 +431,19 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                                   );
                                 }
                                 return (
-                                  <Link
-                                    key={dropdownIndex}
-                                    to={dropdownItem.href}
-                                    className="flex items-center space-x-3 py-2 px-3 text-sm text-muted-foreground hover:text-finance-teal hover:bg-finance-teal/5 rounded-lg transition-colors duration-200"
-                                    onClick={() => {
-                                      setMobileMenuOpen(false);
-                                      setActiveMenu(null);
-                                    }}
-                                  >
+                                  <button
+                                  key={dropdownIndex}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    scrollToElement(dropdownItem.href);
+                                    setMobileMenuOpen(false);
+                                    setActiveMenu(null);
+                                  }}
+                                  className="w-full flex items-center space-x-3 py-2 px-3 text-sm text-muted-foreground hover:text-finance-teal hover:bg-finance-teal/5 rounded-lg transition-colors duration-200"
+                                >
                                     <span>{dropdownItem.icon}</span>
-                                    <span>{dropdownItem.name}</span>
-                                  </Link>
+                                  <span>{dropdownItem.name}</span>
+                                </button>
                                 );
                               })}
                             </motion.div>
@@ -450,20 +451,17 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
                         </AnimatePresence>
                       </div>
                     ) : (
-                      <Link
-                        to={item.href}
-                        className="flex items-center space-x-3 py-3 px-4 text-foreground hover:text-finance-teal hover:bg-finance-teal/10 rounded-lg transition-all duration-200"
+                      <button
                         onClick={(e) => {
-                          if (item.href.startsWith("#")) {
-                            e.preventDefault();
-                            scrollToElement(item.href);
-                          }
+                          e.preventDefault();
+                          scrollToElement(item.href);
                           setMobileMenuOpen(false);
                         }}
+                        className="w-full flex items-center space-x-3 py-3 px-4 text-foreground hover:text-finance-teal hover:bg-finance-teal/10 rounded-lg transition-all duration-200"
                       >
                         <item.icon className="w-4 h-4" />
                         <span className="font-medium">{item.name}</span>
-                      </Link>
+                      </button>
                     )}
                   </motion.div>
                 ))}
