@@ -79,7 +79,7 @@ export default function AboutSection() {
                 </h4>
                 <p className="text-lg">
                   The Finance Symposium (TFS) is a flagship initiative by the
-                  Bachelor of Accounting and Finance (BAF) program at St. Xavier's College, Mumbai.
+                  Department of Accounting and Finance at St. Xavier's College, Mumbai.
                   TFS is not merely an event; it is an invaluable experience where all the different
                   dimensions of finance are explored effortlessly converging with knowledge based
                   amusement, knowledge which fosters innovation, networking which cultivates
