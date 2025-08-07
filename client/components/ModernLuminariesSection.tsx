@@ -279,91 +279,40 @@ export default function ModernLuminariesSection() {
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        {/* Card Container */}
+        {/* Professional Card Container */}
         <motion.div
           className="relative h-80 sm:h-96"
-          style={{
-            scale: isHovered ? 1.03 : 1,
-          }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          {/* Main Card */}
+          {/* Main Professional Card */}
           <motion.div
-            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
+            className="relative h-full bg-white border border-finance-teal/20 rounded-xl overflow-hidden cursor-pointer shadow-lg"
             onClick={() => setSelectedMember(member)}
-            style={{
-              background: member.isLeadership
-                ? "linear-gradient(135deg, #0B1426 0%, #1A2B42 40%, #00D4CC 100%)"
-                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #1E3A5F 100%)",
-            }}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 20px 40px -10px rgba(0, 212, 204, 0.3)",
+              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 212, 204, 0.3)",
+              borderColor: "rgba(0, 212, 204, 0.4)",
             }}
             transition={{ duration: 0.3 }}
           >
-            {/* Animated Background Mesh */}
-            <div className="absolute inset-0 opacity-30">
-              <motion.div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%),
-                    linear-gradient(-45deg, transparent 25%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 50%, transparent 50%)
-                  `,
-                  backgroundSize: "20px 20px",
-                }}
-                animate={{
-                  backgroundPosition: isHovered ? "40px 40px, 0 0" : "0 0, 0 0",
-                }}
-                transition={{ duration: 2, ease: "linear" }}
-              />
-            </div>
 
-            {/* Floating Particles */}
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-white/40 rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.2, 0.8, 0.2],
-                    scale: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Card Content */}
-            <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">
-              {/* Header with Role Badge */}
-              <div className="space-y-4">
+            {/* Professional Card Content */}
+            <div className="relative h-full p-6 flex flex-col justify-between">
+              {/* Header with Professional Role Badge */}
+              <div className="space-y-6">
                 {member.isLeadership && (
-                  <div>
-                    <Badge className="bg-gradient-to-r from-purple-500 to-amber-500 text-black font-bold">
+                  <div className="flex justify-center">
+                    <Badge className="bg-finance-teal text-white font-semibold px-3 py-1">
                       <Crown className="w-3 h-3 mr-1" />
                       Leadership
                     </Badge>
                   </div>
                 )}
 
-                {/* Avatar Placeholder with Glow */}
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto">
-                  <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden">
-                    <Users className="w-8 h-8 sm:w-10 sm:h-10 text-white/80" />
-
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl" />
+                {/* Professional Avatar */}
+                <div className="flex justify-center">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
+                    <Users className="w-10 h-10 sm:w-12 sm:h-12 text-finance-teal" />
                   </div>
                 </div>
               </div>
