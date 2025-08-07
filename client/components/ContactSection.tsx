@@ -235,7 +235,7 @@ export default function ContactSection() {
                   onChange={handleInputChange}
                   placeholder="Tell us more..."
                   rows={6}
-                  className="bg-white border-finance-teal/30 text-finance-navy placeholder-finance-navy/50 focus:border-finance-teal resize-none"
+                  className="bg-finance-navy-medium/80 border-finance-teal/30 text-white placeholder-white/50 focus:border-finance-teal resize-none"
                 />
               </div>
 
