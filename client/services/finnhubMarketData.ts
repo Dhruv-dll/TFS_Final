@@ -148,42 +148,114 @@ class FinnhubMarketDataService {
       }
 
       // Add timeout wrapper to prevent hanging with better error handling
-      const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-          controller.abort();
-          reject(new Error("Request timeout after 8 seconds"));
-        }, 8000); // Reduced to 8 second timeout
+      let fetchWithTimeout: Promise<Response>;
 
-        // Enhanced fetch with better error handling
-        fetch("/api/market-data", {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Cache-Control": "no-cache",
-            "Content-Type": "application/json",
-          },
-          signal: controller.signal,
-        })
-          .then((response) => {
-            clearTimeout(timeoutId);
-            resolve(response);
-          })
-          .catch((error) => {
-            clearTimeout(timeoutId);
-            console.warn("📊 Network fetch failed, switching to fallback mode:", error?.message || "Unknown error");
+      try {
+        fetchWithTimeout = new Promise<Response>((resolve, reject) => {
+          try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+              try {
+                controller.abort();
+                console.warn("📊 Request timeout, using fallback mode");
+                this.fallbackMode = true;
+                this.apiFailureCount = 999;
+                resolve(new Response(JSON.stringify({ fallback: true }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+                }));
+              } catch (timeoutError) {
+                console.warn("📊 Error in timeout handler, using fallback");
+                resolve(new Response(JSON.stringify({ fallback: true }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+                }));
+              }
+            }, 8000); // Reduced to 8 second timeout
 
-            // Immediately switch to fallback mode for any fetch error
+            // Enhanced fetch with bulletproof error handling
+            try {
+              fetch("/api/market-data", {
+                method: "GET",
+                headers: {
+                  Accept: "application/json",
+                  "Cache-Control": "no-cache",
+                  "Content-Type": "application/json",
+                },
+                signal: controller.signal,
+              })
+                .then((response) => {
+                  try {
+                    clearTimeout(timeoutId);
+                    resolve(response);
+                  } catch (responseError) {
+                    console.warn("📊 Error processing response, using fallback");
+                    this.fallbackMode = true;
+                    resolve(new Response(JSON.stringify({ fallback: true }), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' }
+                    }));
+                  }
+                })
+                .catch((error) => {
+                  try {
+                    clearTimeout(timeoutId);
+                    console.warn("📊 Network fetch failed, switching to fallback mode:", error?.message || "Unknown error");
+
+                    // Immediately switch to fallback mode for any fetch error
+                    this.fallbackMode = true;
+                    this.apiFailureCount = 999; // Force permanent fallback
+
+                    // Create a special response that indicates fallback mode
+                    resolve(new Response(JSON.stringify({ fallback: true }), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' }
+                    }));
+                  } catch (catchError) {
+                    console.warn("📊 Error in catch handler, using ultimate fallback");
+                    resolve(new Response(JSON.stringify({ fallback: true }), {
+                      status: 200,
+                      headers: { 'Content-Type': 'application/json' }
+                    }));
+                  }
+                });
+            } catch (fetchError) {
+              try {
+                clearTimeout(timeoutId);
+                console.warn("📊 Fetch initialization failed, using fallback mode:", fetchError?.message || "Unknown error");
+                this.fallbackMode = true;
+                this.apiFailureCount = 999;
+                resolve(new Response(JSON.stringify({ fallback: true }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+                }));
+              } catch (initError) {
+                console.warn("📊 Fatal error in fetch initialization, using ultimate fallback");
+                resolve(new Response(JSON.stringify({ fallback: true }), {
+                  status: 200,
+                  headers: { 'Content-Type': 'application/json' }
+                }));
+              }
+            }
+          } catch (promiseError) {
+            console.warn("📊 Promise constructor error, using fallback mode:", promiseError?.message || "Unknown error");
             this.fallbackMode = true;
-            this.apiFailureCount = 999; // Force permanent fallback
-
-            // Create a special response that indicates fallback mode
+            this.apiFailureCount = 999;
             resolve(new Response(JSON.stringify({ fallback: true }), {
               status: 200,
               headers: { 'Content-Type': 'application/json' }
             }));
-          });
-      });
+          }
+        });
+      } catch (outerError) {
+        console.warn("📊 Critical error creating fetch promise, immediate fallback:", outerError?.message || "Unknown error");
+        this.fallbackMode = true;
+        this.apiFailureCount = 999;
+        fetchWithTimeout = Promise.resolve(new Response(JSON.stringify({ fallback: true }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }));
+      }
 
       const response = await fetchWithTimeout;
 
