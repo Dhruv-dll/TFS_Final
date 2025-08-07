@@ -600,8 +600,8 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                          <Award className="w-5 h-5 mr-2 text-amber-400" />
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3 flex items-center">
+                          <Award className="w-5 h-5 mr-2 text-finance-teal" />
                           Achievements
                         </h4>
                         <div className="space-y-2">
@@ -612,9 +612,9 @@ export default function ModernLuminariesSection() {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.9 + index * 0.1 }}
-                                className="flex items-center space-x-2 text-white/80 text-sm"
+                                className="flex items-center space-x-2 text-finance-navy/80 text-sm"
                               >
-                                <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
+                                <div className="w-1.5 h-1.5 bg-finance-teal rounded-full" />
                                 <span>{achievement}</span>
                               </motion.div>
                             ),
@@ -627,8 +627,8 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                          <Brain className="w-5 h-5 mr-2 text-blue-400" />
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3 flex items-center">
+                          <Brain className="w-5 h-5 mr-2 text-finance-teal" />
                           Expertise
                         </h4>
                         <div className="flex flex-wrap gap-2">
@@ -642,7 +642,7 @@ export default function ModernLuminariesSection() {
                                 type: "spring",
                                 bounce: 0.4,
                               }}
-                              className="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-full text-white/90 backdrop-blur-sm"
+                              className="px-3 py-1 text-xs bg-finance-teal/10 border border-finance-teal/20 rounded-lg text-finance-navy/90"
                             >
                               {skill}
                             </motion.span>
