@@ -520,7 +520,7 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="text-3xl font-bold text-white mb-2"
+                        className="text-3xl font-bold text-finance-navy mb-2"
                       >
                         {selectedMember.name}
                       </motion.h3>
@@ -528,7 +528,7 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="text-xl text-white/80 mb-4"
+                        className="text-xl text-finance-navy/80 mb-4"
                       >
                         {selectedMember.title}
                       </motion.p>
@@ -542,7 +542,7 @@ export default function ModernLuminariesSection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-white border border-white/30 hover:bg-white/20"
+                          className="text-finance-teal border border-finance-teal/30 hover:bg-finance-teal/10"
                         >
                           <Mail className="w-4 h-4 mr-2" />
                           Contact
@@ -551,7 +551,7 @@ export default function ModernLuminariesSection() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="text-white border border-white/30 hover:bg-white/20"
+                            className="text-finance-teal border border-finance-teal/30 hover:bg-finance-teal/10"
                           >
                             <Linkedin className="w-4 h-4 mr-2" />
                             LinkedIn
@@ -572,10 +572,10 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3">
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3">
                           About
                         </h4>
-                        <p className="text-white/80 leading-relaxed">
+                        <p className="text-finance-navy/80 leading-relaxed">
                           {selectedMember.bio}
                         </p>
                       </motion.div>
@@ -584,10 +584,10 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 }}
-                        className="relative p-4 rounded-xl bg-white/5 border border-white/10"
+                        className="relative p-4 rounded-xl bg-finance-teal/5 border border-finance-teal/10"
                       >
-                        <div className="text-4xl text-white/20 mb-2">"</div>
-                        <p className="text-white/90 italic text-sm">
+                        <div className="text-4xl text-finance-teal/20 mb-2">"</div>
+                        <p className="text-finance-navy/90 italic text-sm">
                           {selectedMember.quote}
                         </p>
                       </motion.div>
