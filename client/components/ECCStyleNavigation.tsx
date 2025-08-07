@@ -28,6 +28,7 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
   const navRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const { scrollToElement } = useSmoothScroll();
+  const { toggleOpen } = useMarketDashboard();
 
   // Single-page navigation structure (anchor-based scrolling)
   const navItems = [
