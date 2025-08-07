@@ -110,13 +110,17 @@ export default function SponsorsSection() {
                     className="w-full h-full object-contain rounded-lg"
                     onError={(e) => {
                       // Fallback to gradient if image fails to load
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling?.classList.remove(
+                        "hidden",
+                      );
                     }}
                   />
                 ) : null}
                 {/* Fallback gradient background */}
-                <div className={`w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10 ${sponsor.logo ? 'hidden' : ''}`}></div>
+                <div
+                  className={`w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10 ${sponsor.logo ? "hidden" : ""}`}
+                ></div>
               </motion.div>
               <h3 className="text-lg font-bold text-finance-teal mb-2 leading-tight">
                 {sponsor.name}
@@ -153,7 +157,8 @@ export default function SponsorsSection() {
             <motion.div
               className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
               style={{
-                background: "linear-gradient(135deg, rgba(0, 212, 204, 0.1), rgba(0, 212, 204, 0.05))",
+                background:
+                  "linear-gradient(135deg, rgba(0, 212, 204, 0.1), rgba(0, 212, 204, 0.05))",
                 filter: "blur(15px)",
                 boxShadow: "0 0 20px rgba(0, 212, 204, 0.2)",
               }}
@@ -182,8 +187,7 @@ export default function SponsorsSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
-            OUR STRATEGIC{" "}
-            <span className="text-finance-teal">PARTNERS</span>
+            OUR STRATEGIC <span className="text-finance-teal">PARTNERS</span>
           </h2>
           <div className="w-32 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
