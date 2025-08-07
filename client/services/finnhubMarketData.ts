@@ -497,8 +497,8 @@ class FinnhubMarketDataService {
   }
 
   // Fallback mode tracking with immediate initialization
-  private fallbackMode = false; // Start with server API, fallback if needed
-  private apiFailureCount = 0;
+  private fallbackMode = true; // Start in fallback mode to prevent fetch errors
+  private apiFailureCount = 999; // Force fallback mode from start
   private isInitialized = false;
   private initializationAttempted = false;
   private subscribers: ((data: {
