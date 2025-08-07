@@ -293,8 +293,8 @@ export default function ModernLuminariesSection() {
             onClick={() => setSelectedMember(member)}
             style={{
               background: member.isLeadership
-                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
-                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
+                ? "linear-gradient(135deg, #0B1426 0%, #1A2B42 40%, #00D4CC 100%)"
+                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #1E3A5F 100%)",
             }}
             whileHover={{
               scale: 1.02,
@@ -455,30 +455,15 @@ export default function ModernLuminariesSection() {
       className="relative min-h-screen py-20 overflow-hidden"
       style={{
         background:
-          "linear-gradient(135deg, #0B1426 0%, #1A2B42 25%, #2A3B52 50%, #1A2B42 75%, #0B1426 100%)",
+          "linear-gradient(135deg, #0B1426 0%, #1A2B42 30%, #1E3A5F 50%, #1A2B42 70%, #0B1426 100%)",
       }}
     >
-      {/* Background Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-finance-gold/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
+      {/* Professional Grid Pattern */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }} />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -490,17 +475,10 @@ export default function ModernLuminariesSection() {
           transition={{ duration: 0.8 }}
         >
           <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6"
-            style={{
-              background:
-                "linear-gradient(135deg, #FFD700 0%, #00D4CC 50%, #FFD700 100%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              textShadow: "0 0 30px rgba(255, 215, 0, 0.5)",
-            }}
+            className="text-5xl md:text-7xl font-bold mb-6 text-white"
           >
-            Meet Our Luminaries
+            Meet Our{" "}
+            <span className="text-finance-teal">Luminaries</span>
           </motion.h2>
           <motion.div
             className="w-32 h-1 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent mx-auto mb-6"
