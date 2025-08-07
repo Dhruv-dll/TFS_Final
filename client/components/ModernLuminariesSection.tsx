@@ -437,14 +437,15 @@ export default function ModernLuminariesSection() {
             <motion.div
               className="absolute top-1 bottom-1 bg-finance-teal rounded-lg shadow-md"
               animate={{
-                x: activeGroup === "faculty" ? "4px" : "calc(50% - 2px)",
-                width: "calc(50% - 4px)",
+                width: sliderStyle.width,
+                left: sliderStyle.left,
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
 
             <div className="relative flex space-x-1">
               <Button
+                ref={facultyButtonRef}
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("faculty")}
@@ -459,6 +460,7 @@ export default function ModernLuminariesSection() {
               </Button>
 
               <Button
+                ref={leadershipButtonRef}
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("leadership")}
