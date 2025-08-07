@@ -135,10 +135,10 @@ export default function ContactSection() {
                     <h4 className="text-lg font-semibold text-finance-teal mb-1">
                       {info.title}
                     </h4>
-                    <p className="text-finance-navy font-medium">
+                    <p className="text-white/90 font-medium">
                       {info.details}
                     </p>
-                    <p className="text-finance-navy/60 text-sm">
+                    <p className="text-white/70 text-sm">
                       {info.subDetails}
                     </p>
                   </div>
@@ -161,7 +161,7 @@ export default function ContactSection() {
                   <motion.a
                     key={social.label}
                     href={social.href}
-                    className="w-12 h-12 bg-white/95 rounded-lg flex items-center justify-center border border-finance-teal/20 transition-all duration-300 text-finance-teal hover:border-finance-teal/60 hover:scale-110 shadow-lg"
+                    className="w-12 h-12 bg-finance-navy-light/95 rounded-lg flex items-center justify-center border border-finance-teal/30 transition-all duration-300 text-finance-teal hover:border-finance-teal/60 hover:scale-110 shadow-lg"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -177,7 +177,7 @@ export default function ContactSection() {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-white/95 rounded-xl p-8 border border-finance-teal/20 shadow-lg"
+            className="bg-finance-navy-light/95 rounded-xl p-8 border border-finance-teal/30 shadow-lg"
           >
             <h3 className="text-2xl font-bold text-finance-teal mb-6">
               Send us a Message
