@@ -126,7 +126,7 @@ export default function ContactSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className="flex items-start space-x-4 p-6 bg-white/95 rounded-xl border border-finance-teal/20 hover:border-finance-teal/40 transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="flex items-start space-x-4 p-6 bg-finance-navy-light/95 rounded-xl border border-finance-teal/30 hover:border-finance-teal/50 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   <div className="w-12 h-12 bg-finance-teal rounded-lg flex items-center justify-center flex-shrink-0">
                     <info.icon className="w-6 h-6 text-white" />
