@@ -484,23 +484,16 @@ export default function ModernLuminariesSection() {
               className="max-w-4xl w-full max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
-                style={{
-                  background: selectedMember.isLeadership
-                    ? "linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(124, 58, 237, 0.95) 50%, rgba(251, 191, 36, 0.95) 100%)"
-                    : "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 50%, rgba(14, 165, 233, 0.95) 100%)",
-                }}
-              >
+              <div className="relative bg-white rounded-2xl border border-finance-teal/20 shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="relative p-8 pb-6">
                   <motion.button
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setSelectedMember(null)}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                    className="absolute top-6 right-6 p-2 rounded-full bg-finance-teal/10 hover:bg-finance-teal/20 transition-colors border border-finance-teal/20"
                   >
-                    <X className="w-6 h-6 text-white" />
+                    <X className="w-6 h-6 text-finance-teal" />
                   </motion.button>
 
                   <div className="flex items-start space-x-6">
@@ -510,12 +503,12 @@ export default function ModernLuminariesSection() {
                       transition={{ delay: 0.2, type: "spring", bounce: 0.4 }}
                       className="relative"
                     >
-                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                        <Users className="w-12 h-12 text-white/80" />
+                      <div className="w-24 h-24 rounded-2xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
+                        <Users className="w-12 h-12 text-finance-teal" />
                       </div>
                       {selectedMember.isLeadership && (
                         <div className="absolute -top-2 -right-2">
-                          <Badge className="bg-gradient-to-r from-purple-500 to-amber-500 text-black font-bold">
+                          <Badge className="bg-finance-teal text-white font-bold">
                             <Crown className="w-3 h-3" />
                           </Badge>
                         </div>
