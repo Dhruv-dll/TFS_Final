@@ -18,7 +18,7 @@ const sponsors: Sponsor[] = [
   {
     id: "citizen-cooperative-bank",
     name: "Citizen Cooperative Bank",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2Fec784fa823e24e5b9b1285f4ba0a99fb",
     industry: "Banking",
     description:
       "Cooperative banking institution dedicated to financial inclusion and community development.",
@@ -28,7 +28,7 @@ const sponsors: Sponsor[] = [
   {
     id: "saint-gobain",
     name: "Saint Gobain (through Mahantesh Associates)",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F5b52ce39d6834f09a442954d4ab0e362",
     industry: "Manufacturing",
     description:
       "Global leader in sustainable construction materials, partnering through Mahantesh Associates to enhance industry exposure.",
@@ -38,7 +38,7 @@ const sponsors: Sponsor[] = [
   {
     id: "zest-global-education",
     name: "Zest Global Education",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F8d448a7548c345c0b5060392a99881c7",
     industry: "Education",
     description:
       "International education consultancy providing global opportunities and career guidance to students.",
@@ -48,7 +48,7 @@ const sponsors: Sponsor[] = [
   {
     id: "iqas",
     name: "IQAS",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F6d57193e366e4d44b95dae677d4162dc",
     industry: "Quality Assurance",
     description:
       "Quality assurance and certification services provider supporting academic excellence standards.",
@@ -99,12 +99,24 @@ export default function SponsorsSection() {
             {/* Logo Section */}
             <div className="text-center flex-1 flex flex-col justify-center">
               <motion.div
-                className="w-24 h-16 mx-auto mb-4 bg-white/5 rounded-lg flex items-center justify-center border border-finance-gold/10"
+                className="w-24 h-16 mx-auto mb-4 bg-white/5 rounded-lg flex items-center justify-center border border-finance-gold/10 p-2"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Empty space for logo */}
-                <div className="w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10"></div>
+                {sponsor.logo ? (
+                  <img
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} logo`}
+                    className="w-full h-full object-contain rounded-lg"
+                    onError={(e) => {
+                      // Fallback to gradient if image fails to load
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                ) : null}
+                {/* Fallback gradient background */}
+                <div className={`w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10 ${sponsor.logo ? 'hidden' : ''}`}></div>
               </motion.div>
               <h3 className="text-lg font-bold text-finance-teal mb-2 leading-tight">
                 {sponsor.name}
