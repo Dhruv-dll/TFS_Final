@@ -377,7 +377,6 @@ export default function Index() {
           {!showLoader && (
             <>
               <ECCStyleNavigation scrolled={scrolled} />
-              <ScrollProgressIndicator />
               <NetworkStatusIndicator isOnline={isOnline} />
               <FloatingMarketIcon />
 
