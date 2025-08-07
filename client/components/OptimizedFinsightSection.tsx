@@ -93,27 +93,20 @@ export default function OptimizedFinsightSection() {
         transition={{ duration: 0.2 }}
       >
         <motion.div
-          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl`}
-          style={{
-            background:
-              "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)",
-          }}
+          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl bg-white border border-finance-teal/20`}
           animate={{
             boxShadow: isHovered
-              ? "0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.2)"
-              : "0 10px 25px rgba(0, 0, 0, 0.2)",
+              ? "0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 212, 204, 0.3)"
+              : "0 10px 25px rgba(0, 0, 0, 0.1)",
           }}
           transition={{ duration: 0.3 }}
         >
-          {/* Simple Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
+          {/* Subtle Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
             <div
               className="w-full h-full"
               style={{
-                backgroundImage: `
-                  linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%),
-                  linear-gradient(-45deg, transparent 25%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 50%, transparent 50%)
-                `,
+                backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
                 backgroundSize: "20px 20px",
               }}
             />
@@ -124,31 +117,31 @@ export default function OptimizedFinsightSection() {
             {/* Header */}
             <div className="text-center mb-4">
               <motion.h3
-                className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-finance-teal to-finance-cyan mb-2"
+                className="text-2xl font-bold text-finance-teal mb-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 FINSIGHT
               </motion.h3>
-              <Badge className="bg-gradient-to-r from-finance-teal to-finance-cyan text-black font-bold">
+              <Badge className="bg-finance-teal text-white font-bold">
                 {magazine.edition}
               </Badge>
             </div>
 
             {/* Featured Article */}
             <div className="flex-1 flex flex-col justify-center space-y-4">
-              <h4 className="text-lg font-bold text-white text-center leading-tight">
+              <h4 className="text-lg font-bold text-finance-navy text-center leading-tight">
                 {magazine.title}
               </h4>
 
               {/* Simple Visual Element */}
-              <div className="relative h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl border border-white/10 flex items-center justify-center">
-                <TrendingUp className="w-12 h-12 text-blue-400/60" />
+              <div className="relative h-24 bg-finance-teal/10 rounded-xl border border-finance-teal/20 flex items-center justify-center">
+                <TrendingUp className="w-12 h-12 text-finance-teal" />
               </div>
 
               {/* Stats */}
-              <div className="flex justify-between text-xs text-white/70">
+              <div className="flex justify-between text-xs text-finance-navy/70">
                 <span>{magazine.articles} Articles</span>
                 <span>{magazine.readTime} Read</span>
                 <span>{magazine.downloads} Downloads</span>
@@ -160,7 +153,7 @@ export default function OptimizedFinsightSection() {
               {magazine.categories.slice(0, 3).map((category) => (
                 <span
                   key={category}
-                  className="text-xs bg-white/10 px-2 py-1 rounded-full text-white/80"
+                  className="text-xs bg-finance-teal/10 border border-finance-teal/20 px-2 py-1 rounded-full text-finance-navy/80"
                 >
                   {category}
                 </span>
