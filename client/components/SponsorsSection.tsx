@@ -156,7 +156,10 @@ export default function SponsorsSection() {
     <section
       ref={sectionRef}
       id="sponsors"
-      className="relative py-20 overflow-hidden bg-gradient-to-br from-finance-navy via-finance-navy-light to-finance-navy"
+      style={{
+        backgroundColor: "#12333E", // Solid dark teal background
+      }}
+      className="relative py-20 overflow-hidden"
     >
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}

@@ -454,8 +454,7 @@ export default function ModernLuminariesSection() {
       ref={sectionRef}
       className="relative min-h-screen py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #0B1426 0%, #1A2B42 30%, #1E3A5F 50%, #1A2B42 70%, #0B1426 100%)",
+        backgroundColor: "#112240", // Solid dark blue background
       }}
     >
       {/* Professional Grid Pattern */}
