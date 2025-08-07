@@ -220,7 +220,6 @@ class FinnhubMarketDataService {
                 headers: {
                   Accept: "application/json",
                   "Cache-Control": "no-cache",
-                  "Content-Type": "application/json",
                 },
                 signal: controller.signal,
               })
@@ -231,8 +230,10 @@ class FinnhubMarketDataService {
                   } catch (responseError) {
                     console.warn(
                       "📊 Error processing response, using fallback",
+                      responseError?.message || "Unknown response error",
                     );
                     this.fallbackMode = true;
+                    this.apiFailureCount = 999;
                     resolve(
                       new Response(JSON.stringify({ fallback: true }), {
                         status: 200,
@@ -246,7 +247,7 @@ class FinnhubMarketDataService {
                     clearTimeout(timeoutId);
                     console.warn(
                       "📊 Network fetch failed, switching to fallback mode:",
-                      error?.message || "Unknown error",
+                      error?.message || "Unknown fetch error",
                     );
 
                     // Immediately switch to fallback mode for any fetch error
