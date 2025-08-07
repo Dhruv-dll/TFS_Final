@@ -247,7 +247,10 @@ export default function ModernLuminariesSection() {
   const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
 
   const updateSliderPosition = () => {
-    const activeButton = activeGroup === "faculty" ? facultyButtonRef.current : leadershipButtonRef.current;
+    const activeButton =
+      activeGroup === "faculty"
+        ? facultyButtonRef.current
+        : leadershipButtonRef.current;
     if (activeButton) {
       setSliderStyle({
         width: activeButton.offsetWidth,
