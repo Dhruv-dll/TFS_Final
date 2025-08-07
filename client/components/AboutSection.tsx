@@ -116,22 +116,15 @@ export default function AboutSection() {
                 }
                 className="relative group"
               >
-                <div
-                  className={`bg-gradient-to-br ${stat.gradient} p-6 rounded-xl text-center transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl`}
-                >
-                  <stat.icon className="w-8 h-8 mx-auto mb-3 text-white drop-shadow-lg" />
-                  <div className="text-3xl font-bold text-white mb-1">
+                <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/40 shadow-lg hover:shadow-xl">
+                  <stat.icon className="w-8 h-8 mx-auto mb-3 text-finance-teal" />
+                  <div className="text-3xl font-bold text-finance-navy mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-white/90 text-sm font-medium">
+                  <div className="text-finance-navy/80 text-sm font-medium">
                     {stat.label}
                   </div>
                 </div>
-
-                {/* Glow effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} rounded-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10 blur-xl`}
-                />
               </motion.div>
             ))}
           </motion.div>
