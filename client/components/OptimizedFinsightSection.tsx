@@ -131,7 +131,7 @@ export default function OptimizedFinsightSection() {
 
             {/* Featured Article */}
             <div className="flex-1 flex flex-col justify-center space-y-4">
-              <h4 className="text-lg font-bold text-finance-navy text-center leading-tight">
+              <h4 className="text-lg font-bold text-white text-center leading-tight">
                 {magazine.title}
               </h4>
 
@@ -141,7 +141,7 @@ export default function OptimizedFinsightSection() {
               </div>
 
               {/* Stats */}
-              <div className="flex justify-between text-xs text-finance-navy/70">
+              <div className="flex justify-between text-xs text-white/70">
                 <span>{magazine.articles} Articles</span>
                 <span>{magazine.readTime} Read</span>
                 <span>{magazine.downloads} Downloads</span>
@@ -153,7 +153,7 @@ export default function OptimizedFinsightSection() {
               {magazine.categories.slice(0, 3).map((category) => (
                 <span
                   key={category}
-                  className="text-xs bg-finance-teal/10 border border-finance-teal/20 px-2 py-1 rounded-full text-finance-navy/80"
+                  className="text-xs bg-finance-teal/20 border border-finance-teal/30 px-2 py-1 rounded-full text-white/80"
                 >
                   {category}
                 </span>
