@@ -77,8 +77,8 @@ export default function ContactSection() {
           </h2>
           <div className="w-24 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
-            Ready to join our financial community? TFS is proudly organized by the
-            Department of Accounting and Finance.
+            Ready to join our financial community? TFS is proudly organized by
+            the Department of Accounting and Finance.
           </p>
         </motion.div>
 
@@ -173,8 +173,12 @@ export default function ContactSection() {
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-finance-teal flex-shrink-0" />
                 <div>
-                  <p className="text-white/90 font-medium">St. Xavier's College, Mumbai</p>
-                  <p className="text-white/70 text-sm">5, Mahapalika Marg, Mumbai 400001</p>
+                  <p className="text-white/90 font-medium">
+                    St. Xavier's College, Mumbai
+                  </p>
+                  <p className="text-white/70 text-sm">
+                    5, Mahapalika Marg, Mumbai 400001
+                  </p>
                 </div>
               </div>
             </div>
