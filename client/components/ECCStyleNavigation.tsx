@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 import {
@@ -13,7 +13,6 @@ import {
   Building2,
   Users,
   Mail,
-  Clock,
 } from "lucide-react";
 
 interface ECCStyleNavigationProps {
@@ -28,39 +27,33 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
   const location = useLocation();
   const { scrollToElement } = useSmoothScroll();
 
-  // ECC Points inspired navigation structure
+  // Single-page navigation structure (anchor-based scrolling)
   const navItems = [
     {
       name: "HOME",
-      href: "/",
+      href: "#home",
       icon: Home,
     },
     {
       name: "ABOUT",
-      href: "/about",
+      href: "#about",
       icon: Info,
       dropdown: [
-        { name: "About TFS", href: "/about", icon: "📊" },
-        { name: "About BAF", href: "/about-baf", icon: "🎓" },
-        { name: "Mission & Vision", href: "/mission", icon: "🎯" },
+        { name: "About TFS", href: "#about", icon: "📊" },
+        { name: "About BAF", href: "#about-baf", icon: "🎓" },
+        { name: "Meet Our Luminaries", href: "#luminaries", icon: "⭐" },
       ],
-    },
-    {
-      name: "TFS HOURS",
-      href: "#insights",
-      icon: Clock,
     },
     {
       name: "EVENTS",
       href: "#events",
       icon: Calendar,
       dropdown: [
-        { name: "Saturday Sessions", href: "/events/saturday-sessions", icon: "📚" },
-        { name: "Networking Events", href: "/events/networking", icon: "🤝" },
-        { name: "Flagship Conclave", href: "/events/conclave", icon: "🏆" },
+        { name: "Saturday Sessions", href: "#events", icon: "📚" },
+        { name: "Networking Events", href: "#events", icon: "🤝" },
+        { name: "Flagship Conclave", href: "#events", icon: "🏆" },
         { type: "separator" },
-        { name: "Upcoming Events", href: "/events/upcoming", icon: "📅" },
-        { name: "Past Events", href: "/events/past", icon: "📖" },
+        { name: "Upcoming Events", href: "#events", icon: "📅" },
       ],
     },
     {
@@ -73,24 +66,45 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
       href: "#sponsors",
       icon: Building2,
       dropdown: [
-        { name: "Past Sponsors", href: "/sponsors/past", icon: "🏛️" },
-        { name: "Present Sponsors", href: "/sponsors/present", icon: "🤝" },
-        { name: "Become a Sponsor", href: "/sponsors/join", icon: "💼" },
+        { name: "Our Partners", href: "#sponsors", icon: "🤝" },
+        { name: "Become a Sponsor", href: "#contact", icon: "💼" },
       ],
     },
     {
       name: "CONTACT",
-      href: "/contact",
+      href: "#contact",
       icon: Mail,
     },
   ];
+
+  // Get current active section based on scroll position
+  const getCurrentSection = () => {
+    const sections = ['home', 'about', 'about-baf', 'luminaries', 'events', 'insights', 'sponsors', 'contact'];
+
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          return `#${section}`;
+        }
+      }
+    }
+
+    // Default to home if at top
+    if (window.scrollY < 100) {
+      return '#home';
+    }
+
+    return null;
+  };
 
   // Calculate highlight bar position and width
   const updateHighlight = (element: HTMLElement | null) => {
     if (element && navRef.current) {
       const navRect = navRef.current.getBoundingClientRect();
       const itemRect = element.getBoundingClientRect();
-      
+
       setHighlightStyle({
         width: itemRect.width,
         left: itemRect.left - navRect.left,
@@ -105,13 +119,9 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
 
   // Handle mouse leave to reset highlight
   const handleMouseLeave = () => {
-    // Find active menu item based on current route
-    const activeItem = navItems.find(item => {
-      if (item.href === '/' && location.pathname === '/') return true;
-      if (item.href !== '/' && location.pathname.startsWith(item.href)) return true;
-      if (item.href.startsWith('#') && location.hash === item.href) return true;
-      return false;
-    });
+    // Find active menu item based on current scroll position
+    const currentSection = getCurrentSection();
+    const activeItem = navItems.find(item => item.href === currentSection);
 
     if (activeItem) {
       const activeElement = navRef.current?.querySelector(`[data-nav-item="${activeItem.name}"]`) as HTMLElement;
@@ -121,13 +131,23 @@ export default function ECCStyleNavigation({ scrolled }: ECCStyleNavigationProps
     }
   };
 
-  // Initialize highlight on mount and route change
+  // Initialize highlight and handle scroll-based highlighting
   useEffect(() => {
+    const handleScroll = () => {
+      handleMouseLeave(); // Update highlight based on current section
+    };
+
     const timer = setTimeout(() => {
       handleMouseLeave();
     }, 100);
-    return () => clearTimeout(timer);
-  }, [location]);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Handle dropdown toggles
   const handleDropdownToggle = (itemName: string, event: React.MouseEvent) => {
