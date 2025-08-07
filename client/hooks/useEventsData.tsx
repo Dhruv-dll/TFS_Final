@@ -90,7 +90,31 @@ export function useEventsData() {
   // Load events data with server sync
   const loadEventsFromServer = async () => {
     try {
-      const response = await fetch("/api/events");
+      // Add timeout and error handling wrapper
+      const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+          controller.abort();
+          reject(new Error("Request timeout"));
+        }, 8000);
+
+        fetch("/api/events", {
+          signal: controller.signal,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((response) => {
+            clearTimeout(timeoutId);
+            resolve(response);
+          })
+          .catch((error) => {
+            clearTimeout(timeoutId);
+            reject(error);
+          });
+      });
+
+      const response = await fetchWithTimeout;
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.data) {
@@ -106,7 +130,8 @@ export function useEventsData() {
       throw new Error("Server request failed");
     } catch (error) {
       console.warn(
-        "Failed to load events from server, using local/default data",
+        "Failed to load events from server, using local/default data:",
+        error?.message || "Unknown error",
       );
       return false;
     }
@@ -120,9 +145,31 @@ export function useEventsData() {
         ? JSON.parse(localConfig).lastModified || 0
         : 0;
 
-      const response = await fetch(
-        `/api/events/sync?lastModified=${localLastModified}`,
-      );
+      // Add timeout and comprehensive error handling
+      const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+          controller.abort();
+          reject(new Error("Sync check timeout"));
+        }, 5000); // Shorter timeout for sync checks
+
+        fetch(`/api/events/sync?lastModified=${localLastModified}`, {
+          signal: controller.signal,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((response) => {
+            clearTimeout(timeoutId);
+            resolve(response);
+          })
+          .catch((error) => {
+            clearTimeout(timeoutId);
+            reject(error);
+          });
+      });
+
+      const response = await fetchWithTimeout;
       if (response.ok) {
         const result = await response.json();
         if (result.success && result.needsUpdate) {
@@ -131,7 +178,11 @@ export function useEventsData() {
         }
       }
     } catch (error) {
-      console.warn("Failed to check server sync:", error);
+      // Silently handle sync errors - don't log to avoid spam
+      // Only log if it's not a common network error
+      if (error?.message && !error.message.includes('fetch') && !error.message.includes('timeout')) {
+        console.warn("Failed to check server sync:", error?.message || "Unknown error");
+      }
     }
   };
 
@@ -275,19 +326,42 @@ export function useEventsData() {
       setEventsConfig(newConfig);
       localStorage.setItem("tfs-events-config", JSON.stringify(newConfig));
 
-      // Sync with server
-      const response = await fetch("/api/events", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: newConfig }),
-      });
+      // Sync with server with proper error handling
+      try {
+        const fetchWithTimeout = new Promise<Response>((resolve, reject) => {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => {
+            controller.abort();
+            reject(new Error("Save request timeout"));
+          }, 10000);
 
-      if (response.ok) {
-        console.log("Events data synced with server successfully");
-      } else {
-        console.warn("Failed to sync events data with server");
+          fetch("/api/events", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ data: newConfig }),
+            signal: controller.signal,
+          })
+            .then((response) => {
+              clearTimeout(timeoutId);
+              resolve(response);
+            })
+            .catch((error) => {
+              clearTimeout(timeoutId);
+              reject(error);
+            });
+        });
+
+        const response = await fetchWithTimeout;
+        if (response.ok) {
+          console.log("Events data synced with server successfully");
+        } else {
+          console.warn("Failed to sync events data with server - response not ok");
+        }
+      } catch (syncError) {
+        console.warn("Failed to sync events data with server:", syncError?.message || "Unknown sync error");
       }
 
       // Dispatch custom event to notify other components
