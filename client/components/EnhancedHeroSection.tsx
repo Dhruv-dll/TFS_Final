@@ -751,10 +751,10 @@ export default function EnhancedHeroSection() {
               Bridging Present & Future of Finance
             </p>
             <p className="relative text-lg md:text-xl text-finance-gold mb-1">
-              A BAF Initiative | St. Xavier's College Mumbai
+              An Initiative by Department of Accounting and Finance
             </p>
             <p className="relative text-sm md:text-base text-finance-teal/80">
-              Bachelor of Accounting & Finance Programme
+              St. Xavier's College Mumbai
             </p>
           </motion.div>
 
