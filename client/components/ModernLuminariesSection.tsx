@@ -286,12 +286,12 @@ export default function ModernLuminariesSection() {
         >
           {/* Main Professional Card */}
           <motion.div
-            className="relative h-full bg-white border border-finance-teal/20 rounded-xl overflow-hidden cursor-pointer shadow-lg"
+            className="relative h-full bg-finance-navy-light border border-finance-teal/30 rounded-xl overflow-hidden cursor-pointer shadow-lg"
             onClick={() => setSelectedMember(member)}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 212, 204, 0.3)",
-              borderColor: "rgba(0, 212, 204, 0.4)",
+              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 212, 204, 0.4)",
+              borderColor: "rgba(0, 212, 204, 0.6)",
             }}
             transition={{ duration: 0.3 }}
           >
@@ -319,11 +319,11 @@ export default function ModernLuminariesSection() {
 
               {/* Professional Member Info */}
               <div className="text-center space-y-4">
-                <h3 className="text-lg sm:text-xl font-bold text-finance-navy">
+                <h3 className="text-lg sm:text-xl font-bold text-white">
                   {member.name}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-finance-navy/80 font-medium leading-relaxed px-2">
+                <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed px-2">
                   {member.title}
                 </p>
 
@@ -332,7 +332,7 @@ export default function ModernLuminariesSection() {
                   {member.expertise.slice(0, 2).map((skill, i) => (
                     <span
                       key={skill}
-                      className="text-xs bg-finance-teal/10 text-finance-teal border border-finance-teal/20 px-3 py-1 rounded-lg font-medium"
+                      className="text-xs bg-finance-teal/20 text-finance-teal border border-finance-teal/30 px-3 py-1 rounded-lg font-medium"
                     >
                       {skill}
                     </span>
@@ -408,9 +408,9 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <div className="bg-white/95 rounded-xl p-1 border border-finance-teal/20 shadow-lg">
+          <div className="relative bg-white/95 rounded-xl p-1 border border-finance-teal/20 shadow-lg">
             <motion.div
-              className="absolute inset-y-1 bg-finance-teal rounded-lg"
+              className="absolute top-1 bottom-1 bg-finance-teal rounded-lg"
               animate={{
                 x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
                 width: "calc(50% - 4px)",
@@ -484,7 +484,7 @@ export default function ModernLuminariesSection() {
               className="max-w-4xl w-full max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative bg-white rounded-2xl border border-finance-teal/20 shadow-2xl overflow-hidden">
+              <div className="relative bg-finance-navy-light border border-finance-teal/30 rounded-2xl shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="relative p-8 pb-6">
                   <motion.button
@@ -503,7 +503,7 @@ export default function ModernLuminariesSection() {
                       transition={{ delay: 0.2, type: "spring", bounce: 0.4 }}
                       className="relative"
                     >
-                      <div className="w-24 h-24 rounded-2xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
+                      <div className="w-24 h-24 rounded-2xl bg-finance-teal/20 border border-finance-teal/30 flex items-center justify-center">
                         <Users className="w-12 h-12 text-finance-teal" />
                       </div>
                       {selectedMember.isLeadership && (
@@ -520,7 +520,7 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
-                        className="text-3xl font-bold text-finance-navy mb-2"
+                        className="text-3xl font-bold text-white mb-2"
                       >
                         {selectedMember.name}
                       </motion.h3>
@@ -528,7 +528,7 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.4 }}
-                        className="text-xl text-finance-navy/80 mb-4"
+                        className="text-xl text-white/80 mb-4"
                       >
                         {selectedMember.title}
                       </motion.p>
@@ -575,7 +575,7 @@ export default function ModernLuminariesSection() {
                         <h4 className="text-lg font-semibold text-finance-teal mb-3">
                           About
                         </h4>
-                        <p className="text-finance-navy/80 leading-relaxed">
+                        <p className="text-white/80 leading-relaxed">
                           {selectedMember.bio}
                         </p>
                       </motion.div>
@@ -587,7 +587,7 @@ export default function ModernLuminariesSection() {
                         className="relative p-4 rounded-xl bg-finance-teal/5 border border-finance-teal/10"
                       >
                         <div className="text-4xl text-finance-teal/20 mb-2">"</div>
-                        <p className="text-finance-navy/90 italic text-sm">
+                        <p className="text-white/90 italic text-sm">
                           {selectedMember.quote}
                         </p>
                       </motion.div>
@@ -612,7 +612,7 @@ export default function ModernLuminariesSection() {
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.9 + index * 0.1 }}
-                                className="flex items-center space-x-2 text-finance-navy/80 text-sm"
+                                className="flex items-center space-x-2 text-white/80 text-sm"
                               >
                                 <div className="w-1.5 h-1.5 bg-finance-teal rounded-full" />
                                 <span>{achievement}</span>
@@ -642,7 +642,7 @@ export default function ModernLuminariesSection() {
                                 type: "spring",
                                 bounce: 0.4,
                               }}
-                              className="px-3 py-1 text-xs bg-finance-teal/10 border border-finance-teal/20 rounded-lg text-finance-navy/90"
+                              className="px-3 py-1 text-xs bg-finance-teal/20 border border-finance-teal/30 rounded-lg text-white/90"
                             >
                               {skill}
                             </motion.span>
