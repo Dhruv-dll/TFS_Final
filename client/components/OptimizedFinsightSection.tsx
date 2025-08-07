@@ -93,7 +93,7 @@ export default function OptimizedFinsightSection() {
         transition={{ duration: 0.2 }}
       >
         <motion.div
-          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl bg-white border border-finance-teal/20`}
+          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl bg-finance-navy-light border border-finance-teal/30`}
           animate={{
             boxShadow: isHovered
               ? "0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 212, 204, 0.3)"
