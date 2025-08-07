@@ -317,37 +317,33 @@ export default function ModernLuminariesSection() {
                 </div>
               </div>
 
-              {/* Member Info */}
-              <div className="text-center text-white space-y-3">
-                <h3
-                  className="text-lg sm:text-xl font-bold text-center"
-                  style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
-                >
+              {/* Professional Member Info */}
+              <div className="text-center space-y-4">
+                <h3 className="text-lg sm:text-xl font-bold text-finance-navy">
                   {member.name}
                 </h3>
 
-                <p className="text-xs sm:text-sm text-white/90 font-medium text-center">
+                <p className="text-xs sm:text-sm text-finance-navy/80 font-medium leading-relaxed px-2">
                   {member.title}
                 </p>
 
-                {/* Expertise Tags */}
-                <div className="flex flex-wrap gap-1 justify-center">
+                {/* Professional Expertise Tags */}
+                <div className="flex flex-wrap gap-2 justify-center px-2">
                   {member.expertise.slice(0, 2).map((skill, i) => (
                     <span
                       key={skill}
-                      className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm"
+                      className="text-xs bg-finance-teal/10 text-finance-teal border border-finance-teal/20 px-3 py-1 rounded-lg font-medium"
                     >
                       {skill}
                     </span>
                   ))}
                 </div>
 
-                {/* CTA */}
-                <div className="pt-2">
+                {/* Professional CTA Button */}
+                <div className="pt-4">
                   <Button
-                    variant="ghost"
                     size="sm"
-                    className="text-white border border-white/30 hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
+                    className="bg-finance-teal text-white hover:bg-finance-teal-dark transition-all duration-300 px-4 py-2"
                   >
                     <Brain className="w-4 h-4 mr-2" />
                     <span>Learn More</span>
