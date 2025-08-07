@@ -242,6 +242,9 @@ export default function ModernLuminariesSection() {
   );
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const facultyButtonRef = useRef<HTMLButtonElement>(null);
+  const leadershipButtonRef = useRef<HTMLButtonElement>(null);
+  const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
 
   useEffect(() => {
     const checkMobile = () => {
