@@ -141,15 +141,17 @@ class FinnhubMarketDataService {
           })
           .catch((error) => {
             clearTimeout(timeoutId);
-            console.warn("📊 Network fetch failed, switching to fallback mode:", error.message);
+            console.warn("📊 Network fetch failed, switching to fallback mode:", error?.message || "Unknown error");
 
             // Immediately switch to fallback mode for any fetch error
             this.fallbackMode = true;
             this.apiFailureCount = 999; // Force permanent fallback
 
-            // Don't reject, instead resolve with a special error response
-            // This prevents the promise chain from breaking
-            reject(new Error("FALLBACK_MODE"));
+            // Create a special response that indicates fallback mode
+            resolve(new Response(JSON.stringify({ fallback: true }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }));
           });
       });
 
