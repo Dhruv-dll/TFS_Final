@@ -96,12 +96,12 @@ export default function AboutBAFSection() {
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                 className="relative group"
               >
-                <div className="bg-white/95 border border-finance-teal/20 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/40 shadow-lg hover:shadow-xl">
+                <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/50 shadow-lg hover:shadow-xl">
                   <feature.icon className="w-8 h-8 mx-auto mb-3 text-finance-teal" />
-                  <div className="text-lg font-bold text-finance-navy mb-2">
+                  <div className="text-lg font-bold text-white mb-2">
                     {feature.title}
                   </div>
-                  <div className="text-finance-navy/80 text-xs leading-tight">
+                  <div className="text-white/80 text-xs leading-tight">
                     {feature.description}
                   </div>
                 </div>
