@@ -157,14 +157,23 @@ class FinnhubMarketDataService {
 
       const response = await fetchWithTimeout;
 
+      const data = await response.json();
+
+      // Check if this is a fallback response
+      if (data.fallback === true) {
+        console.log("📊 Received fallback indicator, using local fallback data");
+        this.fallbackMode = true;
+        return this.getFallbackMarketData();
+      }
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      const data = await response.json();
-
       if (!data.stocks || !Array.isArray(data.stocks)) {
-        throw new Error("Invalid response format from server");
+        console.warn("📊 Invalid response format, using fallback");
+        this.fallbackMode = true;
+        return this.getFallbackMarketData();
       }
 
       console.log(
