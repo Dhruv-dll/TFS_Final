@@ -766,36 +766,63 @@ class FinnhubMarketDataService {
 
   // Safe initialization method that prevents errors from propagating
   private async safeInitialUpdate(): Promise<void> {
-    if (this.initializationAttempted) {
-      return;
-    }
-
-    this.initializationAttempted = true;
-
     try {
-      await this.updateAllData();
-    } catch (error) {
-      console.warn("📊 Initial update failed, ensuring fallback data:", error?.message || "Unknown error");
+      if (this.initializationAttempted) {
+        return;
+      }
 
-      // Always ensure we have fallback data
-      if (!this.lastSuccessfulData) {
-        const fallbackData = this.getFallbackMarketData();
-        this.lastSuccessfulData = fallbackData;
+      this.initializationAttempted = true;
+
+      try {
+        await this.updateAllData();
+      } catch (error) {
+        console.warn("📊 Initial update failed, ensuring fallback data:", error?.message || "Unknown error");
+        this.fallbackMode = true;
+        this.apiFailureCount = 999;
+      }
+
+      // Always ensure we have fallback data regardless of what happened above
+      try {
+        if (!this.lastSuccessfulData) {
+          const fallbackData = this.getFallbackMarketData();
+          this.lastSuccessfulData = fallbackData;
+          this.isInitialized = true;
+          this.fallbackMode = true;
+
+          try {
+            this.subscribers.forEach((cb) => {
+              try {
+                cb(fallbackData);
+              } catch (cbError) {
+                console.warn("Error in safe fallback callback:", cbError?.message || "Unknown callback error");
+              }
+            });
+          } catch (notifyError) {
+            console.warn("Error notifying subscribers in safe init:", notifyError?.message || "Unknown notify error");
+          }
+        }
+      } catch (fallbackError) {
+        console.warn("Error ensuring fallback data:", fallbackError?.message || "Unknown fallback error");
+        // Final safety net - create minimal data
+        this.lastSuccessfulData = {
+          stocks: [],
+          sentiment: { sentiment: "neutral", advanceDeclineRatio: 0.5, positiveStocks: 0, totalStocks: 0 },
+          currencies: []
+        };
         this.isInitialized = true;
         this.fallbackMode = true;
-
-        try {
-          this.subscribers.forEach((cb) => {
-            try {
-              cb(fallbackData);
-            } catch (cbError) {
-              console.warn("Error in safe fallback callback:", cbError);
-            }
-          });
-        } catch (notifyError) {
-          console.warn("Error notifying subscribers in safe init:", notifyError);
-        }
       }
+    } catch (criticalError) {
+      console.warn("Critical error in safeInitialUpdate:", criticalError?.message || "Unknown critical error");
+      // Ultimate fallback
+      this.fallbackMode = true;
+      this.apiFailureCount = 999;
+      this.isInitialized = true;
+      this.lastSuccessfulData = {
+        stocks: [],
+        sentiment: { sentiment: "neutral", advanceDeclineRatio: 0.5, positiveStocks: 0, totalStocks: 0 },
+        currencies: []
+      };
     }
   }
 }
