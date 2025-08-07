@@ -215,6 +215,56 @@ export function useEventsData() {
     }));
   }, [eventsConfig.pastEvents]);
 
+  // Sort upcoming events chronologically (earliest first) - memoized for performance
+  const sortedUpcomingEvents = useMemo((): UpcomingEvent[] => {
+    return [...eventsConfig.upcomingEvents].sort((a, b) => {
+      // Parse dates for comparison
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      // If same date, sort by time
+      if (dateA.getTime() === dateB.getTime()) {
+        // Parse time strings (assuming format like "10:00 AM" or "14:30")
+        const timeA = parseTimeString(a.time);
+        const timeB = parseTimeString(b.time);
+        return timeA - timeB;
+      }
+
+      // Otherwise sort by date (earliest first)
+      return dateA.getTime() - dateB.getTime();
+    });
+  }, [eventsConfig.upcomingEvents]);
+
+  // Helper function to parse time strings into comparable numbers
+  const parseTimeString = (timeStr: string): number => {
+    try {
+      // Handle various time formats
+      const cleanTime = timeStr.toLowerCase().trim();
+
+      // Check for AM/PM format
+      if (cleanTime.includes('am') || cleanTime.includes('pm')) {
+        const [time, period] = cleanTime.split(/\s+/);
+        const [hours, minutes = '0'] = time.split(':').map(Number);
+
+        let hour24 = hours;
+        if (period.includes('pm') && hours !== 12) {
+          hour24 += 12;
+        } else if (period.includes('am') && hours === 12) {
+          hour24 = 0;
+        }
+
+        return hour24 * 60 + minutes;
+      }
+
+      // Handle 24-hour format
+      const [hours, minutes = '0'] = cleanTime.split(':').map(Number);
+      return hours * 60 + minutes;
+    } catch (error) {
+      console.warn(`Failed to parse time string: ${timeStr}`);
+      return 0;
+    }
+  };
+
   // Helper function to save config and sync with server
   const saveConfig = async (newConfig: EventsConfig) => {
     try {
@@ -288,6 +338,7 @@ export function useEventsData() {
   const addUpcomingEvent = async (event: UpcomingEvent) => {
     const newConfig = { ...eventsConfig };
     newConfig.upcomingEvents.push(event);
+    // No need to sort here - the memoized getter will handle sorting
 
     await saveConfig(newConfig);
   };
@@ -345,7 +396,7 @@ export function useEventsData() {
   return {
     loading,
     eventDetails,
-    upcomingEvents: eventsConfig.upcomingEvents,
+    upcomingEvents: sortedUpcomingEvents, // Return sorted events
     addSaturdaySession,
     addNetworkingEvent,
     addFlagshipEvent,
