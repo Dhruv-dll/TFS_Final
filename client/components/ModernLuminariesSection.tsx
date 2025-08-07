@@ -413,7 +413,7 @@ export default function ModernLuminariesSection() {
             <motion.div
               className="absolute top-1 bottom-1 bg-finance-teal rounded-lg shadow-md"
               animate={{
-                x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
+                x: activeGroup === "faculty" ? "4px" : "calc(50% - 2px)",
                 width: "calc(50% - 4px)",
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
