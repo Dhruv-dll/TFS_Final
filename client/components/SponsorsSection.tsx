@@ -106,17 +106,17 @@ export default function SponsorsSection() {
                 {/* Empty space for logo */}
                 <div className="w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10"></div>
               </motion.div>
-              <h3 className="text-lg font-bold text-finance-gold mb-2 leading-tight">
+              <h3 className="text-lg font-bold text-finance-teal mb-2 leading-tight">
                 {sponsor.name}
               </h3>
-              <p className="text-finance-electric text-sm mb-3">
+              <p className="text-finance-teal/80 text-sm mb-3">
                 {sponsor.industry}
               </p>
             </div>
 
             {/* Description - appears on hover */}
             <motion.div className="absolute inset-0 bg-finance-navy/95 backdrop-blur-sm p-6 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto rounded-xl">
-              <h4 className="text-lg font-bold text-finance-gold mb-3 text-center">
+              <h4 className="text-lg font-bold text-finance-teal mb-3 text-center">
                 {sponsor.name}
               </h4>
               <p className="text-sm text-foreground/80 mb-4 leading-relaxed text-center">
@@ -127,7 +127,7 @@ export default function SponsorsSection() {
                 <div className="text-center">
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-transform duration-200"
+                    className="bg-finance-teal text-finance-navy hover:bg-finance-teal-dark hover:scale-105 transition-all duration-200"
                     onClick={() => window.open(sponsor.website, "_blank")}
                   >
                     Visit Website
@@ -141,10 +141,9 @@ export default function SponsorsSection() {
             <motion.div
               className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
               style={{
-                background:
-                  "linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 255, 255, 0.1))",
-                filter: "blur(20px)",
-                boxShadow: "0 0 30px rgba(255, 215, 0, 0.3)",
+                background: "linear-gradient(135deg, rgba(0, 212, 204, 0.1), rgba(0, 212, 204, 0.05))",
+                filter: "blur(15px)",
+                boxShadow: "0 0 20px rgba(0, 212, 204, 0.2)",
               }}
             />
           </div>
@@ -167,10 +166,11 @@ export default function SponsorsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-finance-gold to-finance-electric bg-clip-text text-transparent">
-            OUR STRATEGIC PARTNERS
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            OUR STRATEGIC{" "}
+            <span className="text-finance-teal">PARTNERS</span>
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-finance-gold to-transparent mx-auto mb-6" />
+          <div className="w-32 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
             {activeTab === "current"
               ? "Building strong partnerships with industry leaders to enhance financial education and career opportunities."
@@ -190,8 +190,8 @@ export default function SponsorsSection() {
               onClick={() => setActiveTab("current")}
               className={`px-6 py-3 rounded-lg transition-all duration-300 font-medium ${
                 activeTab === "current"
-                  ? "bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy shadow-lg"
-                  : "text-finance-gold hover:bg-finance-gold/10"
+                  ? "bg-finance-teal text-finance-navy shadow-lg"
+                  : "text-finance-teal hover:bg-finance-teal/10"
               }`}
             >
               Current Sponsors
@@ -200,8 +200,8 @@ export default function SponsorsSection() {
               onClick={() => setActiveTab("past")}
               className={`px-6 py-3 rounded-lg transition-all duration-300 font-medium ${
                 activeTab === "past"
-                  ? "bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy shadow-lg"
-                  : "text-finance-gold hover:bg-finance-gold/10"
+                  ? "bg-finance-teal text-finance-navy shadow-lg"
+                  : "text-finance-teal hover:bg-finance-teal/10"
               }`}
             >
               Past Sponsors
