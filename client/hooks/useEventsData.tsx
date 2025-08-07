@@ -70,6 +70,33 @@ export function useEventsData() {
   const [eventsConfig, setEventsConfig] = useState<EventsConfig>(defaultConfig);
   const [loading, setLoading] = useState(true);
 
+  // Set up global error handler for events fetch failures
+  useEffect(() => {
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      if (event.reason?.message?.includes('Failed to fetch') ||
+          event.reason?.message?.includes('events') ||
+          event.reason?.message?.includes('sync')) {
+        console.warn('🔄 Events data fetch error handled gracefully:', event.reason?.message || 'Unknown error');
+        event.preventDefault(); // Prevent error from bubbling up
+      }
+    };
+
+    const handleError = (event: ErrorEvent) => {
+      if (event.message?.includes('events') || event.message?.includes('sync')) {
+        console.warn('🔄 Events script error handled gracefully');
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener('unhandledrejection', handleUnhandledRejection);
+    window.addEventListener('error', handleError);
+
+    return () => {
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
+      window.removeEventListener('error', handleError);
+    };
+  }, []);
+
   // Function to load events config from localStorage or fallback
   const loadEventsConfig = () => {
     const savedConfig = localStorage.getItem("tfs-events-config");
