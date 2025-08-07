@@ -1,17 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Mail,
   MapPin,
-  Send,
   MessageCircle,
   Instagram,
   Linkedin,
   ExternalLink,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 
 const contactInfo = [
   {
