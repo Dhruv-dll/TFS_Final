@@ -7,25 +7,21 @@ const stats = [
     icon: Users,
     value: "1000+",
     label: "Active Members",
-    gradient: "from-finance-gold to-orange-400",
   },
   {
     icon: TrendingUp,
     value: "50+",
     label: "Industry Partners",
-    gradient: "from-finance-electric to-blue-400",
   },
   {
     icon: Award,
     value: "25+",
     label: "Annual Events",
-    gradient: "from-finance-green to-emerald-400",
   },
   {
     icon: Target,
     value: "5+",
     label: "Years of Excellence",
-    gradient: "from-purple-500 to-finance-gold",
   },
 ];
 
@@ -47,8 +43,7 @@ export default function AboutSection() {
       id="about"
       className="relative py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+        backgroundColor: "#101E36", // Solid navy background
       }}
     >
       <div className="container mx-auto px-6 relative z-10">
@@ -59,10 +54,10 @@ export default function AboutSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={isMobile ? { duration: 0 } : { duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-finance-gold to-finance-electric bg-clip-text text-transparent">
-            About TFS
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            About <span className="text-finance-teal">TFS</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-finance-gold to-finance-electric mx-auto mb-6" />
+          <div className="w-24 h-1 bg-finance-teal mx-auto mb-6" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -74,12 +69,12 @@ export default function AboutSection() {
               isMobile ? { duration: 0 } : { duration: 0.8, delay: 0.2 }
             }
           >
-            <h3 className="text-3xl font-bold text-finance-gold mb-6">
+            <h3 className="text-3xl font-bold text-finance-teal mb-6">
               Bridging Theory and Practice in Finance
             </h3>
             <div className="space-y-6 text-foreground/80 leading-relaxed">
               <div>
-                <h4 className="text-xl font-semibold text-finance-electric mb-3">
+                <h4 className="text-xl font-semibold text-finance-teal mb-3">
                   Our Story
                 </h4>
                 <p className="text-lg">
