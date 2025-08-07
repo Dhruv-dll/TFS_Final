@@ -150,7 +150,7 @@ const leadershipMembers: TeamMember[] = [
     id: "aaradhy-mehra",
     name: "Aaradhy Mehra",
     title: "Chairperson – The Finance Symposium (TFS)",
-    bio: "Aaradhy Mehra is a driven student-leader and aspiring entrepreneur from the BAF batch of 2026–27 at St. Xavier's College, Mumbai. As Chairperson of The Finance Symposium, he curates strategic initiatives that connect finance, innovation, and enterprise through student-led forums and industry collaborations. He serves as Editor-in-Chief of Currency of Change, leading its editorial vision while mentoring contributors. A former Summer Intern at SBI Securities and a CUET 98%iler, Aaradhy pairs strong analytical thinking with a forward-looking approach to market trends and institutional strategy. His deep interests in technology, automobiles, and design reflect in his digital presence, where he has garnered over 1.5 million views on YouTube and built a professional network of 5,000+ followers on LinkedIn.",
+    bio: "Aaradhy Mehra is a driven student-leader and aspiring entrepreneur from the BAF batch of 2026��27 at St. Xavier's College, Mumbai. As Chairperson of The Finance Symposium, he curates strategic initiatives that connect finance, innovation, and enterprise through student-led forums and industry collaborations. He serves as Editor-in-Chief of Currency of Change, leading its editorial vision while mentoring contributors. A former Summer Intern at SBI Securities and a CUET 98%iler, Aaradhy pairs strong analytical thinking with a forward-looking approach to market trends and institutional strategy. His deep interests in technology, automobiles, and design reflect in his digital presence, where he has garnered over 1.5 million views on YouTube and built a professional network of 5,000+ followers on LinkedIn.",
     image: "/placeholder.svg",
     email: "aaradhy.mehra@student.xaviers.edu",
     linkedin: "aaradhy-mehra",
@@ -352,43 +352,7 @@ export default function ModernLuminariesSection() {
                 </div>
               </div>
             </div>
-
-            {/* Hover Shine Effect */}
-            <motion.div
-              className="absolute inset-0 opacity-0 pointer-events-none"
-              animate={{
-                opacity: isHovered ? 1 : 0,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="absolute inset-0 rounded-3xl"
-                style={{
-                  background:
-                    "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
-                }}
-                animate={{
-                  x: isHovered ? "100%" : "-100%",
-                }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </motion.div>
           </motion.div>
-
-          {/* Simple Shadow */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl -z-10"
-            style={{
-              background: member.isLeadership
-                ? "linear-gradient(135deg, #0B1426 0%, #00D4CC 50%, #FFD700 100%)"
-                : "linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #00D4CC 100%)",
-              filter: "blur(15px)",
-            }}
-            animate={{
-              opacity: isHovered ? 0.4 : 0.2,
-            }}
-            transition={{ duration: 0.3 }}
-          />
         </motion.div>
       </div>
     );
