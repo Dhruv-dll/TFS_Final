@@ -408,9 +408,9 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-2 border border-white/10">
+          <div className="bg-white/95 rounded-xl p-1 border border-finance-teal/20 shadow-lg">
             <motion.div
-              className="absolute inset-y-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl"
+              className="absolute inset-y-1 bg-finance-teal rounded-lg"
               animate={{
                 x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
                 width: "calc(50% - 4px)",
@@ -418,15 +418,15 @@ export default function ModernLuminariesSection() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
 
-            <div className="relative flex space-x-2">
+            <div className="relative flex space-x-1">
               <Button
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("faculty")}
-                className={`relative z-10 px-8 py-3 transition-colors duration-300 ${
+                className={`relative z-10 px-6 py-3 transition-colors duration-300 ${
                   activeGroup === "faculty"
                     ? "text-white"
-                    : "text-white/60 hover:text-white/80"
+                    : "text-finance-navy hover:text-finance-teal"
                 }`}
               >
                 <Star className="w-5 h-5 mr-2" />
@@ -437,10 +437,10 @@ export default function ModernLuminariesSection() {
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("leadership")}
-                className={`relative z-10 px-8 py-3 transition-colors duration-300 ${
+                className={`relative z-10 px-6 py-3 transition-colors duration-300 ${
                   activeGroup === "leadership"
                     ? "text-white"
-                    : "text-white/60 hover:text-white/80"
+                    : "text-finance-navy hover:text-finance-teal"
                 }`}
               >
                 <Crown className="w-5 h-5 mr-2" />
