@@ -9,11 +9,24 @@ class FinnhubMarketDataService {
     if (typeof window !== 'undefined') {
       window.addEventListener('unhandledrejection', (event) => {
         if (event.reason?.message?.includes('Failed to fetch') ||
-            event.reason?.message?.includes('fetch')) {
-          console.warn('🔄 Global fetch error detected, enabling fallback mode');
+            event.reason?.message?.includes('fetch') ||
+            event.reason?.message?.includes('market-data') ||
+            event.reason?.name === 'TypeError' ||
+            event.reason?.name === 'AbortError') {
+          console.warn('🔄 Global market data error detected, enabling fallback mode:', event.reason?.message || 'Unknown error');
           this.fallbackMode = true;
           this.apiFailureCount = 999;
           event.preventDefault(); // Prevent error from bubbling up
+        }
+      });
+
+      // Also handle general errors
+      window.addEventListener('error', (event) => {
+        if (event.message?.includes('market-data') || event.message?.includes('finnhub')) {
+          console.warn('🔄 Global script error related to market data, enabling fallback mode');
+          this.fallbackMode = true;
+          this.apiFailureCount = 999;
+          event.preventDefault();
         }
       });
     }
