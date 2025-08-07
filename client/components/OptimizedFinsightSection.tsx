@@ -106,7 +106,8 @@ export default function OptimizedFinsightSection() {
             <div
               className="w-full h-full"
               style={{
-                backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
+                backgroundImage:
+                  "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
                 backgroundSize: "20px 20px",
               }}
             />
@@ -199,10 +200,14 @@ export default function OptimizedFinsightSection() {
     >
       {/* Professional Grid Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px'
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">

@@ -6,14 +6,19 @@ class FinnhubMarketDataService {
 
   constructor() {
     // Set up global error handler for fetch failures
-    if (typeof window !== 'undefined') {
-      window.addEventListener('unhandledrejection', (event) => {
-        if (event.reason?.message?.includes('Failed to fetch') ||
-            event.reason?.message?.includes('fetch') ||
-            event.reason?.message?.includes('market-data') ||
-            event.reason?.name === 'TypeError' ||
-            event.reason?.name === 'AbortError') {
-          console.warn('🔄 Global market data error detected, enabling fallback mode:', event.reason?.message || 'Unknown error');
+    if (typeof window !== "undefined") {
+      window.addEventListener("unhandledrejection", (event) => {
+        if (
+          event.reason?.message?.includes("Failed to fetch") ||
+          event.reason?.message?.includes("fetch") ||
+          event.reason?.message?.includes("market-data") ||
+          event.reason?.name === "TypeError" ||
+          event.reason?.name === "AbortError"
+        ) {
+          console.warn(
+            "🔄 Global market data error detected, enabling fallback mode:",
+            event.reason?.message || "Unknown error",
+          );
           this.fallbackMode = true;
           this.apiFailureCount = 999;
           event.preventDefault(); // Prevent error from bubbling up
@@ -21,9 +26,14 @@ class FinnhubMarketDataService {
       });
 
       // Also handle general errors
-      window.addEventListener('error', (event) => {
-        if (event.message?.includes('market-data') || event.message?.includes('finnhub')) {
-          console.warn('🔄 Global script error related to market data, enabling fallback mode');
+      window.addEventListener("error", (event) => {
+        if (
+          event.message?.includes("market-data") ||
+          event.message?.includes("finnhub")
+        ) {
+          console.warn(
+            "🔄 Global script error related to market data, enabling fallback mode",
+          );
           this.fallbackMode = true;
           this.apiFailureCount = 999;
           event.preventDefault();
@@ -111,7 +121,10 @@ class FinnhubMarketDataService {
     try {
       return await this._fetchAllMarketDataInternal();
     } catch (error) {
-      console.warn("📊 Ultimate fallback triggered due to error:", error?.message || "Unknown error");
+      console.warn(
+        "📊 Ultimate fallback triggered due to error:",
+        error?.message || "Unknown error",
+      );
       this.fallbackMode = true;
       this.apiFailureCount = 999;
       return this.getFallbackMarketData();
@@ -129,20 +142,23 @@ class FinnhubMarketDataService {
 
       // Early detection of problematic environments - immediately use fallback
       try {
-        if (typeof fetch === 'undefined' || typeof window === 'undefined') {
+        if (typeof fetch === "undefined" || typeof window === "undefined") {
           console.log("📊 No fetch or window available, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
 
         // Test if fetch is actually functional
-        if (typeof fetch !== 'function') {
+        if (typeof fetch !== "function") {
           console.log("📊 Fetch not a function, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
       } catch (envError) {
-        console.log("📊 Environment check failed, using fallback mode:", envError?.message || "Unknown env error");
+        console.log(
+          "📊 Environment check failed, using fallback mode:",
+          envError?.message || "Unknown env error",
+        );
         this.fallbackMode = true;
         return this.getFallbackMarketData();
       }
@@ -156,7 +172,7 @@ class FinnhubMarketDataService {
       // Quick connectivity check - if we detect we're likely to fail, go to fallback immediately
       try {
         // Simple test to see if we can even attempt a fetch
-        if (typeof window !== 'undefined' && !navigator.onLine) {
+        if (typeof window !== "undefined" && !navigator.onLine) {
           console.log("📊 Browser is offline, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
@@ -180,16 +196,20 @@ class FinnhubMarketDataService {
                 console.warn("📊 Request timeout, using fallback mode");
                 this.fallbackMode = true;
                 this.apiFailureCount = 999;
-                resolve(new Response(JSON.stringify({ fallback: true }), {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' }
-                }));
+                resolve(
+                  new Response(JSON.stringify({ fallback: true }), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                  }),
+                );
               } catch (timeoutError) {
                 console.warn("📊 Error in timeout handler, using fallback");
-                resolve(new Response(JSON.stringify({ fallback: true }), {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' }
-                }));
+                resolve(
+                  new Response(JSON.stringify({ fallback: true }), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                  }),
+                );
               }
             }, 8000); // Reduced to 8 second timeout
 
@@ -209,72 +229,104 @@ class FinnhubMarketDataService {
                     clearTimeout(timeoutId);
                     resolve(response);
                   } catch (responseError) {
-                    console.warn("📊 Error processing response, using fallback");
+                    console.warn(
+                      "📊 Error processing response, using fallback",
+                    );
                     this.fallbackMode = true;
-                    resolve(new Response(JSON.stringify({ fallback: true }), {
-                      status: 200,
-                      headers: { 'Content-Type': 'application/json' }
-                    }));
+                    resolve(
+                      new Response(JSON.stringify({ fallback: true }), {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                      }),
+                    );
                   }
                 })
                 .catch((error) => {
                   try {
                     clearTimeout(timeoutId);
-                    console.warn("📊 Network fetch failed, switching to fallback mode:", error?.message || "Unknown error");
+                    console.warn(
+                      "📊 Network fetch failed, switching to fallback mode:",
+                      error?.message || "Unknown error",
+                    );
 
                     // Immediately switch to fallback mode for any fetch error
                     this.fallbackMode = true;
                     this.apiFailureCount = 999; // Force permanent fallback
 
                     // Create a special response that indicates fallback mode
-                    resolve(new Response(JSON.stringify({ fallback: true }), {
-                      status: 200,
-                      headers: { 'Content-Type': 'application/json' }
-                    }));
+                    resolve(
+                      new Response(JSON.stringify({ fallback: true }), {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                      }),
+                    );
                   } catch (catchError) {
-                    console.warn("📊 Error in catch handler, using ultimate fallback");
-                    resolve(new Response(JSON.stringify({ fallback: true }), {
-                      status: 200,
-                      headers: { 'Content-Type': 'application/json' }
-                    }));
+                    console.warn(
+                      "📊 Error in catch handler, using ultimate fallback",
+                    );
+                    resolve(
+                      new Response(JSON.stringify({ fallback: true }), {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                      }),
+                    );
                   }
                 });
             } catch (fetchError) {
               try {
                 clearTimeout(timeoutId);
-                console.warn("📊 Fetch initialization failed, using fallback mode:", fetchError?.message || "Unknown error");
+                console.warn(
+                  "📊 Fetch initialization failed, using fallback mode:",
+                  fetchError?.message || "Unknown error",
+                );
                 this.fallbackMode = true;
                 this.apiFailureCount = 999;
-                resolve(new Response(JSON.stringify({ fallback: true }), {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' }
-                }));
+                resolve(
+                  new Response(JSON.stringify({ fallback: true }), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                  }),
+                );
               } catch (initError) {
-                console.warn("📊 Fatal error in fetch initialization, using ultimate fallback");
-                resolve(new Response(JSON.stringify({ fallback: true }), {
-                  status: 200,
-                  headers: { 'Content-Type': 'application/json' }
-                }));
+                console.warn(
+                  "📊 Fatal error in fetch initialization, using ultimate fallback",
+                );
+                resolve(
+                  new Response(JSON.stringify({ fallback: true }), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                  }),
+                );
               }
             }
           } catch (promiseError) {
-            console.warn("📊 Promise constructor error, using fallback mode:", promiseError?.message || "Unknown error");
+            console.warn(
+              "📊 Promise constructor error, using fallback mode:",
+              promiseError?.message || "Unknown error",
+            );
             this.fallbackMode = true;
             this.apiFailureCount = 999;
-            resolve(new Response(JSON.stringify({ fallback: true }), {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }));
+            resolve(
+              new Response(JSON.stringify({ fallback: true }), {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+              }),
+            );
           }
         });
       } catch (outerError) {
-        console.warn("📊 Critical error creating fetch promise, immediate fallback:", outerError?.message || "Unknown error");
+        console.warn(
+          "📊 Critical error creating fetch promise, immediate fallback:",
+          outerError?.message || "Unknown error",
+        );
         this.fallbackMode = true;
         this.apiFailureCount = 999;
-        fetchWithTimeout = Promise.resolve(new Response(JSON.stringify({ fallback: true }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' }
-        }));
+        fetchWithTimeout = Promise.resolve(
+          new Response(JSON.stringify({ fallback: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }),
+        );
       }
 
       const response = await fetchWithTimeout;
@@ -283,7 +335,9 @@ class FinnhubMarketDataService {
 
       // Check if this is a fallback response
       if (data.fallback === true) {
-        console.log("📊 Received fallback indicator, using local fallback data");
+        console.log(
+          "📊 Received fallback indicator, using local fallback data",
+        );
         this.fallbackMode = true;
         return this.getFallbackMarketData();
       }
@@ -330,7 +384,10 @@ class FinnhubMarketDataService {
       this.fallbackMode = true;
       this.apiFailureCount = 999; // Prevent further API attempts
 
-      console.log("📊 Switching to fallback mode immediately due to error:", errorMessage);
+      console.log(
+        "📊 Switching to fallback mode immediately due to error:",
+        errorMessage,
+      );
       return this.getFallbackMarketData();
     }
   }
@@ -601,7 +658,10 @@ class FinnhubMarketDataService {
             data = this.getFallbackMarketData();
           }
         } catch (fetchError) {
-          console.warn("📊 Fetch error caught, using fallback:", fetchError?.message || "Unknown error");
+          console.warn(
+            "📊 Fetch error caught, using fallback:",
+            fetchError?.message || "Unknown error",
+          );
           this.fallbackMode = true;
           data = this.getFallbackMarketData();
         }
@@ -796,7 +856,10 @@ class FinnhubMarketDataService {
       try {
         await this.updateAllData();
       } catch (error) {
-        console.warn("📊 Initial update failed, ensuring fallback data:", error?.message || "Unknown error");
+        console.warn(
+          "📊 Initial update failed, ensuring fallback data:",
+          error?.message || "Unknown error",
+        );
         this.fallbackMode = true;
         this.apiFailureCount = 999;
       }
@@ -814,34 +877,56 @@ class FinnhubMarketDataService {
               try {
                 cb(fallbackData);
               } catch (cbError) {
-                console.warn("Error in safe fallback callback:", cbError?.message || "Unknown callback error");
+                console.warn(
+                  "Error in safe fallback callback:",
+                  cbError?.message || "Unknown callback error",
+                );
               }
             });
           } catch (notifyError) {
-            console.warn("Error notifying subscribers in safe init:", notifyError?.message || "Unknown notify error");
+            console.warn(
+              "Error notifying subscribers in safe init:",
+              notifyError?.message || "Unknown notify error",
+            );
           }
         }
       } catch (fallbackError) {
-        console.warn("Error ensuring fallback data:", fallbackError?.message || "Unknown fallback error");
+        console.warn(
+          "Error ensuring fallback data:",
+          fallbackError?.message || "Unknown fallback error",
+        );
         // Final safety net - create minimal data
         this.lastSuccessfulData = {
           stocks: [],
-          sentiment: { sentiment: "neutral", advanceDeclineRatio: 0.5, positiveStocks: 0, totalStocks: 0 },
-          currencies: []
+          sentiment: {
+            sentiment: "neutral",
+            advanceDeclineRatio: 0.5,
+            positiveStocks: 0,
+            totalStocks: 0,
+          },
+          currencies: [],
         };
         this.isInitialized = true;
         this.fallbackMode = true;
       }
     } catch (criticalError) {
-      console.warn("Critical error in safeInitialUpdate:", criticalError?.message || "Unknown critical error");
+      console.warn(
+        "Critical error in safeInitialUpdate:",
+        criticalError?.message || "Unknown critical error",
+      );
       // Ultimate fallback
       this.fallbackMode = true;
       this.apiFailureCount = 999;
       this.isInitialized = true;
       this.lastSuccessfulData = {
         stocks: [],
-        sentiment: { sentiment: "neutral", advanceDeclineRatio: 0.5, positiveStocks: 0, totalStocks: 0 },
-        currencies: []
+        sentiment: {
+          sentiment: "neutral",
+          advanceDeclineRatio: 0.5,
+          positiveStocks: 0,
+          totalStocks: 0,
+        },
+        currencies: [],
       };
     }
   }

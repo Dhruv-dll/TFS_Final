@@ -73,27 +73,38 @@ export function useEventsData() {
   // Set up global error handler for events fetch failures
   useEffect(() => {
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      if (event.reason?.message?.includes('Failed to fetch') ||
-          event.reason?.message?.includes('events') ||
-          event.reason?.message?.includes('sync')) {
-        console.warn('🔄 Events data fetch error handled gracefully:', event.reason?.message || 'Unknown error');
+      if (
+        event.reason?.message?.includes("Failed to fetch") ||
+        event.reason?.message?.includes("events") ||
+        event.reason?.message?.includes("sync")
+      ) {
+        console.warn(
+          "🔄 Events data fetch error handled gracefully:",
+          event.reason?.message || "Unknown error",
+        );
         event.preventDefault(); // Prevent error from bubbling up
       }
     };
 
     const handleError = (event: ErrorEvent) => {
-      if (event.message?.includes('events') || event.message?.includes('sync')) {
-        console.warn('🔄 Events script error handled gracefully');
+      if (
+        event.message?.includes("events") ||
+        event.message?.includes("sync")
+      ) {
+        console.warn("🔄 Events script error handled gracefully");
         event.preventDefault();
       }
     };
 
-    window.addEventListener('unhandledrejection', handleUnhandledRejection);
-    window.addEventListener('error', handleError);
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+    window.addEventListener("error", handleError);
 
     return () => {
-      window.removeEventListener('unhandledrejection', handleUnhandledRejection);
-      window.removeEventListener('error', handleError);
+      window.removeEventListener(
+        "unhandledrejection",
+        handleUnhandledRejection,
+      );
+      window.removeEventListener("error", handleError);
     };
   }, []);
 
@@ -207,8 +218,15 @@ export function useEventsData() {
     } catch (error) {
       // Silently handle sync errors - don't log to avoid spam
       // Only log if it's not a common network error
-      if (error?.message && !error.message.includes('fetch') && !error.message.includes('timeout')) {
-        console.warn("Failed to check server sync:", error?.message || "Unknown error");
+      if (
+        error?.message &&
+        !error.message.includes("fetch") &&
+        !error.message.includes("timeout")
+      ) {
+        console.warn(
+          "Failed to check server sync:",
+          error?.message || "Unknown error",
+        );
       }
     }
   };
@@ -320,14 +338,14 @@ export function useEventsData() {
       const cleanTime = timeStr.toLowerCase().trim();
 
       // Check for AM/PM format
-      if (cleanTime.includes('am') || cleanTime.includes('pm')) {
+      if (cleanTime.includes("am") || cleanTime.includes("pm")) {
         const [time, period] = cleanTime.split(/\s+/);
-        const [hours, minutes = '0'] = time.split(':').map(Number);
+        const [hours, minutes = "0"] = time.split(":").map(Number);
 
         let hour24 = hours;
-        if (period.includes('pm') && hours !== 12) {
+        if (period.includes("pm") && hours !== 12) {
           hour24 += 12;
-        } else if (period.includes('am') && hours === 12) {
+        } else if (period.includes("am") && hours === 12) {
           hour24 = 0;
         }
 
@@ -335,7 +353,7 @@ export function useEventsData() {
       }
 
       // Handle 24-hour format
-      const [hours, minutes = '0'] = cleanTime.split(':').map(Number);
+      const [hours, minutes = "0"] = cleanTime.split(":").map(Number);
       return hours * 60 + minutes;
     } catch (error) {
       console.warn(`Failed to parse time string: ${timeStr}`);
@@ -385,10 +403,15 @@ export function useEventsData() {
         if (response.ok) {
           console.log("Events data synced with server successfully");
         } else {
-          console.warn("Failed to sync events data with server - response not ok");
+          console.warn(
+            "Failed to sync events data with server - response not ok",
+          );
         }
       } catch (syncError) {
-        console.warn("Failed to sync events data with server:", syncError?.message || "Unknown sync error");
+        console.warn(
+          "Failed to sync events data with server:",
+          syncError?.message || "Unknown sync error",
+        );
       }
 
       // Dispatch custom event to notify other components

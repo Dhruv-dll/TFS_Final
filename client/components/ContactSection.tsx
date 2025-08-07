@@ -135,12 +135,8 @@ export default function ContactSection() {
                     <h4 className="text-lg font-semibold text-finance-teal mb-1">
                       {info.title}
                     </h4>
-                    <p className="text-white/90 font-medium">
-                      {info.details}
-                    </p>
-                    <p className="text-white/70 text-sm">
-                      {info.subDetails}
-                    </p>
+                    <p className="text-white/90 font-medium">{info.details}</p>
+                    <p className="text-white/70 text-sm">{info.subDetails}</p>
                   </div>
                 </motion.div>
               ))}

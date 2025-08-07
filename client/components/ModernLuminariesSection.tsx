@@ -290,7 +290,8 @@ export default function ModernLuminariesSection() {
             onClick={() => setSelectedMember(member)}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 12px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 212, 204, 0.4)",
+              boxShadow:
+                "0 12px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 212, 204, 0.4)",
               borderColor: "rgba(0, 212, 204, 0.6)",
             }}
             transition={{ duration: 0.3 }}
@@ -367,10 +368,14 @@ export default function ModernLuminariesSection() {
     >
       {/* Professional Grid Pattern */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -381,11 +386,8 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6 text-white"
-          >
-            Meet Our{" "}
-            <span className="text-finance-teal">Luminaries</span>
+          <motion.h2 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+            Meet Our <span className="text-finance-teal">Luminaries</span>
           </motion.h2>
           <motion.div
             className="w-32 h-1 bg-finance-teal mx-auto mb-6 rounded-full"
@@ -585,7 +587,9 @@ export default function ModernLuminariesSection() {
                         transition={{ delay: 0.7 }}
                         className="relative p-4 rounded-xl bg-finance-teal/5 border border-finance-teal/10"
                       >
-                        <div className="text-4xl text-finance-teal/20 mb-2">"</div>
+                        <div className="text-4xl text-finance-teal/20 mb-2">
+                          "
+                        </div>
                         <p className="text-white/90 italic text-sm">
                           {selectedMember.quote}
                         </p>
