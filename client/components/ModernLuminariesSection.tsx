@@ -295,52 +295,51 @@ export default function ModernLuminariesSection() {
             }}
             transition={{ duration: 0.3 }}
           >
+            {/* Leadership Badge - Positioned absolutely in top-right */}
+            {member.isLeadership && (
+              <div className="absolute top-3 right-3 z-10">
+                <Badge className="bg-finance-teal text-white font-semibold px-2 py-1 text-xs">
+                  <Crown className="w-3 h-3 mr-1" />
+                  Leadership
+                </Badge>
+              </div>
+            )}
 
             {/* Professional Card Content */}
-            <div className="relative h-full p-6 flex flex-col justify-between">
-              {/* Header with Professional Role Badge */}
-              <div className="space-y-6">
-                {member.isLeadership && (
-                  <div className="flex justify-center">
-                    <Badge className="bg-finance-teal text-white font-semibold px-3 py-1">
-                      <Crown className="w-3 h-3 mr-1" />
-                      Leadership
-                    </Badge>
-                  </div>
-                )}
-
-                {/* Professional Avatar */}
-                <div className="flex justify-center">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
-                    <Users className="w-10 h-10 sm:w-12 sm:h-12 text-finance-teal" />
-                  </div>
+            <div className="relative h-full p-6 flex flex-col">
+              {/* Header with Professional Avatar */}
+              <div className="flex justify-center mb-4">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
+                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-finance-teal" />
                 </div>
               </div>
 
-              {/* Professional Member Info */}
-              <div className="text-center space-y-4">
-                <h3 className="text-lg sm:text-xl font-bold text-white">
-                  {member.name}
-                </h3>
+              {/* Professional Member Info - flex-1 to take available space */}
+              <div className="text-center space-y-3 flex-1 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-white leading-tight">
+                    {member.name}
+                  </h3>
 
-                <p className="text-xs sm:text-sm text-white/80 font-medium leading-relaxed px-2">
-                  {member.title}
-                </p>
+                  <p className="text-xs sm:text-sm text-white/80 font-medium leading-tight px-2">
+                    {member.title}
+                  </p>
 
-                {/* Professional Expertise Tags */}
-                <div className="flex flex-wrap gap-2 justify-center px-2">
-                  {member.expertise.slice(0, 2).map((skill, i) => (
-                    <span
-                      key={skill}
-                      className="text-xs bg-finance-teal/20 text-finance-teal border border-finance-teal/30 px-3 py-1 rounded-lg font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  {/* Professional Expertise Tags */}
+                  <div className="flex flex-wrap gap-1.5 justify-center px-2">
+                    {member.expertise.slice(0, 2).map((skill, i) => (
+                      <span
+                        key={skill}
+                        className="text-xs bg-finance-teal/20 text-finance-teal border border-finance-teal/30 px-2 py-1 rounded-lg font-medium"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Professional CTA Button */}
-                <div className="pt-4">
+                {/* Professional CTA Button - Always at bottom */}
+                <div className="pt-2">
                   <Button
                     size="sm"
                     className="bg-finance-teal text-white hover:bg-finance-teal-dark hover:shadow-lg transition-all duration-300 px-4 py-2 font-semibold border border-finance-teal/30"
