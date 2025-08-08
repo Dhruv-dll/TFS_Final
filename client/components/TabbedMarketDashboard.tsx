@@ -520,52 +520,145 @@ export default function TabbedMarketDashboard({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <h3 className="text-lg font-semibold text-finance-gold mb-4">
-                      💱 Currency Exchange Rates
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {marketData.currencies.map((currency) => (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-bold text-finance-gold mb-1">
+                          Foreign Exchange Rates
+                        </h3>
+                        <p className="text-sm text-finance-electric/80">
+                          Live INR conversion rates • {marketData.currencies.length} major currencies
+                        </p>
+                      </div>
+                      <Badge variant="outline" className="mt-3 sm:mt-0 bg-finance-teal/10 border-finance-teal/40 text-finance-teal text-xs">
+                        24h Active
+                      </Badge>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {marketData.currencies.map((currency, index) => (
                         <motion.div
                           key={currency.symbol}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="p-4 rounded-lg bg-finance-navy-light/30 border border-finance-gold/10 hover:border-finance-gold/30 transition-all duration-300 cursor-pointer hover:bg-finance-navy-light/50"
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                          className="group relative p-5 rounded-xl bg-gradient-to-br from-finance-navy-light/25 via-finance-navy-medium/20 to-finance-navy-light/15 border border-finance-gold/20 hover:border-finance-teal/50 transition-all duration-300 cursor-pointer hover:bg-finance-navy-light/30 hover:shadow-xl hover:shadow-finance-teal/10"
                           onClick={() => handleCurrencyClick(currency)}
+                          whileHover={{ scale: 1.02, y: -3 }}
+                          whileTap={{ scale: 0.98 }}
                         >
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="font-semibold text-finance-gold">
-                                {currency.name}
+                          {/* Currency pair header */}
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-finance-teal to-finance-electric flex items-center justify-center">
+                                <span className="text-xs font-bold text-finance-navy">
+                                  {currency.name.split('/')[0]}
+                                </span>
                               </div>
-                              <div className="text-sm text-muted-foreground">
-                                {currency.symbol}
+                              <div>
+                                <h4 className="font-bold text-finance-gold text-sm group-hover:text-finance-teal transition-colors">
+                                  {currency.name}
+                                </h4>
+                                <span className="text-xs text-muted-foreground font-mono">
+                                  {currency.symbol}
+                                </span>
                               </div>
                             </div>
-                            <div className="text-right">
-                              <div className="font-bold text-foreground">
-                                ₹{currency.rate.toFixed(4)}
+
+                            {/* Trend indicator */}
+                            {currency.change !== 0 && (
+                              <div className={`p-1 rounded-full ${
+                                currency.change > 0
+                                  ? "bg-finance-green/20"
+                                  : "bg-finance-red/20"
+                              }`}>
+                                {currency.change > 0 ? (
+                                  <TrendingUp className="w-4 h-4 text-finance-green" />
+                                ) : (
+                                  <TrendingDown className="w-4 h-4 text-finance-red" />
+                                )}
                               </div>
-                              {currency.change !== 0 && (
-                                <div
-                                  className={`text-xs ${
-                                    currency.change > 0
-                                      ? "text-finance-green"
-                                      : currency.change < 0
-                                        ? "text-finance-red"
-                                        : "text-finance-electric"
-                                  }`}
-                                >
-                                  <span>
-                                    {currency.change > 0 ? "+" : ""}
-                                    {currency.change.toFixed(4)}
-                                  </span>
-                                </div>
-                              )}
+                            )}
+                          </div>
+
+                          {/* Exchange rate */}
+                          <div className="text-center mb-3">
+                            <div className="text-2xl font-bold text-foreground mb-1">
+                              ₹{currency.rate.toFixed(4)}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                              1 {currency.name.split('/')[0]} = {currency.rate.toFixed(4)} INR
                             </div>
                           </div>
+
+                          {/* Change information */}
+                          {currency.change !== 0 && (
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                              <div
+                                className={`flex items-center gap-1 text-sm font-semibold ${
+                                  currency.change > 0
+                                    ? "text-finance-green"
+                                    : "text-finance-red"
+                                }`}
+                              >
+                                {currency.change > 0 ? (
+                                  <ArrowUpRight className="w-3 h-3" />
+                                ) : (
+                                  <ArrowDownRight className="w-3 h-3" />
+                                )}
+                                <span>
+                                  {currency.change > 0 ? "+" : ""}
+                                  {currency.change.toFixed(4)}
+                                </span>
+                              </div>
+                              <span
+                                className={`text-xs ${
+                                  currency.change > 0
+                                    ? "text-finance-green"
+                                    : "text-finance-red"
+                                }`}
+                              >
+                                ({currency.changePercent > 0 ? "+" : ""}
+                                {currency.changePercent.toFixed(2)}%)
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Last updated */}
+                          <div className="text-center text-xs text-finance-electric/60">
+                            Updated: {safeFormatTimestamp(currency.timestamp)}
+                          </div>
+
+                          {/* Hover effect overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-finance-teal/5 to-finance-electric/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                          {/* Border glow effect */}
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-finance-teal/20 to-finance-electric/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{
+                            background: "linear-gradient(90deg, transparent, rgba(0, 212, 204, 0.1), transparent)",
+                            animation: "border-flow 3s ease-in-out infinite"
+                          }} />
                         </motion.div>
                       ))}
                     </div>
+
+                    {/* Empty state */}
+                    {marketData.currencies.length === 0 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-center py-12"
+                      >
+                        <Globe className="w-12 h-12 mx-auto mb-4 text-finance-electric/50" />
+                        <p className="text-muted-foreground">No currency data available</p>
+                        <Button
+                          onClick={handleRefresh}
+                          size="sm"
+                          className="mt-3 bg-finance-teal/20 text-finance-teal hover:bg-finance-teal/30"
+                        >
+                          <RefreshCw className="w-4 h-4 mr-2" />
+                          Refresh Data
+                        </Button>
+                      </motion.div>
+                    )}
                   </motion.div>
                 </TabsContent>
 
