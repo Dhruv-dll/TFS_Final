@@ -43,7 +43,11 @@ export default function SimpleMarketTicker({
   };
 
   const formatPrice = (symbol: string, price: number) => {
-    if (symbol.includes(".NS") || symbol.includes("^BSESN") || symbol.includes("^NSEI")) {
+    if (
+      symbol.includes(".NS") ||
+      symbol.includes("^BSESN") ||
+      symbol.includes("^NSEI")
+    ) {
       return `₹${price.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
     return `$${price.toFixed(2)}`;
@@ -82,17 +86,20 @@ export default function SimpleMarketTicker({
               </div>
             </div>
             <div className="text-finance-teal text-xs">
-              {currentTime.toLocaleTimeString("en-IN", { 
-                hour: '2-digit', 
-                minute: '2-digit' 
+              {currentTime.toLocaleTimeString("en-IN", {
+                hour: "2-digit",
+                minute: "2-digit",
               })}
             </div>
           </div>
           {/* Mobile Stock Ticker */}
           <div className="overflow-hidden">
-            <div className="flex space-x-4 text-xs" style={{
-              animation: 'mobileTickerScroll 60s linear infinite'
-            }}>
+            <div
+              className="flex space-x-4 text-xs"
+              style={{
+                animation: "mobileTickerScroll 60s linear infinite",
+              }}
+            >
               {/* First set of stocks */}
               {stockData.slice(0, 6).map((stock, index) => (
                 <div
@@ -100,7 +107,9 @@ export default function SimpleMarketTicker({
                   className="flex items-center space-x-1 whitespace-nowrap min-w-max"
                 >
                   <span className="font-semibold text-finance-teal">
-                    {stock.name.length > 6 ? stock.name.substring(0, 6) : stock.name}
+                    {stock.name.length > 6
+                      ? stock.name.substring(0, 6)
+                      : stock.name}
                   </span>
                   <span className="text-foreground font-medium">
                     {formatPrice(stock.symbol, stock.price)}
@@ -126,7 +135,9 @@ export default function SimpleMarketTicker({
                   className="flex items-center space-x-1 whitespace-nowrap min-w-max"
                 >
                   <span className="font-semibold text-finance-teal">
-                    {stock.name.length > 6 ? stock.name.substring(0, 6) : stock.name}
+                    {stock.name.length > 6
+                      ? stock.name.substring(0, 6)
+                      : stock.name}
                   </span>
                   <span className="text-foreground font-medium">
                     {formatPrice(stock.symbol, stock.price)}
@@ -208,9 +219,12 @@ export default function SimpleMarketTicker({
 
           {/* Desktop Stock Ticker */}
           <div className="flex-1 overflow-hidden ml-8">
-            <div className="flex space-x-6" style={{
-              animation: 'desktopTickerScroll 90s linear infinite'
-            }}>
+            <div
+              className="flex space-x-6"
+              style={{
+                animation: "desktopTickerScroll 90s linear infinite",
+              }}
+            >
               {/* First set of stocks */}
               {stockData.map((stock, index) => (
                 <div

@@ -78,7 +78,12 @@ export default function FloatingMarketIcon({
         className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-50 ${className}`}
         initial={{ opacity: 0, scale: 0, y: 50 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 100 }}
+        transition={{
+          duration: 0.6,
+          delay: 0.3,
+          type: "spring",
+          stiffness: 100,
+        }}
       >
         <motion.button
           onClick={handleIconClick}
@@ -249,7 +254,9 @@ export default function FloatingMarketIcon({
             <div className="space-y-1">
               <div className="flex items-center justify-between gap-3">
                 <span className="text-muted-foreground">Sentiment:</span>
-                <span className={`font-medium ${getSentimentColor(marketSentiment.sentiment)}`}>
+                <span
+                  className={`font-medium ${getSentimentColor(marketSentiment.sentiment)}`}
+                >
                   {marketSentiment.sentiment.toUpperCase()}
                 </span>
               </div>
@@ -257,7 +264,9 @@ export default function FloatingMarketIcon({
               <div className="flex items-center justify-between gap-3">
                 <span className="text-muted-foreground">Movement:</span>
                 <span className="text-foreground">
-                  {marketSentiment.positiveStocks}↑ / {marketSentiment.totalStocks - marketSentiment.positiveStocks}↓
+                  {marketSentiment.positiveStocks}↑ /{" "}
+                  {marketSentiment.totalStocks - marketSentiment.positiveStocks}
+                  ↓
                 </span>
               </div>
 
@@ -270,7 +279,9 @@ export default function FloatingMarketIcon({
             </div>
 
             <div className="mt-2 pt-2 border-t border-finance-gold/20 text-center">
-              <span className="text-finance-electric/80">Click to open dashboard</span>
+              <span className="text-finance-electric/80">
+                Click to open dashboard
+              </span>
             </div>
           </div>
         </motion.div>

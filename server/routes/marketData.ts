@@ -85,11 +85,16 @@ function isMarketOpen(): boolean {
 }
 
 // Enhanced stock data fetching with fallback and validation
-async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData | null> {
+async function fetchStockData(
+  symbol: string,
+  retryCount = 0,
+): Promise<StockData | null> {
   const maxRetries = 2;
 
   try {
-    console.log(`🔍 Fetching real data for ${symbol} (attempt ${retryCount + 1})...`);
+    console.log(
+      `🔍 Fetching real data for ${symbol} (attempt ${retryCount + 1})...`,
+    );
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
@@ -108,11 +113,12 @@ async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData
       try {
         response = await fetch(endpoint, {
           headers: {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "application/json",
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            Accept: "application/json",
             "Accept-Language": "en-US,en;q=0.9",
             "Cache-Control": "no-cache",
-            "Pragma": "no-cache",
+            Pragma: "no-cache",
           },
           signal: controller.signal,
         });
@@ -166,7 +172,9 @@ async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData
 
       // Cap extreme percentage changes (likely data errors)
       if (Math.abs(changePercent) > 20) {
-        console.warn(`Extreme change detected for ${symbol}: ${changePercent}%, using moderate fallback`);
+        console.warn(
+          `Extreme change detected for ${symbol}: ${changePercent}%, using moderate fallback`,
+        );
         changePercent = Math.sign(changePercent) * 5; // Cap at ±5%
         change = (currentPrice * changePercent) / 100;
       }
@@ -176,8 +184,13 @@ async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData
 
     const stockData: StockData = {
       symbol,
-      name: stockInfo?.name || meta.longName || symbol.replace(/\.(NS|BSE)$/, ''),
-      displayName: stockInfo?.displayName || stockInfo?.name || meta.longName || symbol.replace(/\.(NS|BSE)$/, ''),
+      name:
+        stockInfo?.name || meta.longName || symbol.replace(/\.(NS|BSE)$/, ""),
+      displayName:
+        stockInfo?.displayName ||
+        stockInfo?.name ||
+        meta.longName ||
+        symbol.replace(/\.(NS|BSE)$/, ""),
       price: Math.round(currentPrice * 100) / 100,
       change: Math.round(change * 100) / 100,
       changePercent: Math.round(changePercent * 100) / 100,
@@ -193,16 +206,20 @@ async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData
       stockData.dayLow = stockData.price;
     }
 
-    console.log(`✅ Successfully fetched ${symbol}: ₹${stockData.price} (${stockData.changePercent}%)`);
+    console.log(
+      `✅ Successfully fetched ${symbol}: ₹${stockData.price} (${stockData.changePercent}%)`,
+    );
     return stockData;
-
   } catch (error) {
-    console.warn(`❌ Failed to fetch ${symbol} (attempt ${retryCount + 1}):`, error.message);
+    console.warn(
+      `❌ Failed to fetch ${symbol} (attempt ${retryCount + 1}):`,
+      error.message,
+    );
 
     // Retry logic
     if (retryCount < maxRetries) {
       console.log(`🔄 Retrying ${symbol} in 1 second...`);
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       return fetchStockData(symbol, retryCount + 1);
     }
 
@@ -213,18 +230,19 @@ async function fetchStockData(symbol: string, retryCount = 0): Promise<StockData
 
 // Enhanced fallback data with realistic pricing
 function getFallbackStockData(symbol: string): StockData | null {
-  const fallbackPrices: Record<string, { price: number; volatility: number }> = {
-    "^NSEI": { price: 24750, volatility: 0.8 },
-    "^BSESN": { price: 81200, volatility: 0.8 },
-    "RELIANCE.NS": { price: 3090, volatility: 1.2 },
-    "TCS.NS": { price: 4160, volatility: 1.0 },
-    "HDFCBANK.NS": { price: 1725, volatility: 1.1 },
-    "INFY.NS": { price: 1895, volatility: 1.3 },
-    "ICICIBANK.NS": { price: 1315, volatility: 1.4 },
-    "HINDUNILVR.NS": { price: 2490, volatility: 0.9 },
-    "ITC.NS": { price: 482, volatility: 1.5 },
-    "KOTAKBANK.NS": { price: 1792, volatility: 1.3 },
-  };
+  const fallbackPrices: Record<string, { price: number; volatility: number }> =
+    {
+      "^NSEI": { price: 24750, volatility: 0.8 },
+      "^BSESN": { price: 81200, volatility: 0.8 },
+      "RELIANCE.NS": { price: 3090, volatility: 1.2 },
+      "TCS.NS": { price: 4160, volatility: 1.0 },
+      "HDFCBANK.NS": { price: 1725, volatility: 1.1 },
+      "INFY.NS": { price: 1895, volatility: 1.3 },
+      "ICICIBANK.NS": { price: 1315, volatility: 1.4 },
+      "HINDUNILVR.NS": { price: 2490, volatility: 0.9 },
+      "ITC.NS": { price: 482, volatility: 1.5 },
+      "KOTAKBANK.NS": { price: 1792, volatility: 1.3 },
+    };
 
   const fallback = fallbackPrices[symbol];
   if (!fallback) {
@@ -242,12 +260,17 @@ function getFallbackStockData(symbol: string): StockData | null {
   const change = fallback.price * changePercent;
   const currentPrice = fallback.price + change;
 
-  console.log(`📊 Using fallback data for ${symbol}: ₹${currentPrice.toFixed(2)}`);
+  console.log(
+    `📊 Using fallback data for ${symbol}: ₹${currentPrice.toFixed(2)}`,
+  );
 
   return {
     symbol,
-    name: stockInfo?.name || symbol.replace(/\.(NS|BSE)$/, ''),
-    displayName: stockInfo?.displayName || stockInfo?.name || symbol.replace(/\.(NS|BSE)$/, ''),
+    name: stockInfo?.name || symbol.replace(/\.(NS|BSE)$/, ""),
+    displayName:
+      stockInfo?.displayName ||
+      stockInfo?.name ||
+      symbol.replace(/\.(NS|BSE)$/, ""),
     price: Math.round(currentPrice * 100) / 100,
     change: Math.round(change * 100) / 100,
     changePercent: Math.round(changePercent * 100) / 100,
@@ -346,9 +369,9 @@ export const getMarketData: RequestHandler = async (req, res) => {
   const startTime = Date.now();
 
   // Set CORS headers for better client compatibility
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   // Enhanced timeout with graceful degradation
   const timeout = setTimeout(() => {
@@ -356,18 +379,27 @@ export const getMarketData: RequestHandler = async (req, res) => {
       console.warn("⚠️ Request timeout, sending enhanced fallback data");
 
       // Provide meaningful fallback data instead of empty arrays
-      const fallbackStocks = STOCK_SYMBOLS.map(stock => getFallbackStockData(stock.symbol)).filter(Boolean) as StockData[];
-      const fallbackCurrencies = CURRENCY_SYMBOLS.map(currency => getFallbackCurrencyData(currency)).filter(Boolean) as CurrencyData[];
+      const fallbackStocks = STOCK_SYMBOLS.map((stock) =>
+        getFallbackStockData(stock.symbol),
+      ).filter(Boolean) as StockData[];
+      const fallbackCurrencies = CURRENCY_SYMBOLS.map((currency) =>
+        getFallbackCurrencyData(currency),
+      ).filter(Boolean) as CurrencyData[];
 
-      const positiveStocks = fallbackStocks.filter(stock => stock.change > 0).length;
-      const totalStocks = fallbackStocks.filter(stock => !["^NSEI", "^BSESN"].includes(stock.symbol)).length;
+      const positiveStocks = fallbackStocks.filter(
+        (stock) => stock.change > 0,
+      ).length;
+      const totalStocks = fallbackStocks.filter(
+        (stock) => !["^NSEI", "^BSESN"].includes(stock.symbol),
+      ).length;
 
       res.status(200).json({
         stocks: fallbackStocks,
         currencies: fallbackCurrencies,
         sentiment: {
           sentiment: "neutral" as const,
-          advanceDeclineRatio: totalStocks > 0 ? positiveStocks / totalStocks : 0.5,
+          advanceDeclineRatio:
+            totalStocks > 0 ? positiveStocks / totalStocks : 0.5,
           positiveStocks,
           totalStocks,
         },
@@ -387,7 +419,7 @@ export const getMarketData: RequestHandler = async (req, res) => {
       try {
         const result = await Promise.race([
           fetchStockData(stock.symbol),
-          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000))
+          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
         ]);
         return result;
       } catch (error) {
@@ -400,7 +432,7 @@ export const getMarketData: RequestHandler = async (req, res) => {
       try {
         const result = await Promise.race([
           fetchCurrencyData(currency.symbol),
-          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000))
+          new Promise<null>((resolve) => setTimeout(() => resolve(null), 8000)),
         ]);
         return result || getFallbackCurrencyData(currency);
       } catch (error) {
@@ -411,52 +443,61 @@ export const getMarketData: RequestHandler = async (req, res) => {
 
     const [stockResults, currencyResults] = await Promise.all([
       Promise.allSettled(stockPromises),
-      Promise.allSettled(currencyPromises)
+      Promise.allSettled(currencyPromises),
     ]);
 
     clearTimeout(timeout);
 
     // Process results with better error handling
     const stocks = stockResults
-      .filter(result => result.status === 'fulfilled' && result.value)
-      .map(result => (result as PromiseFulfilledResult<StockData>).value)
+      .filter((result) => result.status === "fulfilled" && result.value)
+      .map((result) => (result as PromiseFulfilledResult<StockData>).value)
       .filter((stock): stock is StockData => stock !== null);
 
     const currencies = currencyResults
-      .filter(result => result.status === 'fulfilled' && result.value)
-      .map(result => (result as PromiseFulfilledResult<CurrencyData>).value)
+      .filter((result) => result.status === "fulfilled" && result.value)
+      .map((result) => (result as PromiseFulfilledResult<CurrencyData>).value)
       .filter((currency): currency is CurrencyData => currency !== null);
 
     // Enhanced data validation
-    const validatedStocks = stocks.filter(stock => {
-      return stock.price > 0 &&
-             !isNaN(stock.price) &&
-             !isNaN(stock.change) &&
-             !isNaN(stock.changePercent) &&
-             stock.dayHigh >= stock.dayLow;
+    const validatedStocks = stocks.filter((stock) => {
+      return (
+        stock.price > 0 &&
+        !isNaN(stock.price) &&
+        !isNaN(stock.change) &&
+        !isNaN(stock.changePercent) &&
+        stock.dayHigh >= stock.dayLow
+      );
     });
 
-    const validatedCurrencies = currencies.filter(currency => {
-      return currency.rate > 0 &&
-             !isNaN(currency.rate) &&
-             !isNaN(currency.change);
+    const validatedCurrencies = currencies.filter((currency) => {
+      return (
+        currency.rate > 0 && !isNaN(currency.rate) && !isNaN(currency.change)
+      );
     });
 
     console.log(
-      `📊 Data validation: ${validatedStocks.length}/${stocks.length} stocks, ${validatedCurrencies.length}/${currencies.length} currencies valid`
+      `📊 Data validation: ${validatedStocks.length}/${stocks.length} stocks, ${validatedCurrencies.length}/${currencies.length} currencies valid`,
     );
 
     // Enhanced market sentiment calculation
     const stocksOnly = validatedStocks.filter(
-      (stock) => !["^NSEI", "^BSESN"].includes(stock.symbol)
+      (stock) => !["^NSEI", "^BSESN"].includes(stock.symbol),
     );
 
-    const positiveStocks = stocksOnly.filter(stock => stock.change > 0).length;
-    const negativeStocks = stocksOnly.filter(stock => stock.change < 0).length;
-    const neutralStocks = stocksOnly.filter(stock => stock.change === 0).length;
+    const positiveStocks = stocksOnly.filter(
+      (stock) => stock.change > 0,
+    ).length;
+    const negativeStocks = stocksOnly.filter(
+      (stock) => stock.change < 0,
+    ).length;
+    const neutralStocks = stocksOnly.filter(
+      (stock) => stock.change === 0,
+    ).length;
     const totalStocks = stocksOnly.length;
 
-    const advanceDeclineRatio = totalStocks > 0 ? positiveStocks / totalStocks : 0.5;
+    const advanceDeclineRatio =
+      totalStocks > 0 ? positiveStocks / totalStocks : 0.5;
 
     let sentiment: "bullish" | "bearish" | "neutral";
     if (advanceDeclineRatio >= 0.65) {
@@ -477,7 +518,7 @@ export const getMarketData: RequestHandler = async (req, res) => {
     const processingTime = Date.now() - startTime;
 
     console.log(
-      `✅ Market data fetch completed in ${processingTime}ms: ${validatedStocks.length} stocks, ${validatedCurrencies.length} currencies, sentiment: ${sentiment}`
+      `✅ Market data fetch completed in ${processingTime}ms: ${validatedStocks.length} stocks, ${validatedCurrencies.length} currencies, sentiment: ${sentiment}`,
     );
 
     // Enhanced response with metadata
@@ -496,18 +537,21 @@ export const getMarketData: RequestHandler = async (req, res) => {
           currenciesTotal: CURRENCY_SYMBOLS.length,
         },
         source: "yahoo-finance-enhanced",
-        version: "2.0"
-      }
+        version: "2.0",
+      },
     });
-
   } catch (error) {
     console.error("❌ Critical error in market data fetch:", error);
     clearTimeout(timeout);
 
     if (!res.headersSent) {
       // Enhanced error response with fallback data
-      const emergencyStocks = STOCK_SYMBOLS.slice(0, 5).map(stock => getFallbackStockData(stock.symbol)).filter(Boolean) as StockData[];
-      const emergencyCurrencies = CURRENCY_SYMBOLS.slice(0, 2).map(currency => getFallbackCurrencyData(currency)).filter(Boolean) as CurrencyData[];
+      const emergencyStocks = STOCK_SYMBOLS.slice(0, 5)
+        .map((stock) => getFallbackStockData(stock.symbol))
+        .filter(Boolean) as StockData[];
+      const emergencyCurrencies = CURRENCY_SYMBOLS.slice(0, 2)
+        .map((currency) => getFallbackCurrencyData(currency))
+        .filter(Boolean) as CurrencyData[];
 
       res.status(200).json({
         stocks: emergencyStocks,
@@ -525,15 +569,19 @@ export const getMarketData: RequestHandler = async (req, res) => {
         metadata: {
           processingTime: Date.now() - startTime,
           source: "emergency-fallback",
-          version: "2.0"
-        }
+          version: "2.0",
+        },
       });
     }
   }
 };
 
 // Enhanced fallback currency data
-function getFallbackCurrencyData(currencySymbol: { symbol: string; name: string; fallbackRate: number }): CurrencyData {
+function getFallbackCurrencyData(currencySymbol: {
+  symbol: string;
+  name: string;
+  fallbackRate: number;
+}): CurrencyData {
   const { symbol, name, fallbackRate } = currencySymbol;
 
   // Simulate realistic currency movement

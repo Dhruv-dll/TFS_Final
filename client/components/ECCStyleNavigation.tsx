@@ -70,9 +70,7 @@ export default function ECCStyleNavigation({
       name: "SPONSORS",
       href: "#sponsors",
       icon: Building2,
-      dropdown: [
-        { name: "Our Partners", href: "#sponsors", icon: "🤝" },
-      ],
+      dropdown: [{ name: "Our Partners", href: "#sponsors", icon: "🤝" }],
     },
     {
       name: "CONTACT",

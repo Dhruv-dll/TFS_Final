@@ -170,7 +170,8 @@ export default function TabbedMarketDashboard({
         style={{
           background:
             "linear-gradient(135deg, rgba(11, 20, 38, 0.98) 0%, rgba(26, 43, 66, 0.95) 50%, rgba(42, 59, 82, 0.92) 100%)",
-          boxShadow: "0 0 60px rgba(0, 212, 204, 0.15), 0 25px 50px rgba(0, 0, 0, 0.3)",
+          boxShadow:
+            "0 0 60px rgba(0, 212, 204, 0.15), 0 25px 50px rgba(0, 0, 0, 0.3)",
         }}
       >
         <motion.div
@@ -195,8 +196,8 @@ export default function TabbedMarketDashboard({
                 </motion.div>
                 <div className="flex flex-col">
                   <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-finance-teal via-finance-teal-green to-finance-teal-mint bg-clip-text text-transparent">
-                  Market Central
-                </span>
+                    Market Central
+                  </span>
                   <span className="text-xs text-finance-electric/80 font-medium">
                     Real-time Financial Data
                   </span>
@@ -209,16 +210,24 @@ export default function TabbedMarketDashboard({
                     }`}
                   >
                     <div className="flex items-center gap-1">
-                      {connectionStatus === "connected" && <Wifi className="w-3 h-3" />}
+                      {connectionStatus === "connected" && (
+                        <Wifi className="w-3 h-3" />
+                      )}
                       {connectionStatus === "loading" && (
                         <motion.div
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
                         >
                           <RefreshCw className="w-3 h-3" />
                         </motion.div>
                       )}
-                      {connectionStatus === "error" && <WifiOff className="w-3 h-3" />}
+                      {connectionStatus === "error" && (
+                        <WifiOff className="w-3 h-3" />
+                      )}
                       <span>
                         {connectionStatus === "connected" && "LIVE"}
                         {connectionStatus === "loading" && "SYNC"}
@@ -284,7 +293,8 @@ export default function TabbedMarketDashboard({
                   </span>
                 </div>
                 <div className="text-xs text-foreground/70 mb-3">
-                  {errorMessage || "Unable to fetch real-time market data. Showing cached information."}
+                  {errorMessage ||
+                    "Unable to fetch real-time market data. Showing cached information."}
                 </div>
                 <Button
                   onClick={handleRefresh}
@@ -350,15 +360,24 @@ export default function TabbedMarketDashboard({
                           Indian Equity Markets
                         </h3>
                         <p className="text-sm text-finance-teal-mint/80">
-                          Real-time prices from NSE & BSE • {marketData.stocks.length} instruments
+                          Real-time prices from NSE & BSE •{" "}
+                          {marketData.stocks.length} instruments
                         </p>
                       </div>
                       <div className="mt-3 sm:mt-0 flex items-center gap-2">
-                        <Badge variant="outline" className="bg-finance-teal-green/10 border-finance-teal-green/40 text-finance-teal-green text-xs">
-                          {marketData.stocks.filter(s => s.change > 0).length} ↑
+                        <Badge
+                          variant="outline"
+                          className="bg-finance-teal-green/10 border-finance-teal-green/40 text-finance-teal-green text-xs"
+                        >
+                          {marketData.stocks.filter((s) => s.change > 0).length}{" "}
+                          ↑
                         </Badge>
-                        <Badge variant="outline" className="bg-finance-red/10 border-finance-red/40 text-finance-red text-xs">
-                          {marketData.stocks.filter(s => s.change < 0).length} ↓
+                        <Badge
+                          variant="outline"
+                          className="bg-finance-red/10 border-finance-red/40 text-finance-red text-xs"
+                        >
+                          {marketData.stocks.filter((s) => s.change < 0).length}{" "}
+                          ↓
                         </Badge>
                       </div>
                     </div>
@@ -406,7 +425,9 @@ export default function TabbedMarketDashboard({
                                             : "bg-finance-red/15 border-finance-red/40 text-finance-red"
                                         }`}
                                       >
-                                        {stock.marketState === "REGULAR" ? "LIVE" : "CLOSED"}
+                                        {stock.marketState === "REGULAR"
+                                          ? "LIVE"
+                                          : "CLOSED"}
                                       </Badge>
                                     </div>
                                   </div>
@@ -455,8 +476,13 @@ export default function TabbedMarketDashboard({
 
                                 {/* Day range */}
                                 <div className="mt-2 text-xs text-muted-foreground flex flex-wrap gap-3">
-                                  <span>H: {formatPrice(stock.symbol, stock.dayHigh)}</span>
-                                  <span>L: {formatPrice(stock.symbol, stock.dayLow)}</span>
+                                  <span>
+                                    H:{" "}
+                                    {formatPrice(stock.symbol, stock.dayHigh)}
+                                  </span>
+                                  <span>
+                                    L: {formatPrice(stock.symbol, stock.dayLow)}
+                                  </span>
                                   <span className="text-finance-electric">
                                     🕐 {safeFormatTimestamp(stock.timestamp)}
                                   </span>
@@ -518,10 +544,14 @@ export default function TabbedMarketDashboard({
                           Foreign Exchange Rates
                         </h3>
                         <p className="text-sm text-finance-electric/80">
-                          Live INR conversion rates • {marketData.currencies.length} major currencies
+                          Live INR conversion rates •{" "}
+                          {marketData.currencies.length} major currencies
                         </p>
                       </div>
-                      <Badge variant="outline" className="mt-3 sm:mt-0 bg-finance-teal/10 border-finance-teal/40 text-finance-teal text-xs">
+                      <Badge
+                        variant="outline"
+                        className="mt-3 sm:mt-0 bg-finance-teal/10 border-finance-teal/40 text-finance-teal text-xs"
+                      >
                         24h Active
                       </Badge>
                     </div>
@@ -543,7 +573,7 @@ export default function TabbedMarketDashboard({
                             <div className="flex items-center gap-3">
                               <div className="w-8 h-8 rounded-full bg-gradient-to-r from-finance-teal to-finance-electric flex items-center justify-center">
                                 <span className="text-xs font-bold text-finance-navy">
-                                  {currency.name.split('/')[0]}
+                                  {currency.name.split("/")[0]}
                                 </span>
                               </div>
                               <div>
@@ -558,11 +588,13 @@ export default function TabbedMarketDashboard({
 
                             {/* Trend indicator */}
                             {currency.change !== 0 && (
-                              <div className={`p-1 rounded-full ${
-                                currency.change > 0
-                                  ? "bg-finance-green/20"
-                                  : "bg-finance-red/20"
-                              }`}>
+                              <div
+                                className={`p-1 rounded-full ${
+                                  currency.change > 0
+                                    ? "bg-finance-green/20"
+                                    : "bg-finance-red/20"
+                                }`}
+                              >
                                 {currency.change > 0 ? (
                                   <TrendingUp className="w-4 h-4 text-finance-green" />
                                 ) : (
@@ -578,7 +610,8 @@ export default function TabbedMarketDashboard({
                               ₹{currency.rate.toFixed(4)}
                             </div>
                             <div className="text-xs text-muted-foreground">
-                              1 {currency.name.split('/')[0]} = {currency.rate.toFixed(4)} INR
+                              1 {currency.name.split("/")[0]} ={" "}
+                              {currency.rate.toFixed(4)} INR
                             </div>
                           </div>
 
@@ -624,10 +657,14 @@ export default function TabbedMarketDashboard({
                           <div className="absolute inset-0 bg-gradient-to-br from-finance-teal/5 to-finance-electric/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
                           {/* Border glow effect */}
-                          <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-finance-teal/20 to-finance-electric/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{
-                            background: "linear-gradient(90deg, transparent, rgba(0, 212, 204, 0.1), transparent)",
-                            animation: "border-flow 3s ease-in-out infinite"
-                          }} />
+                          <div
+                            className="absolute inset-0 rounded-xl bg-gradient-to-r from-finance-teal/20 to-finance-electric/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                            style={{
+                              background:
+                                "linear-gradient(90deg, transparent, rgba(0, 212, 204, 0.1), transparent)",
+                              animation: "border-flow 3s ease-in-out infinite",
+                            }}
+                          />
                         </motion.div>
                       ))}
                     </div>
@@ -640,7 +677,9 @@ export default function TabbedMarketDashboard({
                         className="text-center py-12"
                       >
                         <Globe className="w-12 h-12 mx-auto mb-4 text-finance-electric/50" />
-                        <p className="text-muted-foreground">No currency data available</p>
+                        <p className="text-muted-foreground">
+                          No currency data available
+                        </p>
                         <Button
                           onClick={handleRefresh}
                           size="sm"
@@ -680,26 +719,40 @@ export default function TabbedMarketDashboard({
                         <Card className="bg-gradient-to-br from-finance-navy-light/40 to-finance-navy-medium/30 border-finance-gold/30 hover:border-finance-gold/50 transition-all duration-300 hover:shadow-lg">
                           <CardContent className="p-4">
                             <div className="flex items-center justify-between mb-2">
-                              <div className={`p-2 rounded-full ${
-                                marketData.sentiment.sentiment === 'bullish' ? 'bg-finance-green/20' :
-                                marketData.sentiment.sentiment === 'bearish' ? 'bg-finance-red/20' :
-                                'bg-finance-electric/20'
-                              }`}>
-                                {marketData.sentiment.sentiment === 'bullish' ? (
+                              <div
+                                className={`p-2 rounded-full ${
+                                  marketData.sentiment.sentiment === "bullish"
+                                    ? "bg-finance-green/20"
+                                    : marketData.sentiment.sentiment ===
+                                        "bearish"
+                                      ? "bg-finance-red/20"
+                                      : "bg-finance-electric/20"
+                                }`}
+                              >
+                                {marketData.sentiment.sentiment ===
+                                "bullish" ? (
                                   <TrendingUp className="w-4 h-4 text-finance-green" />
-                                ) : marketData.sentiment.sentiment === 'bearish' ? (
+                                ) : marketData.sentiment.sentiment ===
+                                  "bearish" ? (
                                   <TrendingDown className="w-4 h-4 text-finance-red" />
                                 ) : (
                                   <Activity className="w-4 h-4 text-finance-electric" />
                                 )}
                               </div>
-                              <span className="text-xs text-muted-foreground">Sentiment</span>
+                              <span className="text-xs text-muted-foreground">
+                                Sentiment
+                              </span>
                             </div>
-                            <div className={`text-lg font-bold capitalize ${getSentimentColor(marketData.sentiment.sentiment)}`}>
+                            <div
+                              className={`text-lg font-bold capitalize ${getSentimentColor(marketData.sentiment.sentiment)}`}
+                            >
                               {marketData.sentiment.sentiment}
                             </div>
                             <div className="text-xs text-muted-foreground mt-1">
-                              {(marketData.sentiment.advanceDeclineRatio * 100).toFixed(1)}% bullish ratio
+                              {(
+                                marketData.sentiment.advanceDeclineRatio * 100
+                              ).toFixed(1)}
+                              % bullish ratio
                             </div>
                           </CardContent>
                         </Card>
@@ -717,7 +770,9 @@ export default function TabbedMarketDashboard({
                               <div className="p-2 rounded-full bg-finance-green/20">
                                 <ArrowUpRight className="w-4 h-4 text-finance-green" />
                               </div>
-                              <span className="text-xs text-muted-foreground">Gainers</span>
+                              <span className="text-xs text-muted-foreground">
+                                Gainers
+                              </span>
                             </div>
                             <div className="text-lg font-bold text-finance-green">
                               {marketData.sentiment.positiveStocks}
@@ -741,10 +796,13 @@ export default function TabbedMarketDashboard({
                               <div className="p-2 rounded-full bg-finance-red/20">
                                 <ArrowDownRight className="w-4 h-4 text-finance-red" />
                               </div>
-                              <span className="text-xs text-muted-foreground">Decliners</span>
+                              <span className="text-xs text-muted-foreground">
+                                Decliners
+                              </span>
                             </div>
                             <div className="text-lg font-bold text-finance-red">
-                              {marketData.sentiment.totalStocks - marketData.sentiment.positiveStocks}
+                              {marketData.sentiment.totalStocks -
+                                marketData.sentiment.positiveStocks}
                             </div>
                             <div className="text-xs text-muted-foreground mt-1">
                               of {marketData.sentiment.totalStocks} stocks
@@ -765,7 +823,9 @@ export default function TabbedMarketDashboard({
                               <div className="p-2 rounded-full bg-finance-electric/20">
                                 <Clock className="w-4 h-4 text-finance-electric" />
                               </div>
-                              <span className="text-xs text-muted-foreground">Updated</span>
+                              <span className="text-xs text-muted-foreground">
+                                Updated
+                              </span>
                             </div>
                             <div className="text-sm font-bold text-finance-electric">
                               {safeFormatTimestamp(lastUpdate)}
@@ -789,7 +849,9 @@ export default function TabbedMarketDashboard({
                         <CardContent className="p-6">
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div>
-                              <h4 className="text-lg font-bold text-finance-gold mb-2">Market Status</h4>
+                              <h4 className="text-lg font-bold text-finance-gold mb-2">
+                                Market Status
+                              </h4>
                               <div className="flex items-center gap-3">
                                 <Badge
                                   variant="outline"
@@ -799,7 +861,9 @@ export default function TabbedMarketDashboard({
                                       : "bg-finance-red/20 border-finance-red/50 text-finance-red"
                                   }`}
                                 >
-                                  {finnhubMarketDataService.isMarketOpen() ? "MARKET OPEN" : "MARKET CLOSED"}
+                                  {finnhubMarketDataService.isMarketOpen()
+                                    ? "MARKET OPEN"
+                                    : "MARKET CLOSED"}
                                 </Badge>
                                 <span className="text-sm text-muted-foreground">
                                   {finnhubMarketDataService.isMarketOpen()
@@ -828,7 +892,9 @@ export default function TabbedMarketDashboard({
                       transition={{ duration: 0.3, delay: 0.6 }}
                       className="text-center"
                     >
-                      <h4 className="text-sm font-semibold text-finance-gold mb-3">Quick Navigation</h4>
+                      <h4 className="text-sm font-semibold text-finance-gold mb-3">
+                        Quick Navigation
+                      </h4>
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                         <Button
                           variant="outline"
@@ -855,7 +921,9 @@ export default function TabbedMarketDashboard({
                           disabled={isLoading}
                           className="w-full sm:w-auto border-finance-electric/30 text-finance-electric hover:bg-finance-electric/10"
                         >
-                          <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                          <RefreshCw
+                            className={`w-4 h-4 mr-2 ${isLoading ? "animate-spin" : ""}`}
+                          />
                           Refresh All
                         </Button>
                       </div>

@@ -367,90 +367,90 @@ export default function Index() {
         <div className="min-h-screen">
           {/* Main Content */}
           <>
-              <ECCStyleNavigation scrolled={scrolled} />
-              <NetworkStatusIndicator isOnline={isOnline} />
-              <FloatingMarketIcon />
+            <ECCStyleNavigation scrolled={scrolled} />
+            <NetworkStatusIndicator isOnline={isOnline} />
+            <FloatingMarketIcon />
 
-              {/* Hero Section */}
-              <MarketDataErrorBoundary>
-                <section id="home">
-                  <ProfessionalHeroSection />
-                </section>
-              </MarketDataErrorBoundary>
-
-              {/* About TFS Section */}
-              <section id="about">
-                <AboutSection />
+            {/* Hero Section */}
+            <MarketDataErrorBoundary>
+              <section id="home">
+                <ProfessionalHeroSection />
               </section>
+            </MarketDataErrorBoundary>
 
-              {/* About BAF Section */}
-              <section id="about-baf">
-                <AboutBAFSection />
-              </section>
+            {/* About TFS Section */}
+            <section id="about">
+              <AboutSection />
+            </section>
 
-              {/* Meet the Team Section */}
-              <section id="luminaries">
-                <ModernLuminariesSection />
-              </section>
+            {/* About BAF Section */}
+            <section id="about-baf">
+              <AboutBAFSection />
+            </section>
 
-              {/* Events Section */}
-              <section id="events">
-                <MobileOptimizedEventsSection />
-              </section>
+            {/* Meet the Team Section */}
+            <section id="luminaries">
+              <ModernLuminariesSection />
+            </section>
 
-              {/* Insights Section */}
-              <section id="insights">
-                <OptimizedFinsightSection />
-              </section>
+            {/* Events Section */}
+            <section id="events">
+              <MobileOptimizedEventsSection />
+            </section>
 
-              {/* Sponsors Section */}
-              <section id="sponsors">
-                <SponsorsSection />
-              </section>
+            {/* Insights Section */}
+            <section id="insights">
+              <OptimizedFinsightSection />
+            </section>
 
-              {/* Contact Us Section */}
-              <section id="contact">
-                <ContactSection />
-              </section>
+            {/* Sponsors Section */}
+            <section id="sponsors">
+              <SponsorsSection />
+            </section>
 
-              {/* Footer */}
-              <footer className="py-12 px-6 bg-finance-navy border-t border-finance-cyan/20">
-                <div className="container mx-auto">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center space-x-4 mb-6">
-                      <div
-                        className="w-12 h-12 flex items-center justify-center rounded-lg border border-finance-cyan/30 relative overflow-hidden"
-                        style={{
-                          backgroundImage:
-                            "url(https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990)",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "center",
-                          backgroundSize: "cover",
-                        }}
-                      />
-                      <div>
-                        <h3 className="text-xl font-bold text-finance-cyan finance-heading">
-                          The Finance Symposium
-                        </h3>
-                        <p className="text-sm text-finance-teal/80 professional-text">
-                          St. Xavier's College Mumbai
-                        </p>
-                      </div>
-                    </div>
+            {/* Contact Us Section */}
+            <section id="contact">
+              <ContactSection />
+            </section>
 
-                    <p className="text-muted-foreground mb-6 max-w-2xl mx-auto professional-text">
-                      Illuminating the future of finance through education,
-                      innovation, and industry collaboration. Join us in shaping
-                      the next generation of financial leaders.
-                    </p>
-
-                    <div className="text-finance-cyan/60 text-sm professional-text">
-                      © 2024 The Finance Symposium. All rights reserved. |
-                      Designed with ❤️ by Dhruv Moghe
+            {/* Footer */}
+            <footer className="py-12 px-6 bg-finance-navy border-t border-finance-cyan/20">
+              <div className="container mx-auto">
+                <div className="text-center">
+                  <div className="flex items-center justify-center space-x-4 mb-6">
+                    <div
+                      className="w-12 h-12 flex items-center justify-center rounded-lg border border-finance-cyan/30 relative overflow-hidden"
+                      style={{
+                        backgroundImage:
+                          "url(https://cdn.builder.io/api/v1/image/assets%2F929e4df9940a4d789ccda51924367667%2F738f11e9971c4f0f8ef4fd148b7ae990)",
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                      }}
+                    />
+                    <div>
+                      <h3 className="text-xl font-bold text-finance-cyan finance-heading">
+                        The Finance Symposium
+                      </h3>
+                      <p className="text-sm text-finance-teal/80 professional-text">
+                        St. Xavier's College Mumbai
+                      </p>
                     </div>
                   </div>
+
+                  <p className="text-muted-foreground mb-6 max-w-2xl mx-auto professional-text">
+                    Illuminating the future of finance through education,
+                    innovation, and industry collaboration. Join us in shaping
+                    the next generation of financial leaders.
+                  </p>
+
+                  <div className="text-finance-cyan/60 text-sm professional-text">
+                    © 2024 The Finance Symposium. All rights reserved. |
+                    Designed with ❤️ by Dhruv Moghe
+                  </div>
                 </div>
-              </footer>
+              </div>
+            </footer>
           </>
 
           {/* Admin Login Panel */}

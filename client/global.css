@@ -32,7 +32,7 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 346.8 77.2% 49.8%;
-    --glow-color: #FFD700;
+    --glow-color: #ffd700;
   }
 }
 
@@ -48,9 +48,9 @@
 /* Professional finance-themed gradients and animations */
 @layer utilities {
   .finance-gradient {
-    background: linear-gradient(135deg, #0B1426 0%, #1A2B42 50%, #2A3B52 100%);
+    background: linear-gradient(135deg, #0b1426 0%, #1a2b42 50%, #2a3b52 100%);
   }
-  
+
   .finance-glow {
     box-shadow:
       0 0 20px rgba(32, 178, 170, 0.4),
@@ -64,11 +64,11 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
       0 0 20px rgba(32, 178, 170, 0.2);
   }
-  
+
   .market-card-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .market-card-hover:hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow:
@@ -79,7 +79,8 @@
 
 /* Advanced keyframe animations for market dashboard */
 @keyframes border-flow {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
@@ -88,7 +89,8 @@
 }
 
 @keyframes market-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -114,7 +116,8 @@
 }
 
 @keyframes float-gentle {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -149,42 +152,37 @@
 /* Responsive mobile enhancements */
 @layer components {
   .mobile-dashboard-optimized {
-    @apply 
-      overflow-hidden 
+    @apply overflow-hidden 
       touch-pan-y 
       scrollbar-thin 
       scrollbar-track-finance-navy 
       scrollbar-thumb-finance-gold/30;
   }
-  
+
   .mobile-card-stack {
-    @apply 
-      space-y-3 
+    @apply space-y-3 
       px-1 
       sm:space-y-4 
       sm:px-0;
   }
-  
+
   .mobile-metric-grid {
-    @apply 
-      grid 
+    @apply grid 
       grid-cols-2 
       gap-3 
       sm:grid-cols-4 
       sm:gap-4 
       lg:gap-6;
   }
-  
+
   .mobile-text-responsive {
-    @apply 
-      text-sm 
+    @apply text-sm 
       sm:text-base 
       lg:text-lg;
   }
-  
+
   .mobile-icon-responsive {
-    @apply 
-      w-4 
+    @apply w-4 
       h-4 
       sm:w-5 
       sm:h-5 
@@ -302,8 +300,7 @@
 
 /* Improved touch targets for mobile */
 .touch-target-enhanced {
-  @apply 
-    min-h-[44px] 
+  @apply min-h-[44px] 
     min-w-[44px] 
     flex 
     items-center 
@@ -312,8 +309,7 @@
 
 /* Market status indicators */
 .market-status-live {
-  @apply 
-    relative 
+  @apply relative 
     after:absolute 
     after:inset-0 
     after:rounded-full 
@@ -323,8 +319,7 @@
 }
 
 .market-status-closed {
-  @apply 
-    relative 
+  @apply relative 
     after:absolute 
     after:inset-0 
     after:rounded-full 
@@ -334,8 +329,7 @@
 
 /* Interactive feedback for market items */
 .market-item-interactive {
-  @apply 
-    transition-all 
+  @apply transition-all 
     duration-300 
     cursor-pointer 
     hover:shadow-lg 
@@ -347,13 +341,13 @@
 /* High contrast mode support for accessibility */
 @media (prefers-contrast: high) {
   .finance-text-gold {
-    color: #FFFF00;
+    color: #ffff00;
   }
-  
+
   .finance-border-gold {
-    border-color: #FFFF00;
+    border-color: #ffff00;
   }
-  
+
   .finance-bg-navy {
     background-color: #000033;
   }
@@ -366,12 +360,12 @@
   .animate-bounce {
     animation: none;
   }
-  
+
   .market-ticker {
     animation: none;
     transform: none;
   }
-  
+
   .data-refresh,
   .market-pulse,
   .float-gentle {
@@ -382,24 +376,22 @@
 /* Print styles for market data */
 @media print {
   .market-dashboard {
-    @apply 
-      bg-white 
+    @apply bg-white 
       text-black 
       shadow-none;
   }
-  
+
   .market-card {
-    @apply 
-      bg-white 
+    @apply bg-white 
       border-gray-300 
       shadow-none 
       break-inside-avoid;
   }
-  
+
   .finance-gold {
     color: #000000 !important;
   }
-  
+
   .finance-navy {
     background-color: #ffffff !important;
   }
@@ -407,8 +399,7 @@
 
 /* Focus management for accessibility */
 .market-focus-ring {
-  @apply 
-    focus:outline-none 
+  @apply focus:outline-none 
     focus:ring-2 
     focus:ring-finance-gold 
     focus:ring-offset-2 
@@ -417,8 +408,7 @@
 
 /* Enhanced mobile tab navigation */
 .mobile-tab-enhanced {
-  @apply 
-    relative 
+  @apply relative 
     overflow-hidden 
     before:absolute 
     before:inset-0 
@@ -434,8 +424,7 @@
 
 /* Currency exchange rate styling */
 .currency-rate-card {
-  @apply 
-    relative 
+  @apply relative 
     overflow-hidden 
     before:absolute 
     before:top-0 
@@ -453,8 +442,7 @@
 
 /* Stock price movement indicators */
 .price-movement-up {
-  @apply 
-    text-finance-green 
+  @apply text-finance-green 
     relative 
     after:absolute 
     after:top-0 
@@ -467,8 +455,7 @@
 }
 
 .price-movement-down {
-  @apply 
-    text-finance-red 
+  @apply text-finance-red 
     relative 
     after:absolute 
     after:top-0 
@@ -481,8 +468,7 @@
 }
 
 .price-movement-neutral {
-  @apply 
-    text-finance-electric 
+  @apply text-finance-electric 
     relative 
     after:absolute 
     after:top-0 

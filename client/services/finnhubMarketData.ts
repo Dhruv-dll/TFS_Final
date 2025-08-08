@@ -5,7 +5,9 @@ class FinnhubMarketDataService {
   private readonly BASE_URL = "https://finnhub.io/api/v1";
 
   constructor() {
-    console.log("🚀 Initializing Enhanced Market Data Service - Server Mode Active");
+    console.log(
+      "🚀 Initializing Enhanced Market Data Service - Server Mode Active",
+    );
 
     // Set up global error handler for fetch failures
     if (typeof window !== "undefined") {
@@ -148,7 +150,9 @@ class FinnhubMarketDataService {
       // Environment validation with better error handling
       try {
         if (typeof fetch === "undefined" || typeof window === "undefined") {
-          console.log("📊 Runtime environment incompatible, using fallback mode");
+          console.log(
+            "📊 Runtime environment incompatible, using fallback mode",
+          );
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
@@ -182,20 +186,25 @@ class FinnhubMarketDataService {
         }
 
         // Check if we're in a slow network environment
-        if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+        if (typeof navigator !== "undefined" && "connection" in navigator) {
           const connection = (navigator as any).connection;
-          if (connection && connection.effectiveType === 'slow-2g') {
+          if (connection && connection.effectiveType === "slow-2g") {
             console.log("📊 Slow network detected, using cached data");
             // Don't set fallback mode permanently for slow networks
-            return this.cache.stocks.length > 0 ? {
-              stocks: this.cache.stocks,
-              sentiment: this.calculateMarketSentiment(this.cache.stocks),
-              currencies: this.cache.currencies
-            } : this.getFallbackMarketData();
+            return this.cache.stocks.length > 0
+              ? {
+                  stocks: this.cache.stocks,
+                  sentiment: this.calculateMarketSentiment(this.cache.stocks),
+                  currencies: this.cache.currencies,
+                }
+              : this.getFallbackMarketData();
           }
         }
       } catch (connectivityError) {
-        console.log("📊 Connectivity assessment failed, proceeding with caution:", connectivityError?.message);
+        console.log(
+          "📊 Connectivity assessment failed, proceeding with caution:",
+          connectivityError?.message,
+        );
       }
 
       // Enhanced timeout wrapper with progressive retry logic
@@ -209,40 +218,54 @@ class FinnhubMarketDataService {
 
             // Dynamic timeout based on network conditions and previous performance
             const baseTimeout = 12000; // 12 seconds base
-            const adaptiveTimeout = this.apiFailureCount > 0 ? baseTimeout * 0.75 : baseTimeout;
+            const adaptiveTimeout =
+              this.apiFailureCount > 0 ? baseTimeout * 0.75 : baseTimeout;
 
             const timeoutId = setTimeout(() => {
               try {
                 controller.abort();
                 const requestDuration = Date.now() - requestStartTime;
-                console.warn(`📊 Request timeout after ${requestDuration}ms, switching to enhanced fallback`);
+                console.warn(
+                  `📊 Request timeout after ${requestDuration}ms, switching to enhanced fallback`,
+                );
 
                 this.apiFailureCount++;
                 if (this.apiFailureCount >= 3) {
                   this.fallbackMode = true;
-                  console.log("📊 Activating persistent fallback mode due to repeated timeouts");
+                  console.log(
+                    "📊 Activating persistent fallback mode due to repeated timeouts",
+                  );
                 }
 
                 resolve(
-                  new Response(JSON.stringify({
-                    fallback: true,
-                    reason: 'timeout',
-                    duration: requestDuration
-                  }), {
-                    status: 200,
-                    headers: { "Content-Type": "application/json" },
-                  }),
+                  new Response(
+                    JSON.stringify({
+                      fallback: true,
+                      reason: "timeout",
+                      duration: requestDuration,
+                    }),
+                    {
+                      status: 200,
+                      headers: { "Content-Type": "application/json" },
+                    },
+                  ),
                 );
               } catch (timeoutError) {
-                console.warn("📊 Timeout handler error, using emergency fallback:", timeoutError?.message);
+                console.warn(
+                  "📊 Timeout handler error, using emergency fallback:",
+                  timeoutError?.message,
+                );
                 resolve(
-                  new Response(JSON.stringify({
-                    fallback: true,
-                    reason: 'timeout-error'
-                  }), {
-                    status: 200,
-                    headers: { "Content-Type": "application/json" },
-                  }),
+                  new Response(
+                    JSON.stringify({
+                      fallback: true,
+                      reason: "timeout-error",
+                    }),
+                    {
+                      status: 200,
+                      headers: { "Content-Type": "application/json" },
+                    },
+                  ),
                 );
               }
             }, adaptiveTimeout);
@@ -252,15 +275,15 @@ class FinnhubMarketDataService {
               const fetchOptions = {
                 method: "GET",
                 headers: {
-                  "Accept": "application/json",
+                  Accept: "application/json",
                   "Cache-Control": "no-cache, no-store, must-revalidate",
-                  "Pragma": "no-cache",
-                  "Expires": "0",
+                  Pragma: "no-cache",
+                  Expires: "0",
                   "X-Requested-With": "XMLHttpRequest",
                 },
                 signal: controller.signal,
                 // Add credentials if needed for authentication
-                credentials: 'same-origin' as RequestCredentials,
+                credentials: "same-origin" as RequestCredentials,
               };
 
               fetch("/api/market-data", fetchOptions)
@@ -270,25 +293,35 @@ class FinnhubMarketDataService {
                     const responseTime = Date.now() - requestStartTime;
 
                     if (response.ok) {
-                      console.log(`✅ Server response received in ${responseTime}ms`);
+                      console.log(
+                        `✅ Server response received in ${responseTime}ms`,
+                      );
                       // Reset failure count on successful response
-                      this.apiFailureCount = Math.max(0, this.apiFailureCount - 1);
+                      this.apiFailureCount = Math.max(
+                        0,
+                        this.apiFailureCount - 1,
+                      );
                       resolve(response);
                     } else {
-                      console.warn(`⚠️ Server returned ${response.status}: ${response.statusText}`);
+                      console.warn(
+                        `⚠️ Server returned ${response.status}: ${response.statusText}`,
+                      );
                       this.apiFailureCount++;
 
                       // For client errors (4xx), don't retry immediately
                       if (response.status >= 400 && response.status < 500) {
                         resolve(
-                          new Response(JSON.stringify({
-                            fallback: true,
-                            reason: 'client-error',
-                            status: response.status
-                          }), {
-                            status: 200,
-                            headers: { "Content-Type": "application/json" },
-                          }),
+                          new Response(
+                            JSON.stringify({
+                              fallback: true,
+                              reason: "client-error",
+                              status: response.status,
+                            }),
+                            {
+                              status: 200,
+                              headers: { "Content-Type": "application/json" },
+                            },
+                          ),
                         );
                       } else {
                         resolve(response); // Let the error handling logic deal with it
@@ -301,13 +334,16 @@ class FinnhubMarketDataService {
                     );
                     this.apiFailureCount++;
                     resolve(
-                      new Response(JSON.stringify({
-                        fallback: true,
-                        reason: 'response-error'
-                      }), {
-                        status: 200,
-                        headers: { "Content-Type": "application/json" },
-                      }),
+                      new Response(
+                        JSON.stringify({
+                          fallback: true,
+                          reason: "response-error",
+                        }),
+                        {
+                          status: 200,
+                          headers: { "Content-Type": "application/json" },
+                        },
+                      ),
                     );
                   }
                 })
@@ -406,10 +442,12 @@ class FinnhubMarketDataService {
 
       // Enhanced fallback detection with reason logging
       if (data.fallback === true) {
-        const reason = data.reason || 'server-indicated';
-        console.log(`📊 Server indicated fallback mode (reason: ${reason}), using enhanced local data`);
+        const reason = data.reason || "server-indicated";
+        console.log(
+          `📊 Server indicated fallback mode (reason: ${reason}), using enhanced local data`,
+        );
 
-        if (reason === 'timeout' || reason === 'server-error') {
+        if (reason === "timeout" || reason === "server-error") {
           this.apiFailureCount++;
         }
 
@@ -422,27 +460,31 @@ class FinnhubMarketDataService {
       }
 
       // Comprehensive data validation
-      if (!data.stocks || !Array.isArray(data.stocks) || data.stocks.length === 0) {
+      if (
+        !data.stocks ||
+        !Array.isArray(data.stocks) ||
+        data.stocks.length === 0
+      ) {
         console.warn("📊 Invalid or empty stock data, using fallback");
         this.apiFailureCount++;
         return this.getFallbackMarketData();
       }
 
-      if (!data.sentiment || typeof data.sentiment.sentiment !== 'string') {
+      if (!data.sentiment || typeof data.sentiment.sentiment !== "string") {
         console.warn("📊 Invalid sentiment data, using fallback");
         data.sentiment = {
-          sentiment: 'neutral',
+          sentiment: "neutral",
           advanceDeclineRatio: 0.5,
           positiveStocks: 0,
-          totalStocks: data.stocks.length
+          totalStocks: data.stocks.length,
         };
       }
 
       // Log successful fetch with metadata
       const metadata = data.metadata || {};
       console.log(
-        `✅ Successfully fetched ${data.stocks.length} stocks from ${metadata.source || 'server'} ` +
-        `(processing: ${metadata.processingTime || 'unknown'}ms, quality: ${metadata.dataQuality?.stocksValidated || data.stocks.length}/${metadata.dataQuality?.stocksTotal || data.stocks.length})`
+        `✅ Successfully fetched ${data.stocks.length} stocks from ${metadata.source || "server"} ` +
+          `(processing: ${metadata.processingTime || "unknown"}ms, quality: ${metadata.dataQuality?.stocksValidated || data.stocks.length}/${metadata.dataQuality?.stocksTotal || data.stocks.length})`,
       );
 
       // Reset failure count on successful data
@@ -453,8 +495,14 @@ class FinnhubMarketDataService {
       const enhancedStocks = data.stocks
         .map((stock: any) => {
           // Validate required fields
-          if (!stock.symbol || typeof stock.price !== 'number' || stock.price <= 0) {
-            console.warn(`Invalid stock data for ${stock.symbol || 'unknown'}, skipping`);
+          if (
+            !stock.symbol ||
+            typeof stock.price !== "number" ||
+            stock.price <= 0
+          ) {
+            console.warn(
+              `Invalid stock data for ${stock.symbol || "unknown"}, skipping`,
+            );
             return null;
           }
 
@@ -462,33 +510,44 @@ class FinnhubMarketDataService {
 
           return {
             ...stock,
-            displayName: stockInfo?.displayName || stock.displayName || stock.name,
+            displayName:
+              stockInfo?.displayName || stock.displayName || stock.name,
             // Enhanced data validation and defaults
-            changePercent: typeof stock.changePercent === 'number' ? stock.changePercent : 0,
-            change: typeof stock.change === 'number' ? stock.change : 0,
-            dayHigh: typeof stock.dayHigh === 'number' ? stock.dayHigh : stock.price,
-            dayLow: typeof stock.dayLow === 'number' ? stock.dayLow : stock.price,
+            changePercent:
+              typeof stock.changePercent === "number" ? stock.changePercent : 0,
+            change: typeof stock.change === "number" ? stock.change : 0,
+            dayHigh:
+              typeof stock.dayHigh === "number" ? stock.dayHigh : stock.price,
+            dayLow:
+              typeof stock.dayLow === "number" ? stock.dayLow : stock.price,
             timestamp: stock.timestamp ? new Date(stock.timestamp) : new Date(),
-            marketState: stock.marketState || (this.isMarketOpen() ? 'REGULAR' : 'CLOSED'),
+            marketState:
+              stock.marketState || (this.isMarketOpen() ? "REGULAR" : "CLOSED"),
           };
         })
         .filter(Boolean); // Remove invalid entries
 
       // Validate currencies if present
-      const validatedCurrencies = (data.currencies || []).filter((currency: any) => {
-        return currency.symbol &&
-               typeof currency.rate === 'number' &&
-               currency.rate > 0 &&
-               !isNaN(currency.rate);
-      });
+      const validatedCurrencies = (data.currencies || []).filter(
+        (currency: any) => {
+          return (
+            currency.symbol &&
+            typeof currency.rate === "number" &&
+            currency.rate > 0 &&
+            !isNaN(currency.rate)
+          );
+        },
+      );
 
-      console.log(`📊 Data validation completed in ${Date.now() - processingStartTime}ms: ${enhancedStocks.length} valid stocks, ${validatedCurrencies.length} valid currencies`);
+      console.log(
+        `📊 Data validation completed in ${Date.now() - processingStartTime}ms: ${enhancedStocks.length} valid stocks, ${validatedCurrencies.length} valid currencies`,
+      );
 
       return {
         stocks: enhancedStocks,
         sentiment: data.sentiment,
         currencies: validatedCurrencies,
-        metadata: data.metadata
+        metadata: data.metadata,
       };
     } catch (error) {
       const errorMessage = error?.message || "Unknown error";
@@ -770,14 +829,15 @@ class FinnhubMarketDataService {
           if (data && data.stocks && Array.isArray(data.stocks)) {
             // Validate and enhance server data for accuracy
             data.stocks = this.validatePriceAccuracy(data.stocks);
-            console.log(`✅ Server data validated: ${data.stocks.length} accurate stock prices`);
+            console.log(
+              `✅ Server data validated: ${data.stocks.length} accurate stock prices`,
+            );
 
             // Reset failure count on successful fetch
             this.apiFailureCount = Math.max(0, this.apiFailureCount - 1);
           } else {
-            throw new Error('Invalid or empty server response');
+            throw new Error("Invalid or empty server response");
           }
-
         } catch (fetchError) {
           console.warn(
             "📊 Fetch error, using enhanced fallback:",
@@ -788,7 +848,9 @@ class FinnhubMarketDataService {
           // Use fallback mode if too many failures
           if (this.apiFailureCount >= 3) {
             this.fallbackMode = true;
-            console.log("🔄 Activating persistent fallback mode due to repeated failures");
+            console.log(
+              "🔄 Activating persistent fallback mode due to repeated failures",
+            );
           }
 
           data = this.getFallbackMarketData();
@@ -803,9 +865,9 @@ class FinnhubMarketDataService {
 
         // Ensure data timestamps are current
         data.timestamp = new Date();
-        data.stocks = data.stocks.map(stock => ({
+        data.stocks = data.stocks.map((stock) => ({
           ...stock,
-          timestamp: new Date(stock.timestamp || Date.now())
+          timestamp: new Date(stock.timestamp || Date.now()),
         }));
 
         // Final consistency validation
@@ -1071,21 +1133,27 @@ class FinnhubMarketDataService {
 
   // Enhanced price validation for accuracy
   private validatePriceAccuracy(stocks: any[]): any[] {
-    return stocks.map(stock => {
+    return stocks.map((stock) => {
       // Validate price is reasonable and not corrupted
-      if (typeof stock.price !== 'number' || stock.price <= 0 || isNaN(stock.price)) {
+      if (
+        typeof stock.price !== "number" ||
+        stock.price <= 0 ||
+        isNaN(stock.price)
+      ) {
         console.warn(`Invalid price for ${stock.symbol}: ${stock.price}`);
         return { ...stock, price: 1000, change: 0, changePercent: 0 }; // Safe fallback
       }
 
       // Validate change percentage is reasonable (not more than 20% in a day)
       if (Math.abs(stock.changePercent) > 20) {
-        console.warn(`Extreme change for ${stock.symbol}: ${stock.changePercent}%`);
+        console.warn(
+          `Extreme change for ${stock.symbol}: ${stock.changePercent}%`,
+        );
         const cappedPercent = Math.sign(stock.changePercent) * 5; // Cap at ±5%
         return {
           ...stock,
           changePercent: cappedPercent,
-          change: (stock.price * cappedPercent) / 100
+          change: (stock.price * cappedPercent) / 100,
         };
       }
 
@@ -1112,8 +1180,10 @@ class FinnhubMarketDataService {
   private ensureDataConsistency(data: any): any {
     // Validate sentiment calculations
     if (data.sentiment && data.stocks) {
-      const validStocks = data.stocks.filter(s => s.symbol && !s.symbol.includes('^'));
-      const actualPositive = validStocks.filter(s => s.change > 0).length;
+      const validStocks = data.stocks.filter(
+        (s) => s.symbol && !s.symbol.includes("^"),
+      );
+      const actualPositive = validStocks.filter((s) => s.change > 0).length;
       const actualTotal = validStocks.length;
 
       if (actualTotal > 0) {
@@ -1121,12 +1191,17 @@ class FinnhubMarketDataService {
 
         // Recalculate sentiment if it doesn't match actual data
         if (Math.abs(data.sentiment.advanceDeclineRatio - actualRatio) > 0.1) {
-          console.log('Recalculating market sentiment for consistency');
+          console.log("Recalculating market sentiment for consistency");
           data.sentiment = {
-            sentiment: actualRatio >= 0.6 ? 'bullish' : actualRatio <= 0.4 ? 'bearish' : 'neutral',
+            sentiment:
+              actualRatio >= 0.6
+                ? "bullish"
+                : actualRatio <= 0.4
+                  ? "bearish"
+                  : "neutral",
             advanceDeclineRatio: Math.round(actualRatio * 1000) / 1000,
             positiveStocks: actualPositive,
-            totalStocks: actualTotal
+            totalStocks: actualTotal,
           };
         }
       }

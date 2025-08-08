@@ -32,7 +32,11 @@ export default function FixedMobileTicker({
   }, []);
 
   const formatPrice = (symbol: string, price: number) => {
-    if (symbol.includes(".NS") || symbol.includes("^BSESN") || symbol.includes("^NSEI")) {
+    if (
+      symbol.includes(".NS") ||
+      symbol.includes("^BSESN") ||
+      symbol.includes("^NSEI")
+    ) {
       return `₹${price.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
     return `$${price.toFixed(2)}`;
@@ -79,22 +83,26 @@ export default function FixedMobileTicker({
           </div>
           <div className="text-teal-300 text-xs font-mono font-bold">
             {currentTime.toLocaleTimeString("en-IN", {
-              hour: '2-digit',
-              minute: '2-digit'
-            })} IST
+              hour: "2-digit",
+              minute: "2-digit",
+            })}{" "}
+            IST
           </div>
         </div>
 
         {/* Stock Ticker Row */}
-        <div className="relative overflow-hidden bg-slate-800/95" style={{ touchAction: 'none' }}>
+        <div
+          className="relative overflow-hidden bg-slate-800/95"
+          style={{ touchAction: "none" }}
+        >
           <div
             className="flex items-center space-x-6 py-2.5 mobile-ticker-never-pause"
             style={{
-              width: '200%',
-              animation: 'mobileTicker 35s linear infinite',
-              willChange: 'transform',
-              transform: 'translateZ(0)', // Force GPU acceleration
-              animationPlayState: 'running',
+              width: "200%",
+              animation: "mobileTicker 35s linear infinite",
+              willChange: "transform",
+              transform: "translateZ(0)", // Force GPU acceleration
+              animationPlayState: "running",
             }}
           >
             {/* First set */}
@@ -102,10 +110,12 @@ export default function FixedMobileTicker({
               <div
                 key={`mobile-${stock.symbol}-${index}`}
                 className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/90 px-3 py-1.5 rounded-lg border border-teal-400/40 shadow-lg"
-                style={{ minWidth: 'max-content' }}
+                style={{ minWidth: "max-content" }}
               >
                 <span className="text-teal-300 font-bold text-sm">
-                  {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
+                  {stock.name.length > 7
+                    ? stock.name.substring(0, 7)
+                    : stock.name}
                 </span>
                 <span className="text-white font-bold text-sm">
                   {formatPrice(stock.symbol, stock.price)}
@@ -130,10 +140,12 @@ export default function FixedMobileTicker({
               <div
                 key={`mobile-dup-${stock.symbol}-${index}`}
                 className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/90 px-3 py-1.5 rounded-lg border border-teal-400/40 shadow-lg"
-                style={{ minWidth: 'max-content' }}
+                style={{ minWidth: "max-content" }}
               >
                 <span className="text-teal-300 font-bold text-sm">
-                  {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
+                  {stock.name.length > 7
+                    ? stock.name.substring(0, 7)
+                    : stock.name}
                 </span>
                 <span className="text-white font-bold text-sm">
                   {formatPrice(stock.symbol, stock.price)}
@@ -236,7 +248,6 @@ export default function FixedMobileTicker({
           </div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -295,7 +295,6 @@ export default function SponsorsSection() {
             </motion.div>
           )}
         </motion.div>
-
       </div>
     </section>
   );
