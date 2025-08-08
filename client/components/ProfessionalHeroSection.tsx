@@ -7,6 +7,7 @@ import {
   safeFormatTimestamp,
 } from "../services/finnhubMarketData";
 import { ChevronDown, ExternalLink } from "lucide-react";
+import SimpleMarketTicker from "./SimpleMarketTicker";
 
 // Professional Market Ticker
 function ProfessionalMarketTicker() {
