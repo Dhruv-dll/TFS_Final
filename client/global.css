@@ -263,7 +263,8 @@
 .mobile-ticker-content {
   display: flex;
   width: 200%;
-  animation: mobileTicker 60s linear infinite;
+  animation: mobileTicker 40s linear infinite;
+  will-change: transform;
 }
 
 @keyframes mobileTicker {
