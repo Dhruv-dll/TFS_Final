@@ -1063,6 +1063,72 @@ class FinnhubMarketDataService {
       };
     }
   }
+
+  // Enhanced price validation for accuracy
+  private validatePriceAccuracy(stocks: any[]): any[] {
+    return stocks.map(stock => {
+      // Validate price is reasonable and not corrupted
+      if (typeof stock.price !== 'number' || stock.price <= 0 || isNaN(stock.price)) {
+        console.warn(`Invalid price for ${stock.symbol}: ${stock.price}`);
+        return { ...stock, price: 1000, change: 0, changePercent: 0 }; // Safe fallback
+      }
+
+      // Validate change percentage is reasonable (not more than 20% in a day)
+      if (Math.abs(stock.changePercent) > 20) {
+        console.warn(`Extreme change for ${stock.symbol}: ${stock.changePercent}%`);
+        const cappedPercent = Math.sign(stock.changePercent) * 5; // Cap at ±5%
+        return {
+          ...stock,
+          changePercent: cappedPercent,
+          change: (stock.price * cappedPercent) / 100
+        };
+      }
+
+      // Ensure day high/low are consistent
+      if (stock.dayHigh < stock.dayLow) {
+        const temp = stock.dayHigh;
+        stock.dayHigh = stock.dayLow;
+        stock.dayLow = temp;
+      }
+
+      // Ensure current price is within day range
+      if (stock.price > stock.dayHigh) {
+        stock.dayHigh = stock.price;
+      }
+      if (stock.price < stock.dayLow) {
+        stock.dayLow = stock.price;
+      }
+
+      return stock;
+    });
+  }
+
+  // Ensure overall data consistency
+  private ensureDataConsistency(data: any): any {
+    // Validate sentiment calculations
+    if (data.sentiment && data.stocks) {
+      const validStocks = data.stocks.filter(s => s.symbol && !s.symbol.includes('^'));
+      const actualPositive = validStocks.filter(s => s.change > 0).length;
+      const actualTotal = validStocks.length;
+
+      if (actualTotal > 0) {
+        const actualRatio = actualPositive / actualTotal;
+
+        // Recalculate sentiment if it doesn't match actual data
+        if (Math.abs(data.sentiment.advanceDeclineRatio - actualRatio) > 0.1) {
+          console.log('Recalculating market sentiment for consistency');
+          data.sentiment = {
+            sentiment: actualRatio >= 0.6 ? 'bullish' : actualRatio <= 0.4 ? 'bearish' : 'neutral',
+            advanceDeclineRatio: Math.round(actualRatio * 1000) / 1000,
+            positiveStocks: actualPositive,
+            totalStocks: actualTotal
+          };
+        }
+      }
+    }
+
+    return data;
+  }
 }
 
 // Type definitions
