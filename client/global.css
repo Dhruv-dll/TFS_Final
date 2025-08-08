@@ -275,11 +275,7 @@
   }
 }
 
-/* Pause animation on touch/hover for better readability */
-.mobile-ticker-container:hover .mobile-ticker-content,
-.mobile-ticker-container:active .mobile-ticker-content {
-  animation-play-state: paused;
-}
+/* No pause on mobile - keep animation running always */
 
 /* Loading states for market data */
 .market-data-skeleton {
