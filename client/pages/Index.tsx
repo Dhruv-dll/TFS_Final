@@ -365,14 +365,8 @@ export default function Index() {
     <AuthProvider>
       <EventPopupProvider>
         <div className="min-h-screen">
-          {/* Terminal Loader */}
-          {showLoader && (
-            <TerminalLoader onComplete={() => setShowLoader(false)} />
-          )}
-
           {/* Main Content */}
-          {!showLoader && (
-            <>
+          <>
               <ECCStyleNavigation scrolled={scrolled} />
               <NetworkStatusIndicator isOnline={isOnline} />
               <FloatingMarketIcon />
@@ -457,8 +451,7 @@ export default function Index() {
                   </div>
                 </div>
               </footer>
-            </>
-          )}
+          </>
 
           {/* Admin Login Panel */}
           <AdminLogin
