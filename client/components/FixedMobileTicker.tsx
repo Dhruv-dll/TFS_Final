@@ -156,7 +156,7 @@ export default function FixedMobileTicker({
         </div>
       </div>
 
-      {/* Desktop Layout (hidden on mobile) */}
+      {/* Desktop Only Layout */}
       <div className="hidden md:block">
         <div className="container mx-auto px-6 py-3">
           <div className="flex items-center justify-between text-sm">
