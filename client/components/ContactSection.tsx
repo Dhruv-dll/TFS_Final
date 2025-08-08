@@ -43,12 +43,6 @@ const socialLinks = [
     label: "Linktree",
     color: "hover:text-green-400",
   },
-  {
-    icon: MessageCircle,
-    href: "#",
-    label: "Discord",
-    color: "hover:text-purple-400",
-  },
 ];
 
 export default function ContactSection() {
