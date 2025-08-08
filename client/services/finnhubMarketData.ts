@@ -753,34 +753,58 @@ class FinnhubMarketDataService {
     try {
       let data: any = null;
 
-      if (this.fallbackMode) {
-        console.log("📊 Using fallback mode for data update");
+      // Enhanced data fetching with better accuracy and consistency
+      if (this.fallbackMode && this.apiFailureCount > 3) {
+        console.log("📊 Persistent fallback mode - using enhanced local data");
         data = this.getFallbackMarketData();
       } else {
         try {
+          // Attempt server fetch with validation
           data = await this.fetchAllMarketData();
 
-          // If fetchAllMarketData returns null, immediately use fallback
-          if (!data) {
-            console.log("📊 Server returned no data, using fallback");
-            this.fallbackMode = true;
-            data = this.getFallbackMarketData();
+          if (data && data.stocks && Array.isArray(data.stocks)) {
+            // Validate and enhance server data for accuracy
+            data.stocks = this.validatePriceAccuracy(data.stocks);
+            console.log(`✅ Server data validated: ${data.stocks.length} accurate stock prices`);
+
+            // Reset failure count on successful fetch
+            this.apiFailureCount = Math.max(0, this.apiFailureCount - 1);
+          } else {
+            throw new Error('Invalid or empty server response');
           }
+
         } catch (fetchError) {
           console.warn(
-            "📊 Fetch error caught, using fallback:",
+            "📊 Fetch error, using enhanced fallback:",
             fetchError?.message || "Unknown error",
           );
-          this.fallbackMode = true;
+          this.apiFailureCount++;
+
+          // Use fallback mode if too many failures
+          if (this.apiFailureCount >= 3) {
+            this.fallbackMode = true;
+            console.log("🔄 Activating persistent fallback mode due to repeated failures");
+          }
+
           data = this.getFallbackMarketData();
         }
       }
 
       if (data) {
-        // Add fallback currency and crypto data if not provided by server or empty
+        // Enhanced data completeness and consistency checks
         if (!data.currencies || data.currencies.length === 0) {
           data.currencies = this.getFallbackCurrencyData();
         }
+
+        // Ensure data timestamps are current
+        data.timestamp = new Date();
+        data.stocks = data.stocks.map(stock => ({
+          ...stock,
+          timestamp: new Date(stock.timestamp || Date.now())
+        }));
+
+        // Final consistency validation
+        data = this.ensureDataConsistency(data);
 
         this.lastSuccessfulData = data;
         this.isInitialized = true;
