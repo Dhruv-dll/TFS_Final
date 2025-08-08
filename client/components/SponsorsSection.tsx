@@ -296,27 +296,6 @@ export default function SponsorsSection() {
           )}
         </motion.div>
 
-        {/* Elegant bottom section */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="max-w-2xl mx-auto bg-finance-navy/30 backdrop-blur-sm rounded-xl p-8 border border-finance-gold/20">
-            <h3 className="text-2xl font-bold text-finance-electric mb-4">
-              Partnership Opportunities
-            </h3>
-            <p className="text-foreground/80 mb-6">
-              Join our legacy of successful partnerships. Connect with us to
-              explore collaboration opportunities and be part of our growing
-              community.
-            </p>
-            <Button className="bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-transform duration-200">
-              Become a Partner
-            </Button>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
