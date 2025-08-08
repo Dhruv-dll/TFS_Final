@@ -234,32 +234,6 @@ export default function FixedMobileTicker({
         </div>
       </div>
 
-      <style jsx>{`
-        .ticker-container {
-          width: 100%;
-          overflow: hidden;
-        }
-        
-        .ticker-content {
-          display: flex;
-          width: 200%;
-          animation: mobileTicker 45s linear infinite;
-        }
-        
-        @keyframes mobileTicker {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
-        /* Pause animation on hover for better readability */
-        .ticker-container:hover .ticker-content {
-          animation-play-state: paused;
-        }
-      `}</style>
     </div>
   );
 }
