@@ -131,111 +131,175 @@ class FinnhubMarketDataService {
     }
   }
 
-  // Internal method with the actual implementation
+  // Enhanced internal method with better server integration
   private async _fetchAllMarketDataInternal(): Promise<{
     stocks: FinnhubStockData[];
     sentiment: MarketSentiment;
     currencies?: CurrencyRate[];
   } | null> {
     try {
-      console.log("📊 Fetching real-time market data from server...");
+      console.log("📊 Fetching enhanced market data from server...");
 
-      // Early detection of problematic environments - immediately use fallback
+      // Environment validation with better error handling
       try {
         if (typeof fetch === "undefined" || typeof window === "undefined") {
-          console.log("📊 No fetch or window available, using fallback mode");
+          console.log("📊 Runtime environment incompatible, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
 
-        // Test if fetch is actually functional
         if (typeof fetch !== "function") {
-          console.log("📊 Fetch not a function, using fallback mode");
+          console.log("📊 Fetch API unavailable, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
       } catch (envError) {
         console.log(
-          "📊 Environment check failed, using fallback mode:",
-          envError?.message || "Unknown env error",
+          "📊 Environment validation failed, using fallback mode:",
+          envError?.message || "Unknown environment error",
         );
         this.fallbackMode = true;
         return this.getFallbackMarketData();
       }
 
-      // Check if we're already in fallback mode or initialize it for immediate use
-      if (this.fallbackMode) {
-        console.log("🔄 Using fallback mode, skipping server API");
+      // Enhanced fallback mode detection
+      if (this.fallbackMode && this.apiFailureCount > 3) {
+        console.log("🔄 Persistent fallback mode active, using cached data");
         return this.getFallbackMarketData();
       }
 
-      // Quick connectivity check - if we detect we're likely to fail, go to fallback immediately
+      // Network connectivity and performance check
       try {
-        // Simple test to see if we can even attempt a fetch
         if (typeof window !== "undefined" && !navigator.onLine) {
-          console.log("📊 Browser is offline, using fallback mode");
+          console.log("📊 Network offline, using fallback mode");
           this.fallbackMode = true;
           return this.getFallbackMarketData();
         }
+
+        // Check if we're in a slow network environment
+        if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+          const connection = (navigator as any).connection;
+          if (connection && connection.effectiveType === 'slow-2g') {
+            console.log("📊 Slow network detected, using cached data");
+            // Don't set fallback mode permanently for slow networks
+            return this.cache.stocks.length > 0 ? {
+              stocks: this.cache.stocks,
+              sentiment: this.calculateMarketSentiment(this.cache.stocks),
+              currencies: this.cache.currencies
+            } : this.getFallbackMarketData();
+          }
+        }
       } catch (connectivityError) {
-        console.log("📊 Connectivity check failed, using fallback mode");
-        this.fallbackMode = true;
-        return this.getFallbackMarketData();
+        console.log("📊 Connectivity assessment failed, proceeding with caution:", connectivityError?.message);
       }
 
-      // Add timeout wrapper to prevent hanging with better error handling
+      // Enhanced timeout wrapper with progressive retry logic
       let fetchWithTimeout: Promise<Response>;
+      const requestStartTime = Date.now();
 
       try {
         fetchWithTimeout = new Promise<Response>((resolve, reject) => {
           try {
             const controller = new AbortController();
+
+            // Dynamic timeout based on network conditions and previous performance
+            const baseTimeout = 12000; // 12 seconds base
+            const adaptiveTimeout = this.apiFailureCount > 0 ? baseTimeout * 0.75 : baseTimeout;
+
             const timeoutId = setTimeout(() => {
               try {
                 controller.abort();
-                console.warn("📊 Request timeout, using fallback mode");
-                this.fallbackMode = true;
-                this.apiFailureCount = 999;
+                const requestDuration = Date.now() - requestStartTime;
+                console.warn(`📊 Request timeout after ${requestDuration}ms, switching to enhanced fallback`);
+
+                this.apiFailureCount++;
+                if (this.apiFailureCount >= 3) {
+                  this.fallbackMode = true;
+                  console.log("📊 Activating persistent fallback mode due to repeated timeouts");
+                }
+
                 resolve(
-                  new Response(JSON.stringify({ fallback: true }), {
+                  new Response(JSON.stringify({
+                    fallback: true,
+                    reason: 'timeout',
+                    duration: requestDuration
+                  }), {
                     status: 200,
                     headers: { "Content-Type": "application/json" },
                   }),
                 );
               } catch (timeoutError) {
-                console.warn("📊 Error in timeout handler, using fallback");
+                console.warn("📊 Timeout handler error, using emergency fallback:", timeoutError?.message);
                 resolve(
-                  new Response(JSON.stringify({ fallback: true }), {
+                  new Response(JSON.stringify({
+                    fallback: true,
+                    reason: 'timeout-error'
+                  }), {
                     status: 200,
                     headers: { "Content-Type": "application/json" },
                   }),
                 );
               }
-            }, 8000); // Reduced to 8 second timeout
+            }, adaptiveTimeout);
 
-            // Enhanced fetch with bulletproof error handling
+            // Enhanced fetch with comprehensive error handling and retry logic
             try {
-              fetch("/api/market-data", {
+              const fetchOptions = {
                 method: "GET",
                 headers: {
-                  Accept: "application/json",
-                  "Cache-Control": "no-cache",
+                  "Accept": "application/json",
+                  "Cache-Control": "no-cache, no-store, must-revalidate",
+                  "Pragma": "no-cache",
+                  "Expires": "0",
+                  "X-Requested-With": "XMLHttpRequest",
                 },
                 signal: controller.signal,
-              })
+                // Add credentials if needed for authentication
+                credentials: 'same-origin' as RequestCredentials,
+              };
+
+              fetch("/api/market-data", fetchOptions)
                 .then((response) => {
                   try {
                     clearTimeout(timeoutId);
-                    resolve(response);
+                    const responseTime = Date.now() - requestStartTime;
+
+                    if (response.ok) {
+                      console.log(`✅ Server response received in ${responseTime}ms`);
+                      // Reset failure count on successful response
+                      this.apiFailureCount = Math.max(0, this.apiFailureCount - 1);
+                      resolve(response);
+                    } else {
+                      console.warn(`⚠️ Server returned ${response.status}: ${response.statusText}`);
+                      this.apiFailureCount++;
+
+                      // For client errors (4xx), don't retry immediately
+                      if (response.status >= 400 && response.status < 500) {
+                        resolve(
+                          new Response(JSON.stringify({
+                            fallback: true,
+                            reason: 'client-error',
+                            status: response.status
+                          }), {
+                            status: 200,
+                            headers: { "Content-Type": "application/json" },
+                          }),
+                        );
+                      } else {
+                        resolve(response); // Let the error handling logic deal with it
+                      }
+                    }
                   } catch (responseError) {
                     console.warn(
-                      "📊 Error processing response, using fallback",
+                      "📊 Response processing error, using fallback:",
                       responseError?.message || "Unknown response error",
                     );
-                    this.fallbackMode = true;
-                    this.apiFailureCount = 999;
+                    this.apiFailureCount++;
                     resolve(
-                      new Response(JSON.stringify({ fallback: true }), {
+                      new Response(JSON.stringify({
+                        fallback: true,
+                        reason: 'response-error'
+                      }), {
                         status: 200,
                         headers: { "Content-Type": "application/json" },
                       }),
@@ -333,49 +397,93 @@ class FinnhubMarketDataService {
       const response = await fetchWithTimeout;
 
       const data = await response.json();
+      const processingStartTime = Date.now();
 
-      // Check if this is a fallback response
+      // Enhanced fallback detection with reason logging
       if (data.fallback === true) {
-        console.log(
-          "📊 Received fallback indicator, using local fallback data",
-        );
-        this.fallbackMode = true;
+        const reason = data.reason || 'server-indicated';
+        console.log(`📊 Server indicated fallback mode (reason: ${reason}), using enhanced local data`);
+
+        if (reason === 'timeout' || reason === 'server-error') {
+          this.apiFailureCount++;
+        }
+
         return this.getFallbackMarketData();
       }
 
+      // Enhanced response validation
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      if (!data.stocks || !Array.isArray(data.stocks)) {
-        console.warn("📊 Invalid response format, using fallback");
-        this.fallbackMode = true;
+      // Comprehensive data validation
+      if (!data.stocks || !Array.isArray(data.stocks) || data.stocks.length === 0) {
+        console.warn("📊 Invalid or empty stock data, using fallback");
+        this.apiFailureCount++;
         return this.getFallbackMarketData();
       }
 
+      if (!data.sentiment || typeof data.sentiment.sentiment !== 'string') {
+        console.warn("📊 Invalid sentiment data, using fallback");
+        data.sentiment = {
+          sentiment: 'neutral',
+          advanceDeclineRatio: 0.5,
+          positiveStocks: 0,
+          totalStocks: data.stocks.length
+        };
+      }
+
+      // Log successful fetch with metadata
+      const metadata = data.metadata || {};
       console.log(
-        `✅ Successfully fetched ${data.stocks.length} real-time stocks`,
+        `✅ Successfully fetched ${data.stocks.length} stocks from ${metadata.source || 'server'} ` +
+        `(processing: ${metadata.processingTime || 'unknown'}ms, quality: ${metadata.dataQuality?.stocksValidated || data.stocks.length}/${metadata.dataQuality?.stocksTotal || data.stocks.length})`
       );
 
-      // Reset failure count on success
-      this.apiFailureCount = 0;
+      // Reset failure count on successful data
+      this.apiFailureCount = Math.max(0, this.apiFailureCount - 1);
+      this.fallbackMode = false; // Re-enable server mode on success
 
-      // Enhance stock data with display names
-      const enhancedStocks = data.stocks.map((stock: any) => {
-        const stockInfo = this.stocks.find((s) => s.symbol === stock.symbol);
-        return {
-          ...stock,
-          displayName: stockInfo?.displayName || stock.name,
-          // Ensure percentage is properly formatted
-          changePercent: stock.changePercent || 0,
-          change: stock.change || 0,
-        };
+      // Enhanced stock data validation and enhancement
+      const enhancedStocks = data.stocks
+        .map((stock: any) => {
+          // Validate required fields
+          if (!stock.symbol || typeof stock.price !== 'number' || stock.price <= 0) {
+            console.warn(`Invalid stock data for ${stock.symbol || 'unknown'}, skipping`);
+            return null;
+          }
+
+          const stockInfo = this.stocks.find((s) => s.symbol === stock.symbol);
+
+          return {
+            ...stock,
+            displayName: stockInfo?.displayName || stock.displayName || stock.name,
+            // Enhanced data validation and defaults
+            changePercent: typeof stock.changePercent === 'number' ? stock.changePercent : 0,
+            change: typeof stock.change === 'number' ? stock.change : 0,
+            dayHigh: typeof stock.dayHigh === 'number' ? stock.dayHigh : stock.price,
+            dayLow: typeof stock.dayLow === 'number' ? stock.dayLow : stock.price,
+            timestamp: stock.timestamp ? new Date(stock.timestamp) : new Date(),
+            marketState: stock.marketState || (this.isMarketOpen() ? 'REGULAR' : 'CLOSED'),
+          };
+        })
+        .filter(Boolean); // Remove invalid entries
+
+      // Validate currencies if present
+      const validatedCurrencies = (data.currencies || []).filter((currency: any) => {
+        return currency.symbol &&
+               typeof currency.rate === 'number' &&
+               currency.rate > 0 &&
+               !isNaN(currency.rate);
       });
+
+      console.log(`📊 Data validation completed in ${Date.now() - processingStartTime}ms: ${enhancedStocks.length} valid stocks, ${validatedCurrencies.length} valid currencies`);
 
       return {
         stocks: enhancedStocks,
         sentiment: data.sentiment,
-        currencies: data.currencies || [],
+        currencies: validatedCurrencies,
+        metadata: data.metadata
       };
     } catch (error) {
       const errorMessage = error?.message || "Unknown error";
