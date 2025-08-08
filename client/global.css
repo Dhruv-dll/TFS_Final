@@ -254,6 +254,33 @@
   }
 }
 
+/* Mobile ticker container and animation */
+.mobile-ticker-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-ticker-content {
+  display: flex;
+  width: 200%;
+  animation: mobileTicker 45s linear infinite;
+}
+
+@keyframes mobileTicker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on touch/hover for better readability */
+.mobile-ticker-container:hover .mobile-ticker-content,
+.mobile-ticker-container:active .mobile-ticker-content {
+  animation-play-state: paused;
+}
+
 /* Loading states for market data */
 .market-data-skeleton {
   background: linear-gradient(
