@@ -183,7 +183,39 @@ function ProfessionalMarketTicker() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-hidden ml-8">
+          {/* Mobile Ticker */}
+          <div className="block md:hidden w-full overflow-hidden">
+            <div className="flex space-x-4 animate-scroll will-change-transform">
+              {stockData.slice(0, 4).map((stock, index) => (
+                <div
+                  key={`mobile-${stock.symbol}-${index}`}
+                  className="flex items-center space-x-1 whitespace-nowrap text-xs"
+                >
+                  <span className="font-semibold text-finance-teal">
+                    {stock.name.length > 8 ? stock.name.substring(0, 8) + '...' : stock.name}
+                  </span>
+                  <span className="text-foreground font-medium">
+                    {formatPrice(stock.symbol, stock.price)}
+                  </span>
+                  <span
+                    className={`flex items-center font-medium ${
+                      stock.change > 0
+                        ? "text-finance-green"
+                        : stock.change < 0
+                          ? "text-finance-red"
+                          : "text-finance-teal"
+                    }`}
+                  >
+                    {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
+                    {Math.abs(stock.changePercent).toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop Ticker */}
+          <div className="hidden md:block flex-1 overflow-hidden ml-8">
             <div className="flex space-x-6 animate-scroll will-change-transform">
               {stockData.map((stock, index) => (
                 <div
