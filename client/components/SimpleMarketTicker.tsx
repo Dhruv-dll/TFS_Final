@@ -208,11 +208,46 @@ export default function SimpleMarketTicker({
 
           {/* Desktop Stock Ticker */}
           <div className="flex-1 overflow-hidden ml-8">
-            <div className="flex space-x-6 animate-scroll">
+            <div className="flex space-x-6" style={{
+              animation: 'desktopTickerScroll 90s linear infinite'
+            }}>
+              {/* First set of stocks */}
               {stockData.map((stock, index) => (
                 <div
                   key={`${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap"
+                  className="flex items-center space-x-2 whitespace-nowrap min-w-max"
+                >
+                  <span className="font-semibold text-finance-teal text-xs">
+                    {stock.name}
+                  </span>
+                  <span className="text-foreground font-medium text-xs">
+                    {formatPrice(stock.symbol, stock.price)}
+                  </span>
+                  <span
+                    className={`flex items-center space-x-1 font-medium text-xs ${
+                      stock.change > 0
+                        ? "text-finance-green"
+                        : stock.change < 0
+                          ? "text-finance-red"
+                          : "text-finance-teal"
+                    }`}
+                  >
+                    <span>
+                      {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : "●"}
+                    </span>
+                    <span>{Math.abs(stock.change).toFixed(2)}</span>
+                    <span>
+                      ({stock.changePercent > 0 ? "+" : ""}
+                      {stock.changePercent.toFixed(2)}%)
+                    </span>
+                  </span>
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {stockData.map((stock, index) => (
+                <div
+                  key={`dup-${stock.symbol}-${index}`}
+                  className="flex items-center space-x-2 whitespace-nowrap min-w-max"
                 >
                   <span className="font-semibold text-finance-teal text-xs">
                     {stock.name}
