@@ -83,140 +83,14 @@ function ProfessionalMarketTicker() {
   };
 
   return (
-    <div
-      className={`absolute bottom-0 left-0 right-0 bg-gradient-to-r ${getSentimentColor()} backdrop-blur-md border-t border-finance-teal/30 overflow-hidden`}
-    >
-      <div className="container mx-auto px-2 md:px-6 py-1 md:py-3 relative">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-xs md:text-sm">
-          <div className="flex items-center space-x-6">
-            <div className="flex items-center space-x-2">
-              <div
-                className={`w-2 h-2 rounded-full ${isMarketOpen() ? "bg-finance-green animate-pulse" : "bg-finance-red"}`}
-              ></div>
-              <span className="text-foreground text-xs font-medium">
-                Market {isMarketOpen() ? "Open" : "Closed"}
-              </span>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <div
-                className={`w-1 h-1 rounded-full ${
-                  marketSentiment.sentiment === "bullish"
-                    ? "bg-finance-green"
-                    : marketSentiment.sentiment === "bearish"
-                      ? "bg-finance-red"
-                      : "bg-finance-teal"
-                } animate-pulse`}
-              ></div>
-              <span className="text-finance-teal text-xs font-medium capitalize">
-                {marketSentiment.sentiment} ({marketSentiment.positiveStocks}/
-                {marketSentiment.totalStocks})
-              </span>
-            </div>
-
-            <div
-              className={`flex items-center space-x-2 ${getConnectionStatusColor()}`}
-            >
-              <div
-                className={`w-1 h-1 rounded-full ${getConnectionStatusColor().replace("text-", "bg-")} animate-pulse`}
-              ></div>
-              <span className="text-xs capitalize">{connectionStatus}</span>
-            </div>
-
-            <div className="text-finance-teal text-xs">
-              {currentTime.toLocaleTimeString("en-IN")} IST
-            </div>
-
-            {isLoading && (
-              <div className="flex items-center space-x-2 text-finance-teal text-xs">
-                <div className="w-1 h-1 bg-finance-teal rounded-full animate-bounce"></div>
-                <div
-                  className="w-1 h-1 bg-finance-teal rounded-full animate-bounce"
-                  style={{ animationDelay: "0.1s" }}
-                ></div>
-                <div
-                  className="w-1 h-1 bg-finance-teal rounded-full animate-bounce"
-                  style={{ animationDelay: "0.2s" }}
-                ></div>
-                <span className="ml-2">Loading data...</span>
-              </div>
-            )}
-
-            <div className="text-xs text-muted-foreground">
-              Updated: {lastUpdate.toLocaleTimeString("en-IN")}
-            </div>
-          </div>
-
-          {/* Mobile Ticker */}
-          <div className="block md:hidden w-full overflow-hidden">
-            <div className="flex space-x-4 animate-scroll will-change-transform">
-              {stockData.slice(0, 4).map((stock, index) => (
-                <div
-                  key={`mobile-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-1 whitespace-nowrap text-xs"
-                >
-                  <span className="font-semibold text-finance-teal">
-                    {stock.name.length > 8 ? stock.name.substring(0, 8) + '...' : stock.name}
-                  </span>
-                  <span className="text-foreground font-medium">
-                    {formatPrice(stock.symbol, stock.price)}
-                  </span>
-                  <span
-                    className={`flex items-center font-medium ${
-                      stock.change > 0
-                        ? "text-finance-green"
-                        : stock.change < 0
-                          ? "text-finance-red"
-                          : "text-finance-teal"
-                    }`}
-                  >
-                    {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
-                    {Math.abs(stock.changePercent).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop Ticker */}
-          <div className="hidden md:block flex-1 overflow-hidden ml-8">
-            <div className="flex space-x-6 animate-scroll will-change-transform">
-              {stockData.map((stock, index) => (
-                <div
-                  key={`${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap"
-                >
-                  <span className="font-semibold text-finance-teal text-xs">
-                    {stock.name}
-                  </span>
-                  <span className="text-foreground font-medium text-xs">
-                    {formatPrice(stock.symbol, stock.price)}
-                  </span>
-                  <span
-                    className={`flex items-center space-x-1 font-medium text-xs ${
-                      stock.change > 0
-                        ? "text-finance-green"
-                        : stock.change < 0
-                          ? "text-finance-red"
-                          : "text-finance-teal"
-                    }`}
-                  >
-                    <span className="text-xs">
-                      {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : "●"}
-                    </span>
-                    <span>{Math.abs(stock.change).toFixed(2)}</span>
-                    <span className="text-xs">
-                      ({stock.changePercent > 0 ? "+" : ""}
-                      {stock.changePercent.toFixed(2)}%)
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <SimpleMarketTicker
+      stockData={stockData}
+      isMarketOpen={isMarketOpen}
+      marketSentiment={marketSentiment}
+      connectionStatus={connectionStatus}
+      isLoading={isLoading}
+      lastUpdate={lastUpdate}
+    />
   );
 }
 
