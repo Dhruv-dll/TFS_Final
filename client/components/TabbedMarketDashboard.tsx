@@ -115,11 +115,11 @@ export default function TabbedMarketDashboard({
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case "bullish":
-        return "text-finance-green";
+        return "text-finance-teal-green";
       case "bearish":
         return "text-finance-red";
       default:
-        return "text-finance-electric";
+        return "text-finance-teal";
     }
   };
 
@@ -194,9 +194,9 @@ export default function TabbedMarketDashboard({
                   <BarChart3 className="relative w-6 h-6 sm:w-7 sm:h-7 text-finance-gold drop-shadow-lg" />
                 </motion.div>
                 <div className="flex flex-col">
-                  <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-finance-gold via-finance-electric to-finance-teal bg-clip-text text-transparent">
-                    Market Central
-                  </span>
+                  <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-finance-teal via-finance-teal-green to-finance-teal-mint bg-clip-text text-transparent">
+                  Market Central
+                </span>
                   <span className="text-xs text-finance-electric/80 font-medium">
                     Real-time Financial Data
                   </span>
@@ -204,7 +204,7 @@ export default function TabbedMarketDashboard({
                 <div className="flex items-center gap-2">
                   <Badge
                     variant="outline"
-                    className={`bg-finance-green/10 border-finance-green/40 text-finance-green text-xs font-medium transition-all duration-300 ${
+                    className={`bg-finance-teal-green/10 border-finance-teal-green/40 text-finance-teal-green text-xs font-medium transition-all duration-300 ${
                       connectionStatus === "connected" ? "animate-pulse" : ""
                     }`}
                   >
@@ -228,7 +228,7 @@ export default function TabbedMarketDashboard({
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="bg-finance-navy-light/30 border-finance-gold/30 text-finance-gold text-xs"
+                    className="bg-finance-navy-light/30 border-finance-teal/30 text-finance-teal text-xs"
                   >
                     <Clock className="w-3 h-3 mr-1" />
                     {safeFormatTimestamp(lastUpdate)}
@@ -242,7 +242,7 @@ export default function TabbedMarketDashboard({
                   size="sm"
                   onClick={handleRefresh}
                   disabled={isLoading}
-                  className="border-finance-gold/40 text-finance-gold hover:bg-finance-gold/15 hover:border-finance-gold/60 transition-all duration-300 group"
+                  className="border-finance-teal/40 text-finance-teal hover:bg-finance-teal/15 hover:border-finance-teal/60 transition-all duration-300 group"
                 >
                   <motion.div
                     animate={isLoading ? { rotate: 360 } : {}}
