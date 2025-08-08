@@ -72,7 +72,6 @@ export default function ECCStyleNavigation({
       icon: Building2,
       dropdown: [
         { name: "Our Partners", href: "#sponsors", icon: "🤝" },
-        { name: "Become a Sponsor", href: "#contact", icon: "💼" },
       ],
     },
     {
