@@ -90,11 +90,40 @@ export default function SimpleMarketTicker({
           </div>
           {/* Mobile Stock Ticker */}
           <div className="overflow-hidden">
-            <div className="flex space-x-4 animate-scroll text-xs">
+            <div className="flex space-x-4 text-xs" style={{
+              animation: 'mobileTickerScroll 60s linear infinite'
+            }}>
+              {/* First set of stocks */}
               {stockData.slice(0, 6).map((stock, index) => (
                 <div
                   key={`mobile-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-1 whitespace-nowrap"
+                  className="flex items-center space-x-1 whitespace-nowrap min-w-max"
+                >
+                  <span className="font-semibold text-finance-teal">
+                    {stock.name.length > 6 ? stock.name.substring(0, 6) : stock.name}
+                  </span>
+                  <span className="text-foreground font-medium">
+                    {formatPrice(stock.symbol, stock.price)}
+                  </span>
+                  <span
+                    className={`font-medium ${
+                      stock.change > 0
+                        ? "text-finance-green"
+                        : stock.change < 0
+                          ? "text-finance-red"
+                          : "text-finance-teal"
+                    }`}
+                  >
+                    {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
+                    {Math.abs(stock.changePercent).toFixed(1)}%
+                  </span>
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {stockData.slice(0, 6).map((stock, index) => (
+                <div
+                  key={`mobile-dup-${stock.symbol}-${index}`}
+                  className="flex items-center space-x-1 whitespace-nowrap min-w-max"
                 >
                   <span className="font-semibold text-finance-teal">
                     {stock.name.length > 6 ? stock.name.substring(0, 6) : stock.name}
