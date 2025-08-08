@@ -88,12 +88,13 @@ export default function FixedMobileTicker({
         {/* Stock Ticker Row */}
         <div className="relative overflow-hidden bg-slate-800/95" style={{ touchAction: 'none' }}>
           <div
-            className="flex items-center space-x-6 py-2.5"
+            className="flex items-center space-x-6 py-2.5 mobile-ticker-never-pause"
             style={{
               width: '200%',
               animation: 'mobileTicker 35s linear infinite',
               willChange: 'transform',
               transform: 'translateZ(0)', // Force GPU acceleration
+              animationPlayState: 'running',
             }}
           >
             {/* First set */}
