@@ -85,8 +85,45 @@ function ProfessionalMarketTicker() {
     <div
       className={`absolute bottom-0 left-0 right-0 bg-gradient-to-r ${getSentimentColor()} backdrop-blur-md border-t border-finance-teal/30 overflow-hidden`}
     >
-      <div className="container mx-auto px-6 py-3 relative">
-        <div className="flex items-center justify-between text-sm">
+      <div className="container mx-auto px-3 py-2 relative">
+        {/* Mobile Layout */}
+        <div className="block md:hidden">
+          <div className="flex items-center justify-between text-xs mb-1">
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-1">
+                <div
+                  className={`w-1.5 h-1.5 rounded-full ${isMarketOpen() ? "bg-finance-green animate-pulse" : "bg-finance-red"}`}
+                ></div>
+                <span className="text-foreground font-medium">
+                  {isMarketOpen() ? "Open" : "Closed"}
+                </span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <div
+                  className={`w-1 h-1 rounded-full ${
+                    marketSentiment.sentiment === "bullish"
+                      ? "bg-finance-green"
+                      : marketSentiment.sentiment === "bearish"
+                        ? "bg-finance-red"
+                        : "bg-finance-teal"
+                  } animate-pulse`}
+                ></div>
+                <span className="text-finance-teal font-medium capitalize">
+                  {marketSentiment.sentiment}
+                </span>
+              </div>
+            </div>
+            <div className="text-finance-teal text-xs">
+              {currentTime.toLocaleTimeString("en-IN", {
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:flex items-center justify-between text-sm">
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <div
