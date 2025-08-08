@@ -668,80 +668,206 @@ export default function TabbedMarketDashboard({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                      <Card className="bg-finance-navy-light/50 border-finance-gold/20">
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm text-muted-foreground">
-                            Market Sentiment
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex items-center space-x-2">
-                            <TrendingUp
-                              className={`w-5 h-5 ${getSentimentColor(marketData.sentiment.sentiment)}`}
-                            />
-                            <span
-                              className={`font-bold capitalize ${getSentimentColor(marketData.sentiment.sentiment)}`}
-                            >
-                              {marketData.sentiment.sentiment}
-                            </span>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card className="bg-finance-navy-light/50 border-finance-gold/20">
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm text-muted-foreground">
-                            Total Gainers
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-lg font-bold text-finance-green">
-                            {marketData.sentiment.positiveStocks}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            of {marketData.sentiment.totalStocks} stocks
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card className="bg-finance-navy-light/50 border-finance-gold/20">
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm text-muted-foreground">
-                            Total Losers
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-lg font-bold text-finance-red">
-                            {marketData.sentiment.totalStocks -
-                              marketData.sentiment.positiveStocks}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            of {marketData.sentiment.totalStocks} stocks
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card className="bg-finance-navy-light/50 border-finance-gold/20">
-                        <CardHeader className="pb-2">
-                          <CardTitle className="text-sm text-muted-foreground">
-                            Last Update
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="text-sm text-finance-electric">
-                            {safeFormatTimestamp(lastUpdate)}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
-
-                    <div className="text-center text-muted-foreground">
-                      <p>
-                        Switch between tabs to view detailed information about
-                        stocks and currencies.
+                    <div className="mb-6">
+                      <h3 className="text-lg sm:text-xl font-bold text-finance-gold mb-1">
+                        Market Overview
+                      </h3>
+                      <p className="text-sm text-finance-electric/80">
+                        Real-time market analysis and sentiment indicators
                       </p>
                     </div>
+
+                    {/* Key Metrics Grid */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                      {/* Market Sentiment */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                      >
+                        <Card className="bg-gradient-to-br from-finance-navy-light/40 to-finance-navy-medium/30 border-finance-gold/30 hover:border-finance-gold/50 transition-all duration-300 hover:shadow-lg">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className={`p-2 rounded-full ${
+                                marketData.sentiment.sentiment === 'bullish' ? 'bg-finance-green/20' :
+                                marketData.sentiment.sentiment === 'bearish' ? 'bg-finance-red/20' :
+                                'bg-finance-electric/20'
+                              }`}>
+                                {marketData.sentiment.sentiment === 'bullish' ? (
+                                  <TrendingUp className="w-4 h-4 text-finance-green" />
+                                ) : marketData.sentiment.sentiment === 'bearish' ? (
+                                  <TrendingDown className="w-4 h-4 text-finance-red" />
+                                ) : (
+                                  <Activity className="w-4 h-4 text-finance-electric" />
+                                )}
+                              </div>
+                              <span className="text-xs text-muted-foreground">Sentiment</span>
+                            </div>
+                            <div className={`text-lg font-bold capitalize ${getSentimentColor(marketData.sentiment.sentiment)}`}>
+                              {marketData.sentiment.sentiment}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              {(marketData.sentiment.advanceDeclineRatio * 100).toFixed(1)}% bullish ratio
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+
+                      {/* Gainers */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                      >
+                        <Card className="bg-gradient-to-br from-finance-green/10 to-finance-green/5 border-finance-green/30 hover:border-finance-green/50 transition-all duration-300 hover:shadow-lg">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="p-2 rounded-full bg-finance-green/20">
+                                <ArrowUpRight className="w-4 h-4 text-finance-green" />
+                              </div>
+                              <span className="text-xs text-muted-foreground">Gainers</span>
+                            </div>
+                            <div className="text-lg font-bold text-finance-green">
+                              {marketData.sentiment.positiveStocks}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              of {marketData.sentiment.totalStocks} stocks
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+
+                      {/* Losers */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.3 }}
+                      >
+                        <Card className="bg-gradient-to-br from-finance-red/10 to-finance-red/5 border-finance-red/30 hover:border-finance-red/50 transition-all duration-300 hover:shadow-lg">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="p-2 rounded-full bg-finance-red/20">
+                                <ArrowDownRight className="w-4 h-4 text-finance-red" />
+                              </div>
+                              <span className="text-xs text-muted-foreground">Decliners</span>
+                            </div>
+                            <div className="text-lg font-bold text-finance-red">
+                              {marketData.sentiment.totalStocks - marketData.sentiment.positiveStocks}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              of {marketData.sentiment.totalStocks} stocks
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+
+                      {/* Last Update */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.4 }}
+                      >
+                        <Card className="bg-gradient-to-br from-finance-electric/10 to-finance-teal/5 border-finance-electric/30 hover:border-finance-electric/50 transition-all duration-300 hover:shadow-lg">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="p-2 rounded-full bg-finance-electric/20">
+                                <Clock className="w-4 h-4 text-finance-electric" />
+                              </div>
+                              <span className="text-xs text-muted-foreground">Updated</span>
+                            </div>
+                            <div className="text-sm font-bold text-finance-electric">
+                              {safeFormatTimestamp(lastUpdate)}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">
+                              Live data stream
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    </div>
+
+                    {/* Market Status */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.5 }}
+                      className="mb-6"
+                    >
+                      <Card className="bg-gradient-to-r from-finance-navy-light/30 to-finance-navy-medium/20 border-finance-gold/20">
+                        <CardContent className="p-6">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                              <h4 className="text-lg font-bold text-finance-gold mb-2">Market Status</h4>
+                              <div className="flex items-center gap-3">
+                                <Badge
+                                  variant="outline"
+                                  className={`${
+                                    finnhubMarketDataService.isMarketOpen()
+                                      ? "bg-finance-green/20 border-finance-green/50 text-finance-green"
+                                      : "bg-finance-red/20 border-finance-red/50 text-finance-red"
+                                  }`}
+                                >
+                                  {finnhubMarketDataService.isMarketOpen() ? "MARKET OPEN" : "MARKET CLOSED"}
+                                </Badge>
+                                <span className="text-sm text-muted-foreground">
+                                  {finnhubMarketDataService.isMarketOpen()
+                                    ? "Live trading session"
+                                    : "Next session: 9:15 AM IST"}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm text-finance-electric mb-1">
+                                Data Sources
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <span>NSE • BSE • Yahoo Finance</span>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+
+                    {/* Quick Actions */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.6 }}
+                      className="text-center"
+                    >
+                      <h4 className="text-sm font-semibold text-finance-gold mb-3">Quick Navigation</h4>
+                      <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setActiveTab("stocks")}
+                          className="w-full sm:w-auto border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10"
+                        >
+                          <Building2 className="w-4 h-4 mr-2" />
+                          View Stocks
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setActiveTab("currencies")}
+                          className="w-full sm:w-auto border-finance-teal/30 text-finance-teal hover:bg-finance-teal/10"
+                        >
+                          <Globe className="w-4 h-4 mr-2" />
+                          View Forex
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleRefresh}
+                          disabled={isLoading}
+                          className="w-full sm:w-auto border-finance-electric/30 text-finance-electric hover:bg-finance-electric/10"
+                        >
+                          <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
+                          Refresh All
+                        </Button>
+                      </div>
+                    </motion.div>
                   </motion.div>
                 </TabsContent>
               </Tabs>
