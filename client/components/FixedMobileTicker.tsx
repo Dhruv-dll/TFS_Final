@@ -86,63 +86,71 @@ export default function FixedMobileTicker({
         </div>
 
         {/* Stock Ticker Row */}
-        <div className="relative overflow-hidden bg-slate-800/95">
-          <div className="mobile-ticker-container pointer-events-none">
-            <div className="mobile-ticker-content flex items-center space-x-8 py-2.5">
-              {/* First set */}
-              {stockData.slice(0, 6).map((stock, index) => (
-                <div
-                  key={`first-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/80 px-3 py-1.5 rounded-lg border border-teal-400/30 shadow-lg"
+        <div className="relative overflow-hidden bg-slate-800/95" style={{ touchAction: 'none' }}>
+          <div
+            className="flex items-center space-x-6 py-2.5"
+            style={{
+              width: '200%',
+              animation: 'mobileTicker 35s linear infinite',
+              willChange: 'transform',
+              transform: 'translateZ(0)', // Force GPU acceleration
+            }}
+          >
+            {/* First set */}
+            {stockData.slice(0, 8).map((stock, index) => (
+              <div
+                key={`mobile-${stock.symbol}-${index}`}
+                className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/90 px-3 py-1.5 rounded-lg border border-teal-400/40 shadow-lg"
+                style={{ minWidth: 'max-content' }}
+              >
+                <span className="text-teal-300 font-bold text-sm">
+                  {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
+                </span>
+                <span className="text-white font-bold text-sm">
+                  {formatPrice(stock.symbol, stock.price)}
+                </span>
+                <span
+                  className={`font-bold text-sm ${
+                    stock.change > 0
+                      ? "text-green-400"
+                      : stock.change < 0
+                        ? "text-red-400"
+                        : "text-gray-400"
+                  }`}
                 >
-                  <span className="text-teal-300 font-bold text-sm">
-                    {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
-                  </span>
-                  <span className="text-white font-bold text-sm">
-                    {formatPrice(stock.symbol, stock.price)}
-                  </span>
-                  <span
-                    className={`font-bold text-sm ${
-                      stock.change > 0
-                        ? "text-green-400"
-                        : stock.change < 0
-                          ? "text-red-400"
-                          : "text-gray-400"
-                    }`}
-                  >
-                    {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
-                    {Math.abs(stock.changePercent).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
+                  {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
+                  {Math.abs(stock.changePercent).toFixed(1)}%
+                </span>
+              </div>
+            ))}
 
-              {/* Second set for seamless loop */}
-              {stockData.slice(0, 6).map((stock, index) => (
-                <div
-                  key={`second-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/80 px-3 py-1.5 rounded-lg border border-teal-400/30 shadow-lg"
+            {/* Duplicate set for seamless loop */}
+            {stockData.slice(0, 8).map((stock, index) => (
+              <div
+                key={`mobile-dup-${stock.symbol}-${index}`}
+                className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/90 px-3 py-1.5 rounded-lg border border-teal-400/40 shadow-lg"
+                style={{ minWidth: 'max-content' }}
+              >
+                <span className="text-teal-300 font-bold text-sm">
+                  {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
+                </span>
+                <span className="text-white font-bold text-sm">
+                  {formatPrice(stock.symbol, stock.price)}
+                </span>
+                <span
+                  className={`font-bold text-sm ${
+                    stock.change > 0
+                      ? "text-green-400"
+                      : stock.change < 0
+                        ? "text-red-400"
+                        : "text-gray-400"
+                  }`}
                 >
-                  <span className="text-teal-300 font-bold text-sm">
-                    {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
-                  </span>
-                  <span className="text-white font-bold text-sm">
-                    {formatPrice(stock.symbol, stock.price)}
-                  </span>
-                  <span
-                    className={`font-bold text-sm ${
-                      stock.change > 0
-                        ? "text-green-400"
-                        : stock.change < 0
-                          ? "text-red-400"
-                          : "text-gray-400"
-                    }`}
-                  >
-                    {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
-                    {Math.abs(stock.changePercent).toFixed(1)}%
-                  </span>
-                </div>
-              ))}
-            </div>
+                  {stock.change > 0 ? "↗" : stock.change < 0 ? "↘" : "→"}
+                  {Math.abs(stock.changePercent).toFixed(1)}%
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
