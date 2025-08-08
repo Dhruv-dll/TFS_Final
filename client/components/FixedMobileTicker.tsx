@@ -96,19 +96,19 @@ export default function FixedMobileTicker({
           <div className="mobile-ticker-container">
             <div className="mobile-ticker-content flex items-center space-x-8 py-2.5">
               {/* First set */}
-              {stockData.slice(0, 8).map((stock, index) => (
+              {stockData.slice(0, 6).map((stock, index) => (
                 <div
                   key={`first-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-medium"
+                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-gray-900/50 px-3 py-1 rounded-lg border border-teal-500/20"
                 >
-                  <span className="text-teal-300 font-bold">
-                    {stock.name.length > 8 ? stock.name.substring(0, 8) : stock.name}
+                  <span className="text-teal-300 font-bold text-sm">
+                    {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
                   </span>
-                  <span className="text-white">
+                  <span className="text-white font-bold text-sm">
                     {formatPrice(stock.symbol, stock.price)}
                   </span>
                   <span
-                    className={`font-bold ${
+                    className={`font-bold text-sm ${
                       stock.change > 0
                         ? "text-green-400"
                         : stock.change < 0
@@ -121,21 +121,21 @@ export default function FixedMobileTicker({
                   </span>
                 </div>
               ))}
-              
+
               {/* Second set for seamless loop */}
-              {stockData.slice(0, 8).map((stock, index) => (
+              {stockData.slice(0, 6).map((stock, index) => (
                 <div
                   key={`second-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-medium"
+                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-gray-900/50 px-3 py-1 rounded-lg border border-teal-500/20"
                 >
-                  <span className="text-teal-300 font-bold">
-                    {stock.name.length > 8 ? stock.name.substring(0, 8) : stock.name}
+                  <span className="text-teal-300 font-bold text-sm">
+                    {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
                   </span>
-                  <span className="text-white">
+                  <span className="text-white font-bold text-sm">
                     {formatPrice(stock.symbol, stock.price)}
                   </span>
                   <span
-                    className={`font-bold ${
+                    className={`font-bold text-sm ${
                       stock.change > 0
                         ? "text-green-400"
                         : stock.change < 0
