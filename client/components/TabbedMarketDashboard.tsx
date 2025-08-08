@@ -387,11 +387,11 @@ export default function TabbedMarketDashboard({
                             {/* Trending indicator */}
                             <div className="absolute top-3 left-3 flex items-center">
                               {stock.change > 0 ? (
-                                <div className="w-2 h-2 bg-finance-green rounded-full animate-pulse" />
+                                <div className="w-2 h-2 bg-finance-teal-green rounded-full animate-pulse" />
                               ) : stock.change < 0 ? (
                                 <div className="w-2 h-2 bg-finance-red rounded-full animate-pulse" />
                               ) : (
-                                <div className="w-2 h-2 bg-finance-electric rounded-full" />
+                                <div className="w-2 h-2 bg-finance-teal rounded-full" />
                               )}
                             </div>
 
