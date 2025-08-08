@@ -52,17 +52,17 @@
   }
   
   .finance-glow {
-    box-shadow: 
-      0 0 20px rgba(255, 215, 0, 0.3),
-      0 0 40px rgba(0, 212, 204, 0.2),
+    box-shadow:
+      0 0 20px rgba(32, 178, 170, 0.4),
+      0 0 40px rgba(0, 139, 139, 0.3),
       0 8px 32px rgba(0, 0, 0, 0.4);
   }
-  
+
   .finance-border-glow {
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    box-shadow: 
+    border: 1px solid rgba(32, 178, 170, 0.4);
+    box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.1),
-      0 0 20px rgba(255, 215, 0, 0.15);
+      0 0 20px rgba(32, 178, 170, 0.2);
   }
   
   .market-card-hover {
@@ -71,8 +71,8 @@
   
   .market-card-hover:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 
-      0 0 30px rgba(255, 215, 0, 0.2),
+    box-shadow:
+      0 0 30px rgba(32, 178, 170, 0.3),
       0 20px 40px rgba(0, 0, 0, 0.3);
   }
 }
@@ -199,26 +199,26 @@
 }
 
 .scrollbar-track-finance-navy {
-  scrollbar-color: rgba(255, 215, 0, 0.2) rgba(11, 20, 38, 0.5);
+  scrollbar-color: rgba(32, 178, 170, 0.3) rgba(11, 20, 38, 0.5);
 }
 
-.scrollbar-thumb-finance-gold\/30::-webkit-scrollbar {
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-.scrollbar-thumb-finance-gold\/30::-webkit-scrollbar-track {
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-track {
   background: rgba(11, 20, 38, 0.5);
   border-radius: 3px;
 }
 
-.scrollbar-thumb-finance-gold\/30::-webkit-scrollbar-thumb {
-  background: rgba(255, 215, 0, 0.3);
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-thumb {
+  background: rgba(32, 178, 170, 0.3);
   border-radius: 3px;
 }
 
-.scrollbar-thumb-finance-gold\/30::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 215, 0, 0.5);
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 178, 170, 0.5);
 }
 
 /* Professional market ticker animation */
