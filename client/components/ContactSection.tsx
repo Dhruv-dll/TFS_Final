@@ -127,6 +127,8 @@ export default function ContactSection() {
                   <motion.a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-finance-navy-light/95 rounded-lg flex items-center justify-center border border-finance-teal/30 transition-all duration-300 text-finance-teal hover:border-finance-teal/60 hover:scale-110 shadow-lg"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
