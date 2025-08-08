@@ -157,7 +157,7 @@ export default function ContactSection() {
 
             <div className="relative w-full h-96 rounded-lg overflow-hidden border border-finance-teal/30">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0349235985793!2d72.82962687501657!3d18.93014558218769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sSt.%20Xavier's%20College%20%E2%80%93%20Autonomous%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1698765432100!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.746413032561!2d72.82893677580397!3d18.94261545614518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b870ba222b0b%3A0xa35fb09925b0951d!2sSt.%20Xavier&#39;s%20College%20(Autonomous)!5e0!3m2!1sen!2sin!4v1754624006174!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
