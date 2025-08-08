@@ -83,7 +83,7 @@ function ProfessionalMarketTicker() {
   };
 
   return (
-    <SimpleMarketTicker
+    <FixedMobileTicker
       stockData={stockData}
       isMarketOpen={isMarketOpen}
       marketSentiment={marketSentiment}
