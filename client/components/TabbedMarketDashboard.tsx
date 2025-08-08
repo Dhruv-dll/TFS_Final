@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   TrendingUp,
+  TrendingDown,
   BarChart3,
   Activity,
   CheckCircle,
   AlertTriangle,
   DollarSign,
   Building2,
+  Globe,
+  ArrowUpRight,
+  ArrowDownRight,
+  Clock,
+  Wifi,
+  WifiOff,
+  RefreshCw,
+  X,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
@@ -157,10 +166,11 @@ export default function TabbedMarketDashboard({
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-7xl max-h-[95vh] bg-finance-navy/95 backdrop-blur-xl border border-finance-gold/20 text-foreground"
+        className="max-w-[95vw] sm:max-w-6xl lg:max-w-7xl max-h-[95vh] bg-gradient-to-br from-finance-navy/98 via-finance-navy-medium/95 to-finance-navy-light/92 backdrop-blur-2xl border border-finance-gold/30 text-foreground shadow-2xl"
         style={{
           background:
-            "linear-gradient(135deg, rgba(0, 0, 18, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%)",
+            "linear-gradient(135deg, rgba(11, 20, 38, 0.98) 0%, rgba(26, 43, 66, 0.95) 50%, rgba(42, 59, 82, 0.92) 100%)",
+          boxShadow: "0 0 60px rgba(0, 212, 204, 0.15), 0 25px 50px rgba(0, 0, 0, 0.3)",
         }}
       >
         <motion.div
@@ -170,72 +180,131 @@ export default function TabbedMarketDashboard({
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <DialogHeader>
-            <DialogTitle className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+            <DialogTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center space-x-3 flex-1">
                 <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                  className="relative"
+                  animate={{
+                    rotate: dataJustUpdated ? [0, 360] : 0,
+                    scale: dataJustUpdated ? [1, 1.1, 1] : 1,
+                  }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
                 >
-                  <BarChart3 className="w-6 h-6 text-finance-gold" />
+                  <div className="absolute inset-0 bg-finance-gold/20 rounded-full blur-sm animate-pulse" />
+                  <BarChart3 className="relative w-6 h-6 sm:w-7 sm:h-7 text-finance-gold drop-shadow-lg" />
                 </motion.div>
-                <span className="text-xl font-bold bg-gradient-to-r from-finance-gold to-finance-electric bg-clip-text text-transparent">
-                  📈 Live Market Dashboard
-                </span>
-                <Badge
-                  variant="outline"
-                  className="bg-finance-green/20 border-finance-green/50 text-finance-green animate-pulse"
-                >
-                  🟢 YAHOO LIVE
-                </Badge>
+                <div className="flex flex-col">
+                  <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-finance-gold via-finance-electric to-finance-teal bg-clip-text text-transparent">
+                    Market Central
+                  </span>
+                  <span className="text-xs text-finance-electric/80 font-medium">
+                    Real-time Financial Data
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge
+                    variant="outline"
+                    className={`bg-finance-green/10 border-finance-green/40 text-finance-green text-xs font-medium transition-all duration-300 ${
+                      connectionStatus === "connected" ? "animate-pulse" : ""
+                    }`}
+                  >
+                    <div className="flex items-center gap-1">
+                      {connectionStatus === "connected" && <Wifi className="w-3 h-3" />}
+                      {connectionStatus === "loading" && (
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        >
+                          <RefreshCw className="w-3 h-3" />
+                        </motion.div>
+                      )}
+                      {connectionStatus === "error" && <WifiOff className="w-3 h-3" />}
+                      <span>
+                        {connectionStatus === "connected" && "LIVE"}
+                        {connectionStatus === "loading" && "SYNC"}
+                        {connectionStatus === "error" && "OFFLINE"}
+                      </span>
+                    </div>
+                  </Badge>
+                  <Badge
+                    variant="outline"
+                    className="bg-finance-navy-light/30 border-finance-gold/30 text-finance-gold text-xs"
+                  >
+                    <Clock className="w-3 h-3 mr-1" />
+                    {safeFormatTimestamp(lastUpdate)}
+                  </Badge>
+                </div>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 shrink-0">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleRefresh}
                   disabled={isLoading}
-                  className="border-finance-gold/30 text-finance-gold hover:bg-finance-gold/10"
+                  className="border-finance-gold/40 text-finance-gold hover:bg-finance-gold/15 hover:border-finance-gold/60 transition-all duration-300 group"
                 >
                   <motion.div
                     animate={isLoading ? { rotate: 360 } : {}}
                     transition={{
                       duration: 1,
-                      repeat: Infinity,
+                      repeat: isLoading ? Infinity : 0,
                       ease: "linear",
                     }}
                   >
-                    <Activity className="w-4 h-4" />
+                    <RefreshCw className="w-4 h-4 group-hover:text-white transition-colors" />
                   </motion.div>
-                  <span className="ml-2">
-                    {isLoading ? "Refreshing..." : "Refresh"}
+                  <span className="ml-2 hidden sm:inline">
+                    {isLoading ? "Syncing..." : "Refresh"}
                   </span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onOpenChange(false)}
+                  className="text-finance-electric hover:bg-finance-red/20 hover:text-finance-red transition-colors"
+                >
+                  <X className="w-4 h-4" />
                 </Button>
               </div>
             </DialogTitle>
           </DialogHeader>
 
           {/* Error State */}
-          {connectionStatus === "error" && (
-            <div className="mt-4 p-4 bg-finance-red/10 border border-finance-red/30 rounded-lg">
-              <div className="flex items-center space-x-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-finance-red" />
-                <span className="text-sm font-medium text-finance-red">
-                  Connection Error
-                </span>
-              </div>
-              <div className="text-xs text-foreground/70 mb-3">
-                {errorMessage || "Unable to fetch market data"}
-              </div>
-              <Button
-                onClick={handleRefresh}
-                size="sm"
-                className="bg-finance-red/20 text-finance-red hover:bg-finance-red/30 border border-finance-red/30"
+          <AnimatePresence>
+            {connectionStatus === "error" && (
+              <motion.div
+                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                className="mt-4 p-4 bg-gradient-to-r from-finance-red/10 to-finance-red/5 border border-finance-red/30 rounded-xl backdrop-blur-sm"
               >
-                Retry Connection
-              </Button>
-            </div>
-          )}
+                <div className="flex items-center space-x-2 mb-2">
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 0.5, repeat: 2 }}
+                  >
+                    <AlertTriangle className="w-5 h-5 text-finance-red" />
+                  </motion.div>
+                  <span className="text-sm font-semibold text-finance-red">
+                    Connection Interrupted
+                  </span>
+                </div>
+                <div className="text-xs text-foreground/70 mb-3">
+                  {errorMessage || "Unable to fetch real-time market data. Showing cached information."}
+                </div>
+                <Button
+                  onClick={handleRefresh}
+                  size="sm"
+                  className="bg-finance-red/20 text-finance-red hover:bg-finance-red/30 border border-finance-red/30 transition-all duration-300"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Retry Connection
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Loading State */}
           {connectionStatus === "loading" && (
@@ -250,28 +319,30 @@ export default function TabbedMarketDashboard({
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-3 bg-finance-navy-light/50">
+                <TabsList className="grid w-full grid-cols-3 bg-finance-navy-light/30 backdrop-blur-sm border border-finance-gold/20 rounded-xl p-1">
                   <TabsTrigger
                     value="stocks"
-                    className="data-[state=active]:bg-finance-gold data-[state=active]:text-finance-navy"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
-                    <Building2 className="w-4 h-4 mr-2" />
-                    Stocks
+                    <Building2 className="w-4 h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Stocks</span>
+                    <span className="sm:hidden">📈</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="currencies"
-                    className="data-[state=active]:bg-finance-gold data-[state=active]:text-finance-navy"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
-                    <DollarSign className="w-4 h-4 mr-2" />
-                    Currencies
+                    <Globe className="w-4 h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Forex</span>
+                    <span className="sm:hidden">💱</span>
                   </TabsTrigger>
-
                   <TabsTrigger
                     value="summary"
-                    className="data-[state=active]:bg-finance-gold data-[state=active]:text-finance-navy"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
-                    <BarChart3 className="w-4 h-4 mr-2" />
-                    Summary
+                    <BarChart3 className="w-4 h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Overview</span>
+                    <span className="sm:hidden">📊</span>
                   </TabsTrigger>
                 </TabsList>
 
