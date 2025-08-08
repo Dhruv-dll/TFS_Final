@@ -47,8 +47,8 @@ export default function FixedMobileTicker({
     <div
       className={`fixed bottom-0 left-0 right-0 bg-gradient-to-r ${getSentimentColor()} border-t border-finance-teal/50 z-40`}
     >
-      {/* Mobile Only Layout */}
-      <div className="md:hidden">
+      {/* Mobile Layout - COMPLETELY HIDDEN */}
+      <div className="hidden">
         {/* Status Row */}
         <div className="flex items-center justify-between px-3 py-1.5 bg-slate-900/95 border-b border-teal-500/30">
           <div className="flex items-center space-x-4 text-xs">
