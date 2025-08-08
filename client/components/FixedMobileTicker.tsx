@@ -93,7 +93,7 @@ export default function FixedMobileTicker({
               {stockData.slice(0, 6).map((stock, index) => (
                 <div
                   key={`first-${stock.symbol}-${index}`}
-                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-gray-900/50 px-3 py-1 rounded-lg border border-teal-500/20"
+                  className="flex items-center space-x-2 whitespace-nowrap text-sm font-bold bg-slate-700/80 px-3 py-1.5 rounded-lg border border-teal-400/30 shadow-lg"
                 >
                   <span className="text-teal-300 font-bold text-sm">
                     {stock.name.length > 7 ? stock.name.substring(0, 7) : stock.name}
