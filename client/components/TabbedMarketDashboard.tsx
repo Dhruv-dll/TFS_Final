@@ -352,35 +352,132 @@ export default function TabbedMarketDashboard({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <h3 className="text-lg font-semibold text-finance-gold mb-4">
-                      📈 Indian Market Stocks
-                    </h3>
-                    <ScrollArea className="h-[400px]">
-                      <div className="space-y-3">
-                        {marketData.stocks.map((stock) => (
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-bold text-finance-gold mb-1">
+                          Indian Equity Markets
+                        </h3>
+                        <p className="text-sm text-finance-electric/80">
+                          Real-time prices from NSE & BSE • {marketData.stocks.length} instruments
+                        </p>
+                      </div>
+                      <div className="mt-3 sm:mt-0 flex items-center gap-2">
+                        <Badge variant="outline" className="bg-finance-green/10 border-finance-green/40 text-finance-green text-xs">
+                          {marketData.stocks.filter(s => s.change > 0).length} ↑
+                        </Badge>
+                        <Badge variant="outline" className="bg-finance-red/10 border-finance-red/40 text-finance-red text-xs">
+                          {marketData.stocks.filter(s => s.change < 0).length} ↓
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <ScrollArea className="h-[50vh] sm:h-[400px] pr-2">
+                      <div className="grid gap-3">
+                        {marketData.stocks.map((stock, index) => (
                           <motion.div
                             key={stock.symbol}
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="p-4 rounded-lg bg-finance-navy-light/30 border border-finance-gold/10 hover:border-finance-gold/30 transition-all duration-300 cursor-pointer hover:bg-finance-navy-light/50"
+                            transition={{ duration: 0.3, delay: index * 0.03 }}
+                            className="group relative p-4 rounded-xl bg-gradient-to-r from-finance-navy-light/20 via-finance-navy-medium/15 to-finance-navy-light/10 border border-finance-gold/15 hover:border-finance-gold/40 transition-all duration-300 cursor-pointer hover:bg-finance-navy-light/25 hover:shadow-lg hover:shadow-finance-gold/10"
                             onClick={() => handleStockClick(stock)}
+                            whileHover={{ scale: 1.01, y: -2 }}
+                            whileTap={{ scale: 0.99 }}
                           >
-                            <div className="flex items-center justify-between">
-                              <div>
-                                <div className="font-bold text-finance-gold">
-                                  {stock.displayName || stock.name}
+                            {/* Trending indicator */}
+                            <div className="absolute top-3 left-3 flex items-center">
+                              {stock.change > 0 ? (
+                                <div className="w-2 h-2 bg-finance-green rounded-full animate-pulse" />
+                              ) : stock.change < 0 ? (
+                                <div className="w-2 h-2 bg-finance-red rounded-full animate-pulse" />
+                              ) : (
+                                <div className="w-2 h-2 bg-finance-electric rounded-full" />
+                              )}
+                            </div>
+
+                            <div className="flex items-start justify-between ml-4">
+                              <div className="flex-1 min-w-0">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
+                                  <div>
+                                    <h4 className="font-bold text-finance-gold text-sm sm:text-base truncate group-hover:text-finance-electric transition-colors">
+                                      {stock.displayName || stock.name}
+                                    </h4>
+                                    <div className="flex items-center gap-2 mt-1">
+                                      <span className="text-xs text-muted-foreground font-mono">
+                                        {stock.symbol}
+                                      </span>
+                                      <Badge
+                                        variant="outline"
+                                        className={`text-xs px-2 py-0 ${
+                                          stock.marketState === "REGULAR"
+                                            ? "bg-finance-green/15 border-finance-green/40 text-finance-green"
+                                            : "bg-finance-red/15 border-finance-red/40 text-finance-red"
+                                        }`}
+                                      >
+                                        {stock.marketState === "REGULAR" ? "LIVE" : "CLOSED"}
+                                      </Badge>
+                                    </div>
+                                  </div>
                                 </div>
-                                <div className="text-sm text-muted-foreground">
-                                  {stock.symbol}
+
+                                {/* Mobile: Price info below on small screens */}
+                                <div className="mt-3 sm:hidden">
+                                  <div className="text-xl font-bold text-foreground">
+                                    {formatPrice(stock.symbol, stock.price)}
+                                  </div>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <div
+                                      className={`flex items-center gap-1 text-sm font-semibold ${
+                                        stock.change > 0
+                                          ? "text-finance-green"
+                                          : stock.change < 0
+                                            ? "text-finance-red"
+                                            : "text-finance-electric"
+                                      }`}
+                                    >
+                                      {stock.change > 0 ? (
+                                        <ArrowUpRight className="w-3 h-3" />
+                                      ) : stock.change < 0 ? (
+                                        <ArrowDownRight className="w-3 h-3" />
+                                      ) : (
+                                        <div className="w-3 h-3" />
+                                      )}
+                                      <span>
+                                        {stock.change > 0 ? "+" : ""}
+                                        {stock.change.toFixed(2)}
+                                      </span>
+                                    </div>
+                                    <span
+                                      className={`text-sm ${
+                                        stock.change > 0
+                                          ? "text-finance-green"
+                                          : stock.change < 0
+                                            ? "text-finance-red"
+                                            : "text-finance-electric"
+                                      }`}
+                                    >
+                                      ({formatPercentage(stock.changePercent)})
+                                    </span>
+                                  </div>
+                                </div>
+
+                                {/* Day range */}
+                                <div className="mt-2 text-xs text-muted-foreground flex flex-wrap gap-3">
+                                  <span>H: {formatPrice(stock.symbol, stock.dayHigh)}</span>
+                                  <span>L: {formatPrice(stock.symbol, stock.dayLow)}</span>
+                                  <span className="text-finance-electric">
+                                    🕐 {safeFormatTimestamp(stock.timestamp)}
+                                  </span>
                                 </div>
                               </div>
 
-                              <div className="text-right">
-                                <div className="text-lg font-bold text-foreground">
+                              {/* Desktop: Price info on the right */}
+                              <div className="hidden sm:block text-right ml-4">
+                                <div className="text-xl font-bold text-foreground mb-1">
                                   {formatPrice(stock.symbol, stock.price)}
                                 </div>
                                 <div
-                                  className={`text-sm flex items-center space-x-1 ${
+                                  className={`flex items-center justify-end gap-1 text-sm font-semibold ${
                                     stock.change > 0
                                       ? "text-finance-green"
                                       : stock.change < 0
@@ -388,32 +485,28 @@ export default function TabbedMarketDashboard({
                                         : "text-finance-electric"
                                   }`}
                                 >
-                                  <span>
-                                    {stock.change > 0 ? "+" : ""}
-                                    {stock.change.toFixed(2)}
-                                  </span>
-                                  <span>
-                                    ({formatPercentage(stock.changePercent)})
-                                  </span>
+                                  {stock.change > 0 ? (
+                                    <ArrowUpRight className="w-4 h-4" />
+                                  ) : stock.change < 0 ? (
+                                    <ArrowDownRight className="w-4 h-4" />
+                                  ) : (
+                                    <div className="w-4 h-4" />
+                                  )}
+                                  <div className="text-right">
+                                    <div>
+                                      {stock.change > 0 ? "+" : ""}
+                                      {stock.change.toFixed(2)}
+                                    </div>
+                                    <div className="text-xs">
+                                      ({formatPercentage(stock.changePercent)})
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="mt-2 text-xs text-muted-foreground flex justify-between">
-                              <span>
-                                H: {formatPrice(stock.symbol, stock.dayHigh)} L:{" "}
-                                {formatPrice(stock.symbol, stock.dayLow)}
-                              </span>
-                              <span
-                                className={`px-2 py-1 rounded ${
-                                  stock.marketState === "REGULAR"
-                                    ? "bg-finance-green/20 text-finance-green"
-                                    : "bg-finance-red/20 text-finance-red"
-                                }`}
-                              >
-                                {stock.marketState}
-                              </span>
-                            </div>
+                            {/* Hover effect overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-finance-gold/5 to-finance-electric/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                           </motion.div>
                         ))}
                       </div>
