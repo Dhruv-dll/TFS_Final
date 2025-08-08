@@ -93,8 +93,8 @@ export default function FixedMobileTicker({
 
         {/* Stock Ticker Row */}
         <div className="relative overflow-hidden bg-black/60">
-          <div className="ticker-container">
-            <div className="ticker-content flex items-center space-x-6 py-2">
+          <div className="mobile-ticker-container">
+            <div className="mobile-ticker-content flex items-center space-x-6 py-2">
               {/* First set */}
               {stockData.slice(0, 8).map((stock, index) => (
                 <div
