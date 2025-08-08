@@ -39,14 +39,8 @@ export default function FixedMobileTicker({
   };
 
   const getSentimentColor = () => {
-    switch (marketSentiment.sentiment) {
-      case "bullish":
-        return "from-green-900/80 to-green-800/80";
-      case "bearish":
-        return "from-red-900/80 to-red-800/80";
-      default:
-        return "from-teal-900/80 to-teal-800/80";
-    }
+    // Always use dark professional theme regardless of sentiment
+    return "from-gray-900/95 to-black/95";
   };
 
   return (
