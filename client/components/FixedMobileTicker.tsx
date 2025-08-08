@@ -50,7 +50,7 @@ export default function FixedMobileTicker({
       {/* Mobile Only Layout */}
       <div className="md:hidden">
         {/* Status Row */}
-        <div className="flex items-center justify-between px-3 py-1.5 bg-black/80 border-b border-teal-500/30">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-slate-900/95 border-b border-teal-500/30">
           <div className="flex items-center space-x-4 text-xs">
             <div className="flex items-center space-x-1.5">
               <div
