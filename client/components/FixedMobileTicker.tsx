@@ -56,19 +56,19 @@ export default function FixedMobileTicker({
       {/* Mobile Only Layout */}
       <div className="md:hidden">
         {/* Status Row */}
-        <div className="flex items-center justify-between px-3 py-1 bg-black/40">
-          <div className="flex items-center space-x-3 text-xs">
-            <div className="flex items-center space-x-1">
+        <div className="flex items-center justify-between px-3 py-1.5 bg-black/80 border-b border-teal-500/30">
+          <div className="flex items-center space-x-4 text-xs">
+            <div className="flex items-center space-x-1.5">
               <div
                 className={`w-2 h-2 rounded-full ${
                   isMarketOpen() ? "bg-green-400 animate-pulse" : "bg-red-400"
                 }`}
               />
-              <span className="text-white font-semibold">
+              <span className="text-white font-bold text-xs">
                 {isMarketOpen() ? "OPEN" : "CLOSED"}
               </span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1.5">
               <div
                 className={`w-1.5 h-1.5 rounded-full ${
                   marketSentiment.sentiment === "bullish"
@@ -78,23 +78,23 @@ export default function FixedMobileTicker({
                       : "bg-teal-400"
                 } animate-pulse`}
               />
-              <span className="text-teal-300 font-semibold uppercase text-xs">
+              <span className="text-teal-300 font-bold uppercase text-xs">
                 {marketSentiment.sentiment}
               </span>
             </div>
           </div>
-          <div className="text-teal-300 text-xs font-mono">
-            {currentTime.toLocaleTimeString("en-IN", { 
-              hour: '2-digit', 
-              minute: '2-digit' 
+          <div className="text-teal-300 text-xs font-mono font-bold">
+            {currentTime.toLocaleTimeString("en-IN", {
+              hour: '2-digit',
+              minute: '2-digit'
             })} IST
           </div>
         </div>
 
         {/* Stock Ticker Row */}
-        <div className="relative overflow-hidden bg-black/60">
+        <div className="relative overflow-hidden bg-black/80">
           <div className="mobile-ticker-container">
-            <div className="mobile-ticker-content flex items-center space-x-6 py-2">
+            <div className="mobile-ticker-content flex items-center space-x-8 py-2.5">
               {/* First set */}
               {stockData.slice(0, 8).map((stock, index) => (
                 <div
