@@ -48,7 +48,7 @@ const pastEvents: EventCard[] = [
     description:
       "Weekly learning sessions that bridge theoretical knowledge with practical insights from industry experts.",
     icon: Calendar,
-    backgroundGradient: "from-blue-900 via-blue-700 to-finance-teal",
+    backgroundGradient: "from-finance-navy via-finance-navy-light to-finance-teal",
     hoverColor: "rgba(0, 212, 204, 0.8)",
   },
   {
@@ -57,8 +57,8 @@ const pastEvents: EventCard[] = [
     description:
       "Connect with industry professionals, alumni, and peers in structured networking sessions.",
     icon: Users,
-    backgroundGradient: "from-emerald-900 via-emerald-700 to-finance-electric",
-    hoverColor: "rgba(0, 255, 255, 0.8)",
+    backgroundGradient: "from-finance-navy via-finance-blue to-finance-teal",
+    hoverColor: "rgba(0, 212, 204, 0.8)",
   },
   {
     id: "flagship-event",
@@ -66,7 +66,7 @@ const pastEvents: EventCard[] = [
     description:
       "Our premier annual event featuring top industry leaders, workshops, and competitions.",
     icon: Trophy,
-    backgroundGradient: "from-purple-900 via-purple-700 to-finance-teal",
+    backgroundGradient: "from-finance-navy via-finance-navy-medium to-finance-teal",
     hoverColor: "rgba(0, 212, 204, 1)",
     isPremium: true,
   },
@@ -317,23 +317,15 @@ export default function MobileOptimizedEventsSection() {
       id="events"
       className="relative min-h-screen py-12 sm:py-16 md:py-20 overflow-hidden mobile-container"
       style={{
-        background:
-          "linear-gradient(135deg, #000012 0%, #0a0a23 50%, #1a1a2e 100%)",
+        backgroundColor: "#101E36", // Solid navy background
       }}
     >
-      {/* Simplified background particles for mobile */}
-      <div className="absolute inset-0 overflow-hidden opacity-30">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-finance-teal/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          />
-        ))}
+      {/* Professional grid background */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
+        }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10 mobile-safe-area">
@@ -344,10 +336,11 @@ export default function MobileOptimizedEventsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -30 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-finance-cyan via-finance-teal to-finance-cyan bg-clip-text text-transparent">
-            TFS EVENTS PORTFOLIO
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-white">
+            TFS EVENTS{" "}
+            <span className="text-finance-teal">PORTFOLIO</span>
           </h2>
-          <div className="w-20 sm:w-32 h-1 bg-gradient-to-r from-transparent via-finance-cyan to-transparent mx-auto mb-4 sm:mb-6" />
+          <div className="w-20 sm:w-32 h-1 bg-finance-teal mx-auto mb-4 sm:mb-6" />
           <p className="text-base sm:text-lg md:text-xl text-foreground/80 max-w-3xl mx-auto px-4">
             Discover our comprehensive portfolio of financial education events,
             from intimate learning sessions to grand industry conclaves.
@@ -362,10 +355,10 @@ export default function MobileOptimizedEventsSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-finance-teal via-finance-cyan to-finance-teal mb-3">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00D4CC] via-[#FFD700] to-[#00D4CC] mb-3">
               Past Events Excellence
             </h3>
-            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-transparent via-finance-teal to-transparent mx-auto" />
+            <div className="w-16 sm:w-24 h-1 bg-gradient-to-r from-transparent via-[#00D4CC] to-transparent mx-auto" />
           </div>
 
           {/* Mobile-first grid */}
@@ -390,10 +383,10 @@ export default function MobileOptimizedEventsSection() {
           className="relative"
         >
           <div className="text-center mb-12 sm:mb-16">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 bg-gradient-to-r from-finance-cyan via-finance-teal to-finance-cyan bg-clip-text text-transparent">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 bg-gradient-to-r from-[#FFD700] via-[#00D4CC] to-[#FFD700] bg-clip-text text-transparent">
               Upcoming Events Timeline
             </h3>
-            <div className="w-20 sm:w-32 h-1 bg-gradient-to-r from-transparent via-finance-cyan to-transparent mx-auto mb-3" />
+            <div className="w-20 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent mx-auto mb-3" />
             <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto px-4">
               Stay updated with our exciting upcoming events and secure your
               spot!

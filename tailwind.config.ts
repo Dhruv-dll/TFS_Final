@@ -57,22 +57,26 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Finance-themed colors inspired by the provided image
+        // Updated finance-themed colors with teal and teal-green focus
         finance: {
-          navy: "#0B1426", // Deep navy from image
+          navy: "#0B1426", // Deep navy base
           "navy-light": "#1A2B42", // Lighter navy
           "navy-medium": "#2A3B52", // Medium navy
-          teal: "#00D4CC", // Primary teal from image
-          "teal-light": "#4DFFEE", // Lighter teal
-          "teal-dark": "#00A6A0", // Darker teal
-          "teal-medium": "#00BDB5", // Medium teal
-          cyan: "#00FFFF", // Bright cyan accent
-          "cyan-light": "#66FFFF", // Light cyan
+          teal: "#008B8B", // Primary teal - more balanced
+          "teal-light": "#20B2AA", // Light sea green
+          "teal-dark": "#006666", // Dark teal
+          "teal-medium": "#00A0A0", // Medium teal
+          "teal-green": "#2E8B57", // Sea green
+          "teal-mint": "#40E0D0", // Turquoise for highlights
+          cyan: "#008B8B", // Teal-based cyan
+          "cyan-light": "#AFEEEE", // Pale turquoise
           blue: "#1E3A5F", // Professional blue
           "blue-light": "#3D5A7F", // Lighter blue
-          accent: "#00D4CC", // Primary accent (teal)
-          red: "#FF4757", // Error/negative states
-          green: "#00D4CC", // Success using teal
+          accent: "#008B8B", // Primary accent (teal)
+          red: "#DC143C", // Error/negative states
+          green: "#2E8B57", // Success using teal-green
+          gold: "#20B2AA", // Replace gold with light sea green
+          electric: "#40E0D0", // Electric turquoise for accents
         },
       },
       borderRadius: {
@@ -133,7 +137,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         "light-sweep": "light-sweep 2s ease-in-out",
         "market-pulse": "market-pulse 2s ease-in-out infinite",
-        scroll: "scroll 30s linear infinite",
+        scroll: "scroll 120s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

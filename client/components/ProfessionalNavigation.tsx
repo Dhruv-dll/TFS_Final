@@ -12,7 +12,6 @@ import {
   Calendar,
   Building2,
   Mail,
-  Home,
 } from "lucide-react";
 
 interface ProfessionalNavigationProps {
@@ -28,11 +27,6 @@ export default function ProfessionalNavigation({
   const { scrollToElement } = useSmoothScroll();
 
   const navItems = [
-    {
-      name: "Home",
-      href: "/",
-      icon: Home,
-    },
     {
       name: "About TFS",
       href: "#about",
@@ -114,6 +108,9 @@ export default function ProfessionalNavigation({
                 className="relative cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
               >
                 <div
                   className="flex items-center justify-center rounded-lg border border-finance-teal/30 relative overflow-hidden"

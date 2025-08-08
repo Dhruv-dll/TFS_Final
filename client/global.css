@@ -1,102 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /**
-   * Tailwind CSS theme
-   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
-   * A different format will require also updating the theme in tailwind.config.ts.
-  */
   :root {
-    --background: 215 45% 8%; /* Professional navy background */
-    --foreground: 180 15% 90%; /* Light text with teal tint */
-
-    --card: 215 40% 10%;
-    --card-foreground: 180 15% 90%;
-
-    --popover: 215 40% 12%;
-    --popover-foreground: 180 15% 90%;
-
-    --primary: 178 100% 42%; /* Bright teal primary */
-    --primary-foreground: 215 45% 8%;
-
-    --secondary: 180 100% 50%; /* Cyan secondary */
-    --secondary-foreground: 215 45% 8%;
-
-    --muted: 215 25% 18%;
-    --muted-foreground: 180 10% 70%;
-
-    --accent: 178 100% 42%; /* Bright teal accent */
-    --accent-foreground: 215 45% 8%;
-
-    --destructive: 0 68% 58%; /* Professional red */
-    --destructive-foreground: 180 15% 90%;
-
-    --border: 215 25% 22%;
-    --input: 215 25% 16%;
-    --ring: 178 100% 42%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 220 100% 6%;
-    --sidebar-foreground: 45 100% 85%;
-    --sidebar-primary: 45 100% 50%;
-    --sidebar-primary-foreground: 220 100% 4%;
-    --sidebar-accent: 220 50% 15%;
-    --sidebar-accent-foreground: 45 100% 85%;
-    --sidebar-border: 220 50% 20%;
-    --sidebar-ring: 180 100% 50%;
-
-    /* Finance-specific variables */
-    --glow-primary: #00d4cc;
-    --glow-secondary: #00ffff;
-    --glow-success: #00d4cc;
-    --glow-danger: #ff4757;
-    --gradient-start: #0b1426;
-    --gradient-end: #1a2b42;
-    --gradient-teal: #00d4cc;
-    --gradient-cyan: #00ffff;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 346.8 77.2% 49.8%;
+    --radius: 0.75rem;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-primary: 346.8 77.2% 49.8%;
+    --sidebar-primary-foreground: 355.7 100% 97.3%;
     --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 346.8 77.2% 49.8%;
+    --glow-color: #ffd700;
   }
 }
 
@@ -104,1165 +40,441 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
-    font-family:
-      "Inter",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      "Roboto",
-      sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 }
 
-@layer base {
-  /* Bloomberg Terminal Typography */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+/* Professional finance-themed gradients and animations */
+@layer utilities {
+  .finance-gradient {
+    background: linear-gradient(135deg, #0b1426 0%, #1a2b42 50%, #2a3b52 100%);
   }
 
-  .terminal-font {
-    font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+  .finance-glow {
+    box-shadow:
+      0 0 20px rgba(32, 178, 170, 0.4),
+      0 0 40px rgba(0, 139, 139, 0.3),
+      0 8px 32px rgba(0, 0, 0, 0.4);
   }
 
-  .finance-heading {
-    font-family: "Inter", sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+  .finance-border-glow {
+    border: 1px solid rgba(32, 178, 170, 0.4);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 20px rgba(32, 178, 170, 0.2);
   }
 
-  .professional-text {
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
+  .market-card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .data-display {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+  .market-card-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+      0 0 30px rgba(32, 178, 170, 0.3),
+      0 20px 40px rgba(0, 0, 0, 0.3);
   }
 }
 
-@layer components {
-  .professional-hover {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
+/* Advanced keyframe animations for market dashboard */
+@keyframes border-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
   }
-
-  .professional-hover:hover {
-    background: rgba(0, 212, 204, 0.1);
-    border-color: rgba(0, 212, 204, 0.3);
+  50% {
+    background-position: 100% 50%;
   }
+}
 
-  .glassmorphism {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+@keyframes market-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
-
-  .market-hover {
-    border: 1px solid rgba(0, 212, 204, 0.2);
-    transition: all 0.3s ease;
-  }
-
-  .market-hover:hover {
-    border-color: rgba(0, 212, 204, 0.4);
-    background: rgba(0, 212, 204, 0.05);
-  }
-
-  .text-professional {
-    color: #00d4cc;
-    font-weight: 600;
-  }
-
-  .bg-mesh-gradient {
-    background: linear-gradient(
-      45deg,
-      var(--gradient-start) 0%,
-      var(--gradient-end) 100%
-    );
-  }
-
-  .matrix-bg {
-    background-image:
-      linear-gradient(90deg, rgba(255, 215, 0, 0.03) 50%, transparent 50%),
-      linear-gradient(rgba(255, 215, 0, 0.03) 50%, transparent 50%);
-    background-size: 20px 20px;
-    animation: matrix-scroll 20s linear infinite;
-  }
-
-  @keyframes matrix-scroll {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: 20px 20px;
-    }
-  }
-
-  .text-shadow-sm {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  }
-
-  .text-shadow-lg {
-    text-shadow:
-      0 0 10px currentColor,
-      0 2px 4px rgba(0, 0, 0, 0.8);
-  }
-
-  /* Custom Scrollbar */
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(255, 215, 0, 0.1);
-    border-radius: 3px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #ffd700, #ffa500);
-    border-radius: 3px;
-    transition: background 0.3s ease;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #ffa500, #ffd700);
-  }
-
-  /* Range Slider Styling */
-  .slider {
-    background: linear-gradient(
-      to right,
-      #ffd700 0%,
-      #ffd700 var(--value, 30%),
-      #1a1a2e var(--value, 30%),
-      #1a1a2e 100%
-    );
-  }
-
-  .slider::-webkit-slider-thumb {
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #ffd700, #00ffff);
-    cursor: pointer;
-    border: 2px solid #000012;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  }
-
-  .slider::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-    transform: scale(1.1);
-  }
-
-  /* Perspective utility for 3D effects */
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-
-  /* Enhanced button hover effects */
-  .btn-glow {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-glow::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.4),
-      transparent
-    );
-    transition: left 0.5s;
-  }
-
-  .btn-glow:hover::before {
-    left: 100%;
-  }
-
-  /* Gradient text animation */
-  .gradient-text {
-    background: linear-gradient(-45deg, #ffd700, #00ffff, #00ff00, #ff4444);
-    background-size: 400% 400%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-shift 8s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  /* Loading shimmer effect */
-  .shimmer {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 215, 0, 0.1),
-      transparent
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -200% 0;
-    }
-    100% {
-      background-position: 200% 0;
-    }
-  }
-
-  /* Enhanced Financial Data Styling */
-  .stock-ticker {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .stock-ticker::before,
-  .stock-ticker::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 50px;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  .stock-ticker::before {
-    left: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 18, 1) 0%,
-      rgba(0, 0, 18, 0) 100%
-    );
-  }
-
-  .stock-ticker::after {
-    right: 0;
-    background: linear-gradient(
-      270deg,
-      rgba(0, 0, 18, 1) 0%,
-      rgba(0, 0, 18, 0) 100%
-    );
-  }
-
-  .market-status.live {
-    background: linear-gradient(45deg, #00ff00, #32cd32);
-    color: #000012;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    text-shadow: none;
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  .market-status.closed {
-    background: linear-gradient(45deg, #ff4444, #ff6666);
-    color: #000012;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-weight: bold;
-    text-shadow: none;
-  }
-
-  .stock-item {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    margin: 0 4px;
-    background: rgba(255, 215, 0, 0.1);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-
-  .stock-item:hover {
-    background: rgba(255, 215, 0, 0.2);
-    border-color: rgba(255, 215, 0, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
-  }
-
-  .stock-item.positive {
-    border-color: rgba(0, 255, 0, 0.3);
-    background: rgba(0, 255, 0, 0.1);
-  }
-
-  .stock-item.negative {
-    border-color: rgba(255, 68, 68, 0.3);
-    background: rgba(255, 68, 68, 0.1);
-  }
-
-  .crypto-item,
-  .forex-item {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    margin: 0 4px;
-    background: rgba(0, 255, 255, 0.1);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-
-  .crypto-item:hover,
-  .forex-item:hover {
-    background: rgba(0, 255, 255, 0.2);
-    border-color: rgba(0, 255, 255, 0.4);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
-  }
-
-  .positive {
-    color: #00ff00 !important;
-    text-shadow: 0 0 4px rgba(0, 255, 0, 0.5);
-  }
-
-  .negative {
-    color: #ff4444 !important;
-    text-shadow: 0 0 4px rgba(255, 68, 68, 0.5);
-  }
-
-  .neutral {
-    color: #00ffff !important;
-    text-shadow: 0 0 4px rgba(0, 255, 255, 0.5);
-  }
-
-  /* Market Data Card Styling */
-  .market-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 12px;
-    transition: all 0.3s ease;
-  }
-
-  .market-card:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 215, 0, 0.4);
-    box-shadow: 0 8px 32px rgba(255, 215, 0, 0.2);
-    transform: translateY(-4px);
-  }
-
-  .last-updated {
-    font-size: 0.75rem;
-    color: rgba(255, 215, 0, 0.7);
-    font-style: italic;
-  }
-
-  .ticker-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.75rem;
-    color: rgba(0, 255, 255, 0.8);
-  }
-
-  .connection-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 4px;
-    background: rgba(0, 0, 0, 0.3);
-  }
-
-  .connection-status.connected {
-    color: #00ff00;
-    border: 1px solid rgba(0, 255, 0, 0.3);
-  }
-
-  .connection-status.disconnected {
-    color: #ff4444;
-    border: 1px solid rgba(255, 68, 68, 0.3);
-  }
-
-  .connection-status.reconnecting {
-    color: #ffd700;
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    animation: pulse 1s ease-in-out infinite;
-  }
-
-  /* Volume indicator styling */
-  .volume-indicator {
-    font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(0, 0, 0, 0.3);
-    padding: 1px 4px;
-    border-radius: 3px;
-  }
-
-  /* Market state indicators */
-  .market-state-pre {
-    background: rgba(255, 165, 0, 0.2);
-    color: #ffa500;
-    border: 1px solid rgba(255, 165, 0, 0.3);
-  }
-
-  .market-state-post {
-    background: rgba(138, 43, 226, 0.2);
-    color: #8a2be2;
-    border: 1px solid rgba(138, 43, 226, 0.3);
-  }
-
-  /* High volatility indicator */
-  .high-volatility {
-    animation: warning-pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes warning-pulse {
-    0%,
-    100% {
-      opacity: 0.7;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.1);
-    }
-  }
-
-  /* Comprehensive Mobile Responsiveness */
-  @media (max-width: 480px) {
-    /* Extra small phones */
-    .stock-ticker {
-      font-size: 0.75rem;
-      padding: 8px 0;
-      overflow-x: hidden;
-    }
-
-    .stock-item,
-    .crypto-item,
-    .forex-item {
-      padding: 1px 6px;
-      margin: 0 1px;
-      min-width: auto;
-      font-size: 0.75rem;
-    }
-
-    .market-card {
-      padding: 8px;
-      margin: 4px;
-    }
-
-    /* Ensure ticker doesn't cause horizontal scroll */
-    .stock-ticker-container {
-      width: 100vw;
-      overflow-x: hidden;
-    }
-
-    /* Mobile navigation optimizations */
-    nav {
-      min-height: 60px !important;
-    }
-
-    /* Professional mobile typography for TFS */
-    h1 {
-      font-size: 1.5rem !important;
-      line-height: 1.2 !important;
-    }
-    h2 {
-      font-size: 1.25rem !important;
-      line-height: 1.3 !important;
-    }
-    h3 {
-      font-size: 1.125rem !important;
-      line-height: 1.4 !important;
-    }
-
-    /* Maintain TFS brand consistency on mobile */
-    .finance-gold {
-      color: #ffd700 !important;
-    }
-
-    .finance-electric {
-      color: #00ffff !important;
-    }
-
-    /* Ensure readable text on all mobile devices */
-    body {
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    /* Mobile-specific logo sizing for consistency */
-    .logo-mobile {
-      width: 45px !important;
-      height: 45px !important;
-    }
-  }
-
-  @media (max-width: 768px) {
-    /* Tablets and larger phones */
-    .stock-ticker {
-      font-size: 0.875rem;
-      line-height: 1.2;
-    }
-
-    .stock-item,
-    .crypto-item,
-    .forex-item {
-      padding: 2px 8px;
-      margin: 0 2px;
-      border-radius: 6px;
-    }
-
-    .market-card {
-      padding: 12px;
-    }
-
-    /* Touch-friendly scrollbars */
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      border-radius: 4px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    /* Tablet landscape and small laptops */
-    .stock-ticker {
-      font-size: 0.9rem;
-    }
-
-    .market-card {
-      padding: 14px;
-    }
-  }
-
-  /* Enhanced navigation glow effects */
-  .nav-glow-hover {
-    transition: all 0.3s ease-in-out;
-    text-shadow: 0 0 4px rgba(255, 215, 0, 0.5);
-  }
-
-  .nav-glow-hover:hover {
-    text-shadow:
-      0 0 5px rgba(255, 255, 255, 0.8),
-      0 0 15px rgba(255, 215, 0, 0.6),
-      0 0 25px rgba(255, 215, 0, 0.4);
-    letter-spacing: 0.5px;
+  50% {
     transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes data-refresh {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float-gentle {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes price-change-flash {
+  0% {
+    background-color: rgba(255, 215, 0, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    background-color: rgba(255, 215, 0, 0.4);
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+/* Responsive mobile enhancements */
+@layer components {
+  .mobile-dashboard-optimized {
+    @apply overflow-hidden 
+      touch-pan-y 
+      scrollbar-thin 
+      scrollbar-track-finance-navy 
+      scrollbar-thumb-finance-gold/30;
   }
 
-  /* Floating icon optimized animations */
-  .floating-icon-pulse {
-    animation: floating-pulse 2s ease-in-out infinite;
+  .mobile-card-stack {
+    @apply space-y-3 
+      px-1 
+      sm:space-y-4 
+      sm:px-0;
   }
 
-  @keyframes floating-pulse {
-    0%,
-    100% {
-      box-shadow:
-        0 0 20px rgba(255, 215, 0, 0.3),
-        0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-    50% {
-      box-shadow:
-        0 0 30px rgba(255, 215, 0, 0.5),
-        0 12px 40px rgba(0, 0, 0, 0.4);
-    }
+  .mobile-metric-grid {
+    @apply grid 
+      grid-cols-2 
+      gap-3 
+      sm:grid-cols-4 
+      sm:gap-4 
+      lg:gap-6;
   }
 
-  .floating-icon-glow {
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
-    transition: filter 0.3s ease;
+  .mobile-text-responsive {
+    @apply text-sm 
+      sm:text-base 
+      lg:text-lg;
   }
 
-  .floating-icon-glow:hover {
-    filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+  .mobile-icon-responsive {
+    @apply w-4 
+      h-4 
+      sm:w-5 
+      sm:h-5 
+      lg:w-6 
+      lg:h-6;
+  }
+}
+
+/* Enhanced scrollbar styling for market data */
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-track-finance-navy {
+  scrollbar-color: rgba(32, 178, 170, 0.3) rgba(11, 20, 38, 0.5);
+}
+
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-track {
+  background: rgba(11, 20, 38, 0.5);
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-thumb {
+  background: rgba(32, 178, 170, 0.3);
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-finance-teal\/30::-webkit-scrollbar-thumb:hover {
+  background: rgba(32, 178, 170, 0.5);
+}
+
+/* Professional market ticker animation */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.market-ticker {
+  animation: ticker-scroll 60s linear infinite;
+}
+
+/* Smooth ticker animations for mobile and desktop */
+@keyframes mobileTickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes desktopTickerScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Mobile ticker container and animation */
+.mobile-ticker-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mobile-ticker-content {
+  display: flex;
+  width: 200%;
+  animation: mobileTicker 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes mobileTicker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Absolutely no pause on mobile - override any hover states */
+.mobile-ticker-never-pause {
+  animation-play-state: running !important;
+  pointer-events: none !important;
+}
+
+.mobile-ticker-never-pause:hover,
+.mobile-ticker-never-pause:active,
+.mobile-ticker-never-pause:focus {
+  animation-play-state: running !important;
+}
+
+/* Loading states for market data */
+.market-data-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 215, 0, 0.1) 25%,
+    rgba(0, 212, 204, 0.1) 50%,
+    rgba(255, 215, 0, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Improved touch targets for mobile */
+.touch-target-enhanced {
+  @apply min-h-[44px] 
+    min-w-[44px] 
+    flex 
+    items-center 
+    justify-center;
+}
+
+/* Market status indicators */
+.market-status-live {
+  @apply relative 
+    after:absolute 
+    after:inset-0 
+    after:rounded-full 
+    after:bg-finance-green 
+    after:animate-ping 
+    after:opacity-75;
+}
+
+.market-status-closed {
+  @apply relative 
+    after:absolute 
+    after:inset-0 
+    after:rounded-full 
+    after:bg-finance-red 
+    after:opacity-50;
+}
+
+/* Interactive feedback for market items */
+.market-item-interactive {
+  @apply transition-all 
+    duration-300 
+    cursor-pointer 
+    hover:shadow-lg 
+    hover:shadow-finance-gold/10 
+    active:scale-[0.98] 
+    active:shadow-md;
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  .finance-text-gold {
+    color: #ffff00;
   }
 
-  /* Touch-friendly hover effects for mobile */
-  @media (hover: none) and (pointer: coarse) {
-    .nav-glow-hover:hover {
-      transform: scale(1.02);
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-    }
-
-    .floating-icon-glow:hover {
-      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
-    }
+  .finance-border-gold {
+    border-color: #ffff00;
   }
 
-  /* Professional Mobile Optimizations */
-  @media (max-width: 480px) {
-    /* Ensure proper spacing and touch targets */
-    .container {
-      padding: 0 16px !important;
-    }
+  .finance-bg-navy {
+    background-color: #000033;
+  }
+}
 
-    /* Mobile navigation optimizations */
-    nav {
-      min-height: 70px !important;
-    }
-
-    /* Professional mobile typography */
-    h1 {
-      font-size: 2rem !important;
-      line-height: 1.2 !important;
-    }
-    h2 {
-      font-size: 1.5rem !important;
-      line-height: 1.3 !important;
-    }
-    h3 {
-      font-size: 1.25rem !important;
-      line-height: 1.4 !important;
-    }
-
-    /* Ensure all interactive elements are touch-friendly */
-    button,
-    a,
-    [role="button"] {
-      min-height: 48px !important;
-      min-width: 48px !important;
-      touch-action: manipulation !important;
-    }
-
-    /* Improve text readability */
-    body {
-      font-size: 16px !important;
-      line-height: 1.5 !important;
-    }
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-spin,
+  .animate-bounce {
+    animation: none;
   }
 
-  @media (max-width: 768px) {
-    /* Tablet and mobile optimizations */
-    .container {
-      max-width: 100% !important;
-      padding: 0 20px !important;
-    }
-
-    /* Better spacing for mobile */
-    .space-x-4 > * + * {
-      margin-left: 16px !important;
-    }
-
-    .space-y-4 > * + * {
-      margin-top: 16px !important;
-    }
+  .market-ticker {
+    animation: none;
+    transform: none;
   }
 
-  /* Mobile Touch Optimizations */
-  @media (hover: none) and (pointer: coarse) {
-    /* Touch devices */
-    .btn-glow:hover {
-      transform: scale(1.02);
-    }
+  .data-refresh,
+  .market-pulse,
+  .float-gentle {
+    animation: none;
+  }
+}
 
-    .nav-glow-hover:hover {
-      transform: scale(1.02);
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-    }
-
-    .floating-icon-glow:hover {
-      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
-    }
-
-    /* Ensure minimum touch targets */
-    button,
-    .button,
-    [role="button"],
-    .clickable {
-      min-height: 44px;
-      min-width: 44px;
-      touch-action: manipulation;
-    }
-
-    /* Prevent zoom on input focus */
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="number"],
-    textarea,
-    select {
-      font-size: 16px;
-    }
-
-    /* Force hardware acceleration for better performance */
-    * {
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      perspective: 1000px;
-    }
-
-    /* Optimize animations for mobile */
-    .motion-reduce {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-
-    /* Disable expensive effects on mobile */
-    .mobile-performance-mode {
-      filter: none !important;
-      backdrop-filter: none !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-    }
-
-    /* Disable entrance animations on mobile for smooth scrolling */
-    .mobile-no-entrance-animations * {
-      animation-duration: 0.01ms !important;
-      animation-delay: 0ms !important;
-      transition-duration: 0.15s !important;
-      transform: none !important;
-    }
-
-    /* Tablet-specific optimizations */
-    @media (min-width: 768px) and (max-width: 1024px) {
-      /* Ensure proper spacing for tablet layouts */
-      .container {
-        padding: 0 32px !important;
-      }
-
-      /* Tablet navigation optimizations */
-      nav {
-        min-height: 72px !important;
-      }
-
-      /* Better touch targets for tablets */
-      button,
-      a,
-      [role="button"] {
-        min-height: 42px !important;
-        min-width: 42px !important;
-      }
-
-      /* Market dashboard positioning for tablets */
-      .fixed.bottom-3,
-      .fixed.bottom-4,
-      .fixed.bottom-5 {
-        bottom: 20px !important;
-      }
-
-      .fixed.right-3,
-      .fixed.right-4,
-      .fixed.right-5 {
-        right: 20px !important;
-      }
-
-      /* Scroll progress indicator for tablets */
-      .fixed.top-1\/2 {
-        right: 16px !important;
-      }
-    }
-
-    /* Force desktop view on mobile - disable most responsive behavior */
-    @media (max-width: 768px) {
-      /* Disable mobile-specific styles - force desktop layout */
-      .container {
-        max-width: 1200px !important;
-        margin: 0 auto !important;
-        padding: 0 24px !important;
-      }
-
-      /* Force desktop navigation behavior */
-      .lg\\:hidden {
-        display: block !important;
-      }
-
-      .hidden.lg\\:flex,
-      .hidden.lg\\:block {
-        display: flex !important;
-      }
-
-      /* Ensure desktop sizing for key elements */
-      nav {
-        min-height: 80px !important;
-      }
-
-      /* Keep touch targets accessible */
-      button,
-      a,
-      [role="button"] {
-        min-height: 44px !important;
-        min-width: 44px !important;
-        touch-action: manipulation !important;
-      }
-
-      /* Improve text readability on scaled desktop view */
-      body {
-        font-size: 16px !important;
-        line-height: 1.5 !important;
-      }
-
-      /* Ensure interactive elements are easily tappable */
-      .market-card,
-      .stock-item,
-      .crypto-item,
-      .forex-item {
-        min-height: 48px !important;
-        padding: 8px 12px !important;
-      }
-
-      /* Better spacing for touch interactions */
-      .space-x-2 > * + * {
-        margin-left: 12px !important;
-      }
-
-      .space-y-2 > * + * {
-        margin-top: 12px !important;
-      }
-    }
-
-    /* Cross-device functionality consistency */
-    @media (hover: hover) and (pointer: fine) {
-      /* Desktop/laptop with precise pointers */
-      button:hover,
-      a:hover,
-      [role="button"]:hover {
-        transform: translateY(-1px) !important;
-        transition: transform 0.2s ease !important;
-      }
-    }
-
-    @media (hover: none) and (pointer: coarse) {
-      /* Touch devices - tablets and phones */
-      button:active,
-      a:active,
-      [role="button"]:active {
-        transform: scale(0.98) !important;
-        transition: transform 0.1s ease !important;
-      }
-
-      /* Ensure focus states are visible on touch devices */
-      button:focus,
-      a:focus,
-      [role="button"]:focus {
-        outline: 2px solid rgba(255, 215, 0, 0.8) !important;
-        outline-offset: 2px !important;
-      }
-    }
-
-    /* Universal improvements */
-    * {
-      /* Improve text rendering across all devices */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
-    }
-
-    /* Large screen optimizations */
-    @media (min-width: 1024px) {
-      /* Ensure optimal layout for large screens */
-      .container {
-        max-width: 1400px !important;
-      }
-
-      /* Enhanced navigation for large screens */
-      nav {
-        min-height: 80px !important;
-      }
-
-      /* Better positioning for large screens */
-      .fixed.bottom-5 {
-        bottom: 24px !important;
-      }
-
-      .fixed.right-5 {
-        right: 24px !important;
-      }
-    }
-
-    /* Comprehensive mobile animation disabling */
-    @media (max-width: 768px) {
-      /* Disable most framer-motion animations */
-      .mobile-static {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-        animation: none !important;
-      }
-
-      /* Disable entrance animations globally on mobile */
-      * {
-        animation-duration: 0.1s !important;
-        animation-delay: 0s !important;
-      }
-
-      /* Specifically target motion components */
-      [style*="opacity: 0"] {
-        opacity: 1 !important;
-      }
-
-      [style*="transform"] {
-        transform: none !important;
-      }
-
-      /* Disable complex transforms and 3D effects */
-      .preserve-3d {
-        transform-style: flat !important;
-      }
-
-      .perspective-1000 {
-        perspective: none !important;
-      }
-
-      /* Smooth scroll behavior */
-      html {
-        scroll-behavior: smooth !important;
-      }
-
-      /* Optimize rendering for mobile */
-      * {
-        will-change: auto !important;
-        backface-visibility: visible !important;
-      }
-
-      /* Disable hover effects on mobile */
-      *:hover {
-        transform: none !important;
-        scale: 1 !important;
-      }
-
-      /* Ensure text is immediately visible */
-      .text-transparent {
-        color: #ffd700 !important;
-        background: none !important;
-        -webkit-background-clip: unset !important;
-        background-clip: unset !important;
-      }
-    }
+/* Print styles for market data */
+@media print {
+  .market-dashboard {
+    @apply bg-white 
+      text-black 
+      shadow-none;
   }
 
-  /* Accessibility improvements */
-  @media (prefers-reduced-motion: reduce) {
-    .animate-scroll {
-      animation: none;
-      transform: none;
-    }
-
-    .animate-pulse,
-    .animate-bounce {
-      animation: none;
-    }
-
-    .shimmer {
-      animation: none;
-      background: rgba(255, 215, 0, 0.1);
-    }
-
-    .floating-icon-pulse {
-      animation: none;
-    }
-
-    .nav-glow-hover:hover {
-      transform: none;
-      animation: none;
-    }
-
-    /* Optimize animations for mobile performance */
-    @media (max-width: 768px) {
-      /* Reduce complex animations */
-      .complex-animation,
-      .animate-bounce,
-      .animate-pulse,
-      .animate-spin {
-        animation-duration: 0.3s !important;
-        animation-iteration-count: 3 !important;
-      }
-
-      /* Keep essential transitions but make them faster */
-      * {
-        transition-duration: 0.2s !important;
-      }
-
-      /* Disable heavy particle effects */
-      .particle-effect,
-      .background-particles {
-        display: none !important;
-      }
-    }
-
-    /* Further optimization for very small screens */
-    @media (max-width: 480px) {
-      .complex-animation,
-      .animate-bounce,
-      .animate-pulse {
-        animation: none !important;
-      }
-
-      /* Disable all transform animations on very small screens */
-      .perspective-1000,
-      .preserve-3d {
-        perspective: none !important;
-        transform-style: flat !important;
-      }
-    }
+  .market-card {
+    @apply bg-white 
+      border-gray-300 
+      shadow-none 
+      break-inside-avoid;
   }
 
-  /* High contrast mode support */
-  @media (prefers-contrast: high) {
-    .stock-item,
-    .crypto-item,
-    .forex-item {
-      border-width: 2px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .positive {
-      color: #00ff00 !important;
-      font-weight: bold;
-    }
-
-    .negative {
-      color: #ff0000 !important;
-      font-weight: bold;
-    }
-
-    .neutral {
-      color: #ffffff !important;
-      font-weight: bold;
-    }
+  .finance-gold {
+    color: #000000 !important;
   }
 
-  /* Mobile-specific utilities */
-  .mobile-scroll-container {
-    -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+  .finance-navy {
+    background-color: #ffffff !important;
   }
+}
 
-  .mobile-tap-highlight {
-    -webkit-tap-highlight-color: rgba(255, 215, 0, 0.2);
-  }
+/* Focus management for accessibility */
+.market-focus-ring {
+  @apply focus:outline-none 
+    focus:ring-2 
+    focus:ring-finance-gold 
+    focus:ring-offset-2 
+    focus:ring-offset-finance-navy;
+}
 
-  .mobile-touch-target {
-    min-height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
-  }
+/* Enhanced mobile tab navigation */
+.mobile-tab-enhanced {
+  @apply relative 
+    overflow-hidden 
+    before:absolute 
+    before:inset-0 
+    before:bg-gradient-to-r 
+    before:from-transparent 
+    before:via-finance-gold/10 
+    before:to-transparent 
+    before:translate-x-[-100%] 
+    hover:before:translate-x-[100%] 
+    before:transition-transform 
+    before:duration-700;
+}
 
-  /* Prevent horizontal scroll on mobile */
-  .mobile-container {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
+/* Currency exchange rate styling */
+.currency-rate-card {
+  @apply relative 
+    overflow-hidden 
+    before:absolute 
+    before:top-0 
+    before:left-0 
+    before:w-1 
+    before:h-full 
+    before:bg-gradient-to-b 
+    before:from-finance-teal 
+    before:to-finance-electric 
+    before:opacity-0 
+    hover:before:opacity-100 
+    before:transition-opacity 
+    before:duration-300;
+}
 
-  /* Safe area padding for notched devices */
-  @supports (padding: max(0px)) {
-    .mobile-safe-area {
-      padding-left: max(16px, env(safe-area-inset-left));
-      padding-right: max(16px, env(safe-area-inset-right));
-      padding-bottom: max(16px, env(safe-area-inset-bottom));
-    }
-  }
+/* Stock price movement indicators */
+.price-movement-up {
+  @apply text-finance-green 
+    relative 
+    after:absolute 
+    after:top-0 
+    after:right-0 
+    after:w-2 
+    after:h-2 
+    after:bg-finance-green 
+    after:rounded-full 
+    after:animate-pulse;
+}
 
-  /* Improved mobile text rendering */
-  @media (max-width: 768px) {
-    body {
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
-    }
+.price-movement-down {
+  @apply text-finance-red 
+    relative 
+    after:absolute 
+    after:top-0 
+    after:right-0 
+    after:w-2 
+    after:h-2 
+    after:bg-finance-red 
+    after:rounded-full 
+    after:animate-pulse;
+}
 
-    /* Optimize for mobile performance */
-    .complex-animation {
-      will-change: auto;
-      transform: translateZ(0);
-    }
-
-    /* Touch scroll optimization */
-    * {
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: contain;
-    }
-
-    /* Prevent layout shift during animations */
-    body {
-      overflow-x: hidden;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-
-    /* Ensure Events section is visible on mobile */
-    #events {
-      min-height: auto !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-
-    /* Fix any potential layout issues with Events section */
-    section[id="events"] {
-      position: relative !important;
-      z-index: 1 !important;
-      width: 100% !important;
-      max-width: 100vw !important;
-      overflow-x: hidden !important;
-    }
-
-    /* Line clamp utility for mobile */
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .line-clamp-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  }
+.price-movement-neutral {
+  @apply text-finance-electric 
+    relative 
+    after:absolute 
+    after:top-0 
+    after:right-0 
+    after:w-2 
+    after:h-2 
+    after:bg-finance-electric 
+    after:rounded-full;
 }

@@ -18,7 +18,7 @@ const sponsors: Sponsor[] = [
   {
     id: "citizen-cooperative-bank",
     name: "Citizen Cooperative Bank",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2Fec784fa823e24e5b9b1285f4ba0a99fb",
     industry: "Banking",
     description:
       "Cooperative banking institution dedicated to financial inclusion and community development.",
@@ -28,7 +28,7 @@ const sponsors: Sponsor[] = [
   {
     id: "saint-gobain",
     name: "Saint Gobain (through Mahantesh Associates)",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F5b52ce39d6834f09a442954d4ab0e362",
     industry: "Manufacturing",
     description:
       "Global leader in sustainable construction materials, partnering through Mahantesh Associates to enhance industry exposure.",
@@ -38,7 +38,7 @@ const sponsors: Sponsor[] = [
   {
     id: "zest-global-education",
     name: "Zest Global Education",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F8d448a7548c345c0b5060392a99881c7",
     industry: "Education",
     description:
       "International education consultancy providing global opportunities and career guidance to students.",
@@ -48,7 +48,7 @@ const sponsors: Sponsor[] = [
   {
     id: "iqas",
     name: "IQAS",
-    logo: "",
+    logo: "https://cdn.builder.io/api/v1/image/assets%2Fb448f3665916406e992f77bf5e7d711e%2F6d57193e366e4d44b95dae677d4162dc",
     industry: "Quality Assurance",
     description:
       "Quality assurance and certification services provider supporting academic excellence standards.",
@@ -99,24 +99,40 @@ export default function SponsorsSection() {
             {/* Logo Section */}
             <div className="text-center flex-1 flex flex-col justify-center">
               <motion.div
-                className="w-24 h-16 mx-auto mb-4 bg-white/5 rounded-lg flex items-center justify-center border border-finance-gold/10"
+                className="w-24 h-16 mx-auto mb-4 bg-white/5 rounded-lg flex items-center justify-center border border-finance-gold/10 p-2"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
-                {/* Empty space for logo */}
-                <div className="w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10"></div>
+                {sponsor.logo ? (
+                  <img
+                    src={sponsor.logo}
+                    alt={`${sponsor.name} logo`}
+                    className="w-full h-full object-contain rounded-lg"
+                    onError={(e) => {
+                      // Fallback to gradient if image fails to load
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextElementSibling?.classList.remove(
+                        "hidden",
+                      );
+                    }}
+                  />
+                ) : null}
+                {/* Fallback gradient background */}
+                <div
+                  className={`w-full h-full rounded-lg bg-gradient-to-br from-finance-gold/10 to-finance-electric/10 ${sponsor.logo ? "hidden" : ""}`}
+                ></div>
               </motion.div>
-              <h3 className="text-lg font-bold text-finance-gold mb-2 leading-tight">
+              <h3 className="text-lg font-bold text-finance-teal mb-2 leading-tight">
                 {sponsor.name}
               </h3>
-              <p className="text-finance-electric text-sm mb-3">
+              <p className="text-finance-teal/80 text-sm mb-3">
                 {sponsor.industry}
               </p>
             </div>
 
             {/* Description - appears on hover */}
             <motion.div className="absolute inset-0 bg-finance-navy/95 backdrop-blur-sm p-6 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto rounded-xl">
-              <h4 className="text-lg font-bold text-finance-gold mb-3 text-center">
+              <h4 className="text-lg font-bold text-finance-teal mb-3 text-center">
                 {sponsor.name}
               </h4>
               <p className="text-sm text-foreground/80 mb-4 leading-relaxed text-center">
@@ -127,7 +143,7 @@ export default function SponsorsSection() {
                 <div className="text-center">
                   <Button
                     size="sm"
-                    className="bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-transform duration-200"
+                    className="bg-finance-teal text-finance-navy hover:bg-finance-teal-dark hover:scale-105 transition-all duration-200"
                     onClick={() => window.open(sponsor.website, "_blank")}
                   >
                     Visit Website
@@ -142,9 +158,9 @@ export default function SponsorsSection() {
               className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 255, 255, 0.1))",
-                filter: "blur(20px)",
-                boxShadow: "0 0 30px rgba(255, 215, 0, 0.3)",
+                  "linear-gradient(135deg, rgba(0, 212, 204, 0.1), rgba(0, 212, 204, 0.05))",
+                filter: "blur(15px)",
+                boxShadow: "0 0 20px rgba(0, 212, 204, 0.2)",
               }}
             />
           </div>
@@ -157,7 +173,10 @@ export default function SponsorsSection() {
     <section
       ref={sectionRef}
       id="sponsors"
-      className="relative py-20 overflow-hidden bg-gradient-to-br from-finance-navy via-finance-navy-light to-finance-navy"
+      style={{
+        backgroundColor: "#12333E", // Solid dark teal background
+      }}
+      className="relative py-20 overflow-hidden"
     >
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -167,10 +186,10 @@ export default function SponsorsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-finance-gold to-finance-electric bg-clip-text text-transparent">
-            OUR STRATEGIC PARTNERS
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">
+            OUR STRATEGIC <span className="text-finance-teal">PARTNERS</span>
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-finance-gold to-transparent mx-auto mb-6" />
+          <div className="w-32 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-3xl mx-auto">
             {activeTab === "current"
               ? "Building strong partnerships with industry leaders to enhance financial education and career opportunities."
@@ -190,8 +209,8 @@ export default function SponsorsSection() {
               onClick={() => setActiveTab("current")}
               className={`px-6 py-3 rounded-lg transition-all duration-300 font-medium ${
                 activeTab === "current"
-                  ? "bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy shadow-lg"
-                  : "text-finance-gold hover:bg-finance-gold/10"
+                  ? "bg-finance-teal text-finance-navy shadow-lg"
+                  : "text-finance-teal hover:bg-finance-teal/10"
               }`}
             >
               Current Sponsors
@@ -200,8 +219,8 @@ export default function SponsorsSection() {
               onClick={() => setActiveTab("past")}
               className={`px-6 py-3 rounded-lg transition-all duration-300 font-medium ${
                 activeTab === "past"
-                  ? "bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy shadow-lg"
-                  : "text-finance-gold hover:bg-finance-gold/10"
+                  ? "bg-finance-teal text-finance-navy shadow-lg"
+                  : "text-finance-teal hover:bg-finance-teal/10"
               }`}
             >
               Past Sponsors
@@ -275,28 +294,6 @@ export default function SponsorsSection() {
               </div>
             </motion.div>
           )}
-        </motion.div>
-
-        {/* Elegant bottom section */}
-        <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="max-w-2xl mx-auto bg-finance-navy/30 backdrop-blur-sm rounded-xl p-8 border border-finance-gold/20">
-            <h3 className="text-2xl font-bold text-finance-electric mb-4">
-              Partnership Opportunities
-            </h3>
-            <p className="text-foreground/80 mb-6">
-              Join our legacy of successful partnerships. Connect with us to
-              explore collaboration opportunities and be part of our growing
-              community.
-            </p>
-            <Button className="bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-transform duration-200">
-              Become a Partner
-            </Button>
-          </div>
         </motion.div>
       </div>
     </section>

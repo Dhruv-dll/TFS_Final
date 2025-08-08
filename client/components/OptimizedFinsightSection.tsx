@@ -93,27 +93,21 @@ export default function OptimizedFinsightSection() {
         transition={{ duration: 0.2 }}
       >
         <motion.div
-          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl`}
-          style={{
-            background:
-              "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)",
-          }}
+          className={`relative ${featured ? "h-80" : "h-72"} rounded-2xl overflow-hidden shadow-xl bg-finance-navy-light border border-finance-teal/30`}
           animate={{
             boxShadow: isHovered
-              ? "0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(59, 130, 246, 0.2)"
-              : "0 10px 25px rgba(0, 0, 0, 0.2)",
+              ? "0 20px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 212, 204, 0.3)"
+              : "0 10px 25px rgba(0, 0, 0, 0.1)",
           }}
           transition={{ duration: 0.3 }}
         >
-          {/* Simple Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
+          {/* Subtle Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
             <div
               className="w-full h-full"
               style={{
-                backgroundImage: `
-                  linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%),
-                  linear-gradient(-45deg, transparent 25%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 50%, transparent 50%)
-                `,
+                backgroundImage:
+                  "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
                 backgroundSize: "20px 20px",
               }}
             />
@@ -124,14 +118,14 @@ export default function OptimizedFinsightSection() {
             {/* Header */}
             <div className="text-center mb-4">
               <motion.h3
-                className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-finance-teal to-finance-cyan mb-2"
+                className="text-2xl font-bold text-finance-teal mb-2"
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 FINSIGHT
               </motion.h3>
-              <Badge className="bg-gradient-to-r from-finance-teal to-finance-cyan text-black font-bold">
+              <Badge className="bg-finance-teal text-white font-bold">
                 {magazine.edition}
               </Badge>
             </div>
@@ -143,8 +137,8 @@ export default function OptimizedFinsightSection() {
               </h4>
 
               {/* Simple Visual Element */}
-              <div className="relative h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl border border-white/10 flex items-center justify-center">
-                <TrendingUp className="w-12 h-12 text-blue-400/60" />
+              <div className="relative h-24 bg-finance-teal/10 rounded-xl border border-finance-teal/20 flex items-center justify-center">
+                <TrendingUp className="w-12 h-12 text-finance-teal" />
               </div>
 
               {/* Stats */}
@@ -160,7 +154,7 @@ export default function OptimizedFinsightSection() {
               {magazine.categories.slice(0, 3).map((category) => (
                 <span
                   key={category}
-                  className="text-xs bg-white/10 px-2 py-1 rounded-full text-white/80"
+                  className="text-xs bg-finance-teal/20 border border-finance-teal/30 px-2 py-1 rounded-full text-white/80"
                 >
                   {category}
                 </span>
@@ -170,7 +164,7 @@ export default function OptimizedFinsightSection() {
 
           {/* Hover Overlay */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent opacity-0 rounded-2xl"
+            className="absolute inset-0 bg-gradient-to-t from-finance-teal/5 to-transparent opacity-0 rounded-2xl"
             animate={{
               opacity: isHovered ? 1 : 0,
             }}
@@ -178,16 +172,15 @@ export default function OptimizedFinsightSection() {
           />
         </motion.div>
 
-        {/* Simple Glow Effect */}
+        {/* Subtle Glow Effect */}
         <motion.div
           className="absolute inset-0 rounded-2xl -z-10"
           style={{
-            background:
-              "linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)",
+            background: "rgba(0, 212, 204, 0.1)",
             filter: "blur(15px)",
           }}
           animate={{
-            opacity: isHovered ? 0.4 : 0.2,
+            opacity: isHovered ? 0.3 : 0.1,
             scale: isHovered ? 1.02 : 1,
           }}
           transition={{ duration: 0.3 }}
@@ -202,34 +195,17 @@ export default function OptimizedFinsightSection() {
       id="insights"
       className="relative min-h-screen py-12 sm:py-16 lg:py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+        backgroundColor: "#101E36", // Solid navy background
       }}
     >
-      {/* Light Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        <motion.div
-          className="absolute top-20 right-10 w-32 h-32 bg-blue-500/10 rounded-full"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-10 w-24 h-24 bg-purple-500/10 rounded-full"
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, -180, -360],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "linear",
+      {/* Professional Grid Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
       </div>
@@ -248,24 +224,15 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-finance-teal to-finance-cyan rounded-xl flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-white" />
+            <div className="w-12 h-12 bg-finance-teal rounded-xl flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-finance-navy" />
             </div>
             <div className="text-left">
-              <h2
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #00D4CC 0%, #00FFFF 50%, #00D4CC 100%)",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                FINSIGHT
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white">
+                <span className="text-finance-teal">FINSIGHT</span>
               </h2>
               <motion.p
-                className="text-lg sm:text-xl text-white/70 font-medium"
+                className="text-lg sm:text-xl text-finance-teal font-medium"
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -281,13 +248,13 @@ export default function OptimizedFinsightSection() {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-finance-teal to-transparent" />
             <div className="flex space-x-2">
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
-              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
+              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-finance-teal" />
             </div>
-            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
+            <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-finance-teal to-transparent" />
           </motion.div>
 
           <motion.p
