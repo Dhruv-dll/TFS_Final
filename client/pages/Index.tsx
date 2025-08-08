@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ECCStyleNavigation from "../components/ECCStyleNavigation";
 import ProfessionalHeroSection from "../components/ProfessionalHeroSection";
-import TerminalLoader from "../components/TerminalLoader";
 import ModernLuminariesSection from "../components/ModernLuminariesSection";
 import OptimizedFinsightSection from "../components/OptimizedFinsightSection";
 import MarketDataErrorBoundary, {
