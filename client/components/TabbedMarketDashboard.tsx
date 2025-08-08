@@ -319,10 +319,10 @@ export default function TabbedMarketDashboard({
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                <TabsList className="grid w-full grid-cols-3 bg-finance-navy-light/30 backdrop-blur-sm border border-finance-gold/20 rounded-xl p-1">
+                <TabsList className="grid w-full grid-cols-3 bg-finance-navy-light/30 backdrop-blur-sm border border-finance-teal/20 rounded-xl p-1">
                   <TabsTrigger
                     value="stocks"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-teal data-[state=active]:to-finance-teal-green data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
                     <Building2 className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Stocks</span>
@@ -330,7 +330,7 @@ export default function TabbedMarketDashboard({
                   </TabsTrigger>
                   <TabsTrigger
                     value="currencies"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-teal data-[state=active]:to-finance-teal-green data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
                     <Globe className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Forex</span>
@@ -338,7 +338,7 @@ export default function TabbedMarketDashboard({
                   </TabsTrigger>
                   <TabsTrigger
                     value="summary"
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-gold data-[state=active]:to-finance-electric data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-finance-teal data-[state=active]:to-finance-teal-green data-[state=active]:text-finance-navy font-semibold transition-all duration-300 data-[state=active]:shadow-lg rounded-lg"
                   >
                     <BarChart3 className="w-4 h-4 mr-1 sm:mr-2" />
                     <span className="hidden sm:inline">Overview</span>
@@ -354,15 +354,15 @@ export default function TabbedMarketDashboard({
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
                       <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-finance-gold mb-1">
+                        <h3 className="text-lg sm:text-xl font-bold text-finance-teal mb-1">
                           Indian Equity Markets
                         </h3>
-                        <p className="text-sm text-finance-electric/80">
+                        <p className="text-sm text-finance-teal-mint/80">
                           Real-time prices from NSE & BSE • {marketData.stocks.length} instruments
                         </p>
                       </div>
                       <div className="mt-3 sm:mt-0 flex items-center gap-2">
-                        <Badge variant="outline" className="bg-finance-green/10 border-finance-green/40 text-finance-green text-xs">
+                        <Badge variant="outline" className="bg-finance-teal-green/10 border-finance-teal-green/40 text-finance-teal-green text-xs">
                           {marketData.stocks.filter(s => s.change > 0).length} ↑
                         </Badge>
                         <Badge variant="outline" className="bg-finance-red/10 border-finance-red/40 text-finance-red text-xs">
