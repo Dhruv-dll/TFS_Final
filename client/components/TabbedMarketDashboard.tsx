@@ -258,14 +258,6 @@ export default function TabbedMarketDashboard({
                     {isLoading ? "Syncing..." : "Refresh"}
                   </span>
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onOpenChange(false)}
-                  className="text-finance-electric hover:bg-finance-red/20 hover:text-finance-red transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </Button>
               </div>
             </DialogTitle>
           </DialogHeader>
