@@ -75,19 +75,19 @@ export default function FloatingMarketIcon({
     <>
       {/* Floating Market Dashboard Icon */}
       <motion.div
-        className={`fixed bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-6 md:right-6 lg:bottom-5 lg:right-5 z-50 hidden sm:block ${className}`}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 z-50 ${className}`}
+        initial={{ opacity: 0, scale: 0, y: 50 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 100 }}
       >
         <motion.button
           onClick={handleIconClick}
-          className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-finance-navy/80 backdrop-blur-md border border-finance-cyan/30 shadow-2xl flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-finance-cyan focus:ring-offset-2 focus:ring-offset-finance-navy"
+          className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br from-finance-navy/90 via-finance-navy-medium/85 to-finance-navy-light/80 backdrop-blur-xl border border-finance-gold/40 shadow-2xl flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-finance-gold focus:ring-offset-2 focus:ring-offset-finance-navy transition-all duration-300"
           style={{
             boxShadow:
-              "0 0 20px rgba(0, 212, 204, 0.3), 0 8px 32px rgba(0, 0, 0, 0.3)",
+              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
-          aria-label="Open live market dashboard"
+          aria-label="Open professional market dashboard"
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
@@ -96,41 +96,61 @@ export default function FloatingMarketIcon({
               handleIconClick();
             }
           }}
-          // Idle floating animation
+          // Enhanced floating animation with breathe effect
           animate={{
-            y: [0, -5, 0],
+            y: [0, -8, 0],
+            scale: [1, 1.02, 1],
             boxShadow: [
-              "0 0 20px rgba(255, 215, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.3)",
-              "0 0 30px rgba(255, 215, 0, 0.5), 0 12px 40px rgba(0, 0, 0, 0.4)",
-              "0 0 20px rgba(255, 215, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.3)",
+              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4)",
+              "0 0 40px rgba(255, 215, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.5)",
+              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4)",
             ],
           }}
           transition={{
-            y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-            boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
+            y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+            scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+            boxShadow: { duration: 3, repeat: Infinity, ease: "easeInOut" },
           }}
           whileHover={{
-            scale: 1.1,
-            rotate: 5,
+            scale: 1.15,
+            rotate: 8,
+            y: -12,
             boxShadow:
-              "0 0 40px rgba(255, 215, 0, 0.8), 0 16px 48px rgba(0, 0, 0, 0.5)",
+              "0 0 50px rgba(255, 215, 0, 0.6), 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
           }}
           whileTap={{
-            scale: 0.95,
-            y: -10,
+            scale: 0.9,
+            y: -2,
+            rotate: 0,
           }}
         >
-          {/* Pulse ring effect */}
+          {/* Enhanced pulse ring effect */}
           <motion.div
-            className="absolute inset-0 rounded-full border-2 border-finance-gold/50"
+            className="absolute inset-0 rounded-2xl border-2 border-finance-gold/60"
             animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.8, 0, 0.8],
+              scale: [1, 1.6, 1],
+              opacity: [0.7, 0, 0.7],
+              borderRadius: ["1rem", "2rem", "1rem"],
             }}
             transition={{
-              duration: 2,
+              duration: 3,
               repeat: Infinity,
               ease: "easeOut",
+            }}
+          />
+
+          {/* Secondary pulse ring */}
+          <motion.div
+            className="absolute inset-0 rounded-2xl border border-finance-electric/40"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.5, 0, 0.5],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeOut",
+              delay: 0.5,
             }}
           />
 
@@ -182,17 +202,23 @@ export default function FloatingMarketIcon({
           <motion.div
             className="relative z-10"
             animate={{
-              scale: dataJustUpdated ? [1, 1.2, 1] : 1,
+              scale: dataJustUpdated ? [1, 1.3, 1] : 1,
+              rotate: dataJustUpdated ? [0, 360] : 0,
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
           >
-            <BarChart3
-              className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-finance-gold group-hover:text-white transition-colors duration-300"
-              style={{
-                filter: "drop-shadow(0 0 8px rgba(255, 215, 0, 0.6))",
-              }}
-              aria-hidden="true"
-            />
+            <div className="relative">
+              {/* Icon glow background */}
+              <div className="absolute inset-0 bg-finance-gold/30 rounded-lg blur-sm group-hover:bg-finance-electric/40 transition-all duration-300" />
+
+              <BarChart3
+                className="relative w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-finance-gold group-hover:text-finance-electric transition-all duration-300"
+                style={{
+                  filter: "drop-shadow(0 0 12px rgba(255, 215, 0, 0.8))",
+                }}
+                aria-hidden="true"
+              />
+            </div>
           </motion.div>
 
           {/* Ripple effect on click */}
@@ -208,32 +234,49 @@ export default function FloatingMarketIcon({
           />
         </motion.button>
 
-        {/* Quick stats tooltip */}
+        {/* Enhanced stats tooltip */}
         <motion.div
-          className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          initial={{ y: 10, opacity: 0 }}
-          whileHover={{ y: 0, opacity: 1 }}
+          className="absolute bottom-full right-0 mb-4 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
+          initial={{ y: 10, opacity: 0, scale: 0.9 }}
+          whileHover={{ y: 0, opacity: 1, scale: 1 }}
         >
-          <div className="bg-finance-navy/90 backdrop-blur-sm border border-finance-gold/20 rounded-lg p-3 text-xs whitespace-nowrap shadow-xl">
-            <div className="font-medium text-finance-gold mb-1">
-              📈 Live Market Data
+          <div className="bg-gradient-to-br from-finance-navy/95 to-finance-navy-medium/90 backdrop-blur-xl border border-finance-gold/30 rounded-xl p-4 text-xs whitespace-nowrap shadow-2xl">
+            <div className="flex items-center gap-2 font-semibold text-finance-gold mb-2">
+              <div className="w-2 h-2 bg-finance-green rounded-full animate-pulse" />
+              Market Central
             </div>
-            <div className="text-foreground flex items-center gap-2">
-              <span className={getSentimentColor(marketSentiment.sentiment)}>
-                {marketSentiment.sentiment.toUpperCase()}
-              </span>
-              <span className="text-muted-foreground">
-                {marketSentiment.positiveStocks}/{marketSentiment.totalStocks}
-              </span>
+
+            <div className="space-y-1">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-muted-foreground">Sentiment:</span>
+                <span className={`font-medium ${getSentimentColor(marketSentiment.sentiment)}`}>
+                  {marketSentiment.sentiment.toUpperCase()}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-muted-foreground">Movement:</span>
+                <span className="text-foreground">
+                  {marketSentiment.positiveStocks}↑ / {marketSentiment.totalStocks - marketSentiment.positiveStocks}↓
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-muted-foreground">Updated:</span>
+                <span className="text-finance-electric font-mono">
+                  {safeFormatTimestamp(lastUpdate)}
+                </span>
+              </div>
             </div>
-            <div className="text-xs text-finance-electric mt-1">
-              Updated: {safeFormatTimestamp(lastUpdate)}
+
+            <div className="mt-2 pt-2 border-t border-finance-gold/20 text-center">
+              <span className="text-finance-electric/80">Click to open dashboard</span>
             </div>
           </div>
         </motion.div>
       </motion.div>
 
-      {/* Tabbed Market Dashboard */}
+      {/* Professional Market Dashboard */}
       <TabbedMarketDashboard isOpen={isOpen} onOpenChange={setIsOpen} />
     </>
   );
