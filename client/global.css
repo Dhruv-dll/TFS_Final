@@ -276,7 +276,17 @@
   }
 }
 
-/* No pause on mobile - keep animation running always */
+/* Absolutely no pause on mobile - override any hover states */
+.mobile-ticker-never-pause {
+  animation-play-state: running !important;
+  pointer-events: none !important;
+}
+
+.mobile-ticker-never-pause:hover,
+.mobile-ticker-never-pause:active,
+.mobile-ticker-never-pause:focus {
+  animation-play-state: running !important;
+}
 
 /* Loading states for market data */
 .market-data-skeleton {
