@@ -5,6 +5,8 @@ class FinnhubMarketDataService {
   private readonly BASE_URL = "https://finnhub.io/api/v1";
 
   constructor() {
+    console.log("🚀 Initializing Enhanced Market Data Service - Server Mode Active");
+
     // Set up global error handler for fetch failures
     if (typeof window !== "undefined") {
       window.addEventListener("unhandledrejection", (event) => {
@@ -16,11 +18,14 @@ class FinnhubMarketDataService {
           event.reason?.name === "AbortError"
         ) {
           console.warn(
-            "🔄 Global market data error detected, enabling fallback mode:",
+            "🔄 Global market data error detected, incrementing failure count:",
             event.reason?.message || "Unknown error",
           );
-          this.fallbackMode = true;
-          this.apiFailureCount = 999;
+          this.apiFailureCount++;
+          if (this.apiFailureCount >= 5) {
+            this.fallbackMode = true;
+            console.log("🔄 Enabling fallback mode after multiple failures");
+          }
           event.preventDefault(); // Prevent error from bubbling up
         }
       });
@@ -604,9 +609,9 @@ class FinnhubMarketDataService {
     return timeInMinutes >= marketOpen && timeInMinutes <= marketClose;
   }
 
-  // Fallback mode tracking with immediate initialization
-  private fallbackMode = true; // Start in fallback mode to prevent fetch errors
-  private apiFailureCount = 999; // Force fallback mode from start
+  // Fallback mode tracking with proper initialization
+  private fallbackMode = false; // Start with server mode enabled
+  private apiFailureCount = 0; // Allow server attempts
   private isInitialized = false;
   private initializationAttempted = false;
   private subscribers: ((data: {
