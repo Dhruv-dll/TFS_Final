@@ -137,7 +137,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         "light-sweep": "light-sweep 2s ease-in-out",
         "market-pulse": "market-pulse 2s ease-in-out infinite",
-        scroll: "scroll 30s linear infinite",
+        scroll: "scroll 120s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
