@@ -54,11 +54,11 @@ export default function FloatingMarketIcon({
   const getSentimentColor = (sentiment: string) => {
     switch (sentiment) {
       case "bullish":
-        return "text-finance-teal";
+        return "text-finance-teal-green";
       case "bearish":
         return "text-finance-red";
       default:
-        return "text-finance-cyan";
+        return "text-finance-teal";
     }
   };
 
@@ -82,10 +82,10 @@ export default function FloatingMarketIcon({
       >
         <motion.button
           onClick={handleIconClick}
-          className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br from-finance-navy/90 via-finance-navy-medium/85 to-finance-navy-light/80 backdrop-blur-xl border border-finance-gold/40 shadow-2xl flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-finance-gold focus:ring-offset-2 focus:ring-offset-finance-navy transition-all duration-300"
+          className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br from-finance-navy/90 via-finance-navy-medium/85 to-finance-navy-light/80 backdrop-blur-xl border border-finance-teal/40 shadow-2xl flex items-center justify-center group focus:outline-none focus:ring-2 focus:ring-finance-teal focus:ring-offset-2 focus:ring-offset-finance-navy transition-all duration-300"
           style={{
             boxShadow:
-              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+              "0 0 30px rgba(32, 178, 170, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
           }}
           aria-label="Open professional market dashboard"
           role="button"
@@ -101,9 +101,9 @@ export default function FloatingMarketIcon({
             y: [0, -8, 0],
             scale: [1, 1.02, 1],
             boxShadow: [
-              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4)",
-              "0 0 40px rgba(255, 215, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.5)",
-              "0 0 30px rgba(255, 215, 0, 0.2), 0 8px 32px rgba(0, 0, 0, 0.4)",
+              "0 0 30px rgba(32, 178, 170, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4)",
+              "0 0 40px rgba(32, 178, 170, 0.5), 0 12px 40px rgba(0, 0, 0, 0.5)",
+              "0 0 30px rgba(32, 178, 170, 0.3), 0 8px 32px rgba(0, 0, 0, 0.4)",
             ],
           }}
           transition={{
@@ -116,7 +116,7 @@ export default function FloatingMarketIcon({
             rotate: 8,
             y: -12,
             boxShadow:
-              "0 0 50px rgba(255, 215, 0, 0.6), 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+              "0 0 50px rgba(32, 178, 170, 0.6), 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
           }}
           whileTap={{
             scale: 0.9,
@@ -126,7 +126,7 @@ export default function FloatingMarketIcon({
         >
           {/* Enhanced pulse ring effect */}
           <motion.div
-            className="absolute inset-0 rounded-2xl border-2 border-finance-gold/60"
+            className="absolute inset-0 rounded-2xl border-2 border-finance-teal/60"
             animate={{
               scale: [1, 1.6, 1],
               opacity: [0.7, 0, 0.7],
@@ -141,7 +141,7 @@ export default function FloatingMarketIcon({
 
           {/* Secondary pulse ring */}
           <motion.div
-            className="absolute inset-0 rounded-2xl border border-finance-electric/40"
+            className="absolute inset-0 rounded-2xl border border-finance-teal-mint/40"
             animate={{
               scale: [1, 1.3, 1],
               opacity: [0.5, 0, 0.5],
@@ -209,12 +209,12 @@ export default function FloatingMarketIcon({
           >
             <div className="relative">
               {/* Icon glow background */}
-              <div className="absolute inset-0 bg-finance-gold/30 rounded-lg blur-sm group-hover:bg-finance-electric/40 transition-all duration-300" />
+              <div className="absolute inset-0 bg-finance-teal/30 rounded-lg blur-sm group-hover:bg-finance-teal-mint/40 transition-all duration-300" />
 
               <BarChart3
-                className="relative w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-finance-gold group-hover:text-finance-electric transition-all duration-300"
+                className="relative w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-finance-teal group-hover:text-finance-teal-mint transition-all duration-300"
                 style={{
-                  filter: "drop-shadow(0 0 12px rgba(255, 215, 0, 0.8))",
+                  filter: "drop-shadow(0 0 12px rgba(32, 178, 170, 0.8))",
                 }}
                 aria-hidden="true"
               />
