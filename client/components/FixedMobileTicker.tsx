@@ -155,7 +155,7 @@ export default function FixedMobileTicker({
               <div className="flex items-center space-x-2">
                 <div
                   className={`w-2 h-2 rounded-full ${
-                    isMarketOpen() ? "bg-green-400 animate-pulse" : "bg-red-400"
+                    isMarketOpen() ? "bg-green-400" : "bg-red-400"
                   }`}
                 />
                 <span className="text-white font-medium">
@@ -171,7 +171,7 @@ export default function FixedMobileTicker({
                       : marketSentiment.sentiment === "bearish"
                         ? "bg-red-400"
                         : "bg-teal-400"
-                  } animate-pulse`}
+                  }`}
                 />
                 <span className="text-teal-300 font-medium capitalize">
                   {marketSentiment.sentiment} ({marketSentiment.positiveStocks}/
