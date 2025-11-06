@@ -5,8 +5,6 @@ import {
   useTransform,
   useInView,
   AnimatePresence,
-  useMotionValue,
-  useSpring,
 } from "framer-motion";
 import {
   Mail,
@@ -16,9 +14,6 @@ import {
   Crown,
   Sparkles,
   Brain,
-  Target,
-  Zap,
-  Globe,
   Award,
   ChevronLeft,
   ChevronRight,
@@ -26,10 +21,6 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import {
-  DesktopLightElements,
-  MobileLightElements,
-} from "./LightMorphingElements";
 
 interface TeamMember {
   id: string;
@@ -267,26 +258,8 @@ export default function ModernLuminariesSection() {
     offset: ["start end", "end start"],
   });
 
-  // 3D transformation values based on scroll
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [15, 0, -15]);
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
-
-  // Floating animation for 3D elements
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 10 });
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 10 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX.set((e.clientX - window.innerWidth / 2) / 50);
-      mouseY.set((e.clientY - window.innerHeight / 2) / 50);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  // Simple scroll effects
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
   const currentMembers =
     activeGroup === "faculty" ? facultyMembers : leadershipMembers;
@@ -306,128 +279,71 @@ export default function ModernLuminariesSection() {
         onMouseEnter={() => setHoveredCard(member.id)}
         onMouseLeave={() => setHoveredCard(null)}
       >
-        {/* 3D Card Container */}
+        {/* Professional Card Container */}
         <motion.div
-          className="relative h-80 sm:h-96 perspective-1000"
-          style={{
-            rotateX: isHovered ? 5 : 0,
-            rotateY: isHovered ? 2 : 0,
-            scale: isHovered ? 1.05 : 1,
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="relative h-80 sm:h-96"
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          {/* Main Card */}
+          {/* Main Professional Card */}
           <motion.div
-            className="relative h-full rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer preserve-3d"
+            className="relative h-full bg-finance-navy-light border border-finance-teal/30 rounded-xl overflow-hidden cursor-pointer shadow-lg"
             onClick={() => setSelectedMember(member)}
-            style={{
-              background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
-            }}
             whileHover={{
               scale: 1.02,
-              boxShadow: "0 20px 40px -10px rgba(255, 215, 0, 0.3)",
+              boxShadow:
+                "0 12px 32px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 212, 204, 0.4)",
+              borderColor: "rgba(0, 212, 204, 0.6)",
             }}
             transition={{ duration: 0.3 }}
           >
-            {/* Animated Background Mesh */}
-            <div className="absolute inset-0 opacity-30">
-              <motion.div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%),
-                    linear-gradient(-45deg, transparent 25%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 50%, transparent 50%)
-                  `,
-                  backgroundSize: "20px 20px",
-                }}
-                animate={{
-                  backgroundPosition: isHovered ? "40px 40px, 0 0" : "0 0, 0 0",
-                }}
-                transition={{ duration: 2, ease: "linear" }}
-              />
-            </div>
+            {/* Leadership Badge - Positioned absolutely in top-right */}
+            {member.isLeadership && (
+              <div className="absolute top-3 right-3 z-10">
+                <Badge className="bg-finance-teal text-white font-semibold px-2 py-1 text-xs">
+                  <Crown className="w-3 h-3 mr-1" />
+                  Leadership
+                </Badge>
+              </div>
+            )}
 
-            {/* Floating Particles */}
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1 h-1 bg-white/40 rounded-full"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    opacity: [0.2, 0.8, 0.2],
-                    scale: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Card Content */}
-            <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">
-              {/* Header with Role Badge */}
-              <div className="space-y-4">
-                {member.isLeadership && (
-                  <div>
-                    <Badge className="bg-gradient-to-r from-purple-500 to-amber-500 text-black font-bold">
-                      <Crown className="w-3 h-3 mr-1" />
-                      Leadership
-                    </Badge>
-                  </div>
-                )}
-
-                {/* Avatar Placeholder with Glow */}
-                <div className="relative w-16 h-16 sm:w-20 sm:h-20 mx-auto">
-                  <div className="w-full h-full rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center relative overflow-hidden">
-                    <Users className="w-8 h-8 sm:w-10 sm:h-10 text-white/80" />
-
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 rounded-2xl" />
-                  </div>
+            {/* Professional Card Content */}
+            <div className="relative h-full p-6 flex flex-col">
+              {/* Header with Professional Avatar */}
+              <div className="flex justify-center mb-4">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-finance-teal/10 border border-finance-teal/20 flex items-center justify-center">
+                  <Users className="w-10 h-10 sm:w-12 sm:h-12 text-finance-teal" />
                 </div>
               </div>
 
-              {/* Member Info */}
-              <div className="text-center text-white space-y-3">
-                <h3
-                  className="text-lg sm:text-xl font-bold text-center"
-                  style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
-                >
-                  {member.name}
-                </h3>
+              {/* Professional Member Info - flex-1 to take available space */}
+              <div className="text-center space-y-3 flex-1 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-white leading-tight">
+                    {member.name}
+                  </h3>
 
-                <p className="text-xs sm:text-sm text-white/90 font-medium text-center">
-                  {member.title}
-                </p>
+                  <p className="text-xs sm:text-sm text-white/80 font-medium leading-tight px-2">
+                    {member.title}
+                  </p>
 
-                {/* Expertise Tags */}
-                <div className="flex flex-wrap gap-1 justify-center">
-                  {member.expertise.slice(0, 2).map((skill, i) => (
-                    <span
-                      key={skill}
-                      className="text-xs bg-white/20 px-2 py-1 rounded-full backdrop-blur-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  {/* Professional Expertise Tags */}
+                  <div className="flex flex-wrap gap-1.5 justify-center px-2">
+                    {member.expertise.slice(0, 2).map((skill, i) => (
+                      <span
+                        key={skill}
+                        className="text-xs bg-finance-teal/20 text-finance-teal border border-finance-teal/30 px-2 py-1 rounded-lg font-medium"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* CTA */}
+                {/* Professional CTA Button - Always at bottom */}
                 <div className="pt-2">
                   <Button
-                    variant="ghost"
                     size="sm"
-                    className="text-white border border-white/30 hover:bg-white/20 backdrop-blur-sm transition-all duration-300"
+                    className="bg-finance-teal text-white hover:bg-finance-teal-dark hover:shadow-lg transition-all duration-300 px-4 py-2 font-semibold border border-finance-teal/30"
                   >
                     <Brain className="w-4 h-4 mr-2" />
                     <span>Learn More</span>
@@ -436,45 +352,7 @@ export default function ModernLuminariesSection() {
                 </div>
               </div>
             </div>
-
-            {/* Hover Shine Effect */}
-            <motion.div
-              className="absolute inset-0 opacity-0 pointer-events-none"
-              animate={{
-                opacity: isHovered ? 1 : 0,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              <motion.div
-                className="absolute inset-0 rounded-3xl"
-                style={{
-                  background:
-                    "linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%)",
-                }}
-                animate={{
-                  x: isHovered ? "100%" : "-100%",
-                }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </motion.div>
           </motion.div>
-
-          {/* 3D Shadow */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl -z-10"
-            style={{
-              background: member.isLeadership
-                ? "linear-gradient(135deg, #1e1b4b 0%, #7c3aed 50%, #fbbf24 100%)"
-                : "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0ea5e9 100%)",
-              filter: "blur(20px)",
-              transform: "translateZ(-20px) scale(0.95)",
-            }}
-            animate={{
-              opacity: isHovered ? 0.6 : 0.3,
-              scale: isHovered ? 1 : 0.95,
-            }}
-            transition={{ duration: 0.3 }}
-          />
         </motion.div>
       </div>
     );
@@ -485,110 +363,19 @@ export default function ModernLuminariesSection() {
       ref={sectionRef}
       className="relative min-h-screen py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #000012 0%, #0a0a23 25%, #1a1a2e 50%, #16213e 75%, #0f3460 100%)",
+        backgroundColor: "#112240", // Solid dark blue background
       }}
     >
-      {/* Background Particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-finance-gold/30 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Optimized Morphing Elements */}
-      {isMobile ? <MobileLightElements /> : <DesktopLightElements />}
-      {/* Animated 3D Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Financial Icons */}
-        <motion.div
-          className="absolute top-20 left-10"
+      {/* Professional Grid Pattern */}
+      <div className="absolute inset-0 overflow-hidden opacity-10">
+        <div
+          className="absolute inset-0"
           style={{
-            x: springX,
-            y: springY,
-            rotateX,
-            rotateY,
+            backgroundImage:
+              "linear-gradient(rgba(0, 212, 204, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 204, 0.1) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
           }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, 360],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-24 h-24 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-2xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Target className="w-12 h-12 text-blue-400" />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute top-40 right-20"
-          style={{
-            x: useTransform(springX, (x) => -x * 0.5),
-            y: useTransform(springY, (y) => -y * 0.5),
-            scale,
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateY: [0, 360],
-              rotateX: [0, 180, 360],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="w-32 h-32 bg-gradient-to-br from-amber-500/20 to-orange-500/20 rounded-3xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Globe className="w-16 h-16 text-amber-400" />
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-20 left-1/4"
-          style={{
-            x: useTransform(springX, (x) => x * 0.8),
-            y: useTransform(springY, (y) => y * 0.8),
-            rotateX: useTransform(scrollYProgress, [0, 1], [0, 360]),
-          }}
-        >
-          <motion.div
-            animate={{
-              rotateZ: [0, -360],
-              scale: [0.8, 1.1, 0.8],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl backdrop-blur-sm border border-white/10 flex items-center justify-center"
-          >
-            <Zap className="w-10 h-10 text-green-400" />
-          </motion.div>
-        </motion.div>
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -599,21 +386,11 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2
-            className="text-5xl md:text-7xl font-bold mb-6"
-            style={{
-              background:
-                "linear-gradient(135deg, #00D4CC 0%, #00FFFF 50%, #00D4CC 100%)",
-              backgroundClip: "text",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-              textShadow: "0 0 30px rgba(0, 212, 204, 0.5)",
-            }}
-          >
-            Meet Our Luminaries
+          <motion.h2 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+            Meet Our <span className="text-finance-teal">Luminaries</span>
           </motion.h2>
           <motion.div
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-finance-cyan to-transparent mx-auto mb-6"
+            className="w-32 h-1 bg-finance-teal mx-auto mb-6 rounded-full"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1, delay: 0.5 }}
@@ -632,25 +409,25 @@ export default function ModernLuminariesSection() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl p-2 border border-white/10">
+          <div className="relative bg-finance-navy-medium/80 backdrop-blur-xl rounded-xl p-1 border border-finance-teal/30 shadow-lg">
             <motion.div
-              className="absolute inset-y-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl"
+              className="absolute top-1 bottom-1 bg-finance-teal rounded-lg shadow-md"
               animate={{
-                x: activeGroup === "faculty" ? 2 : "50%",
-                width: activeGroup === "faculty" ? "48%" : "48%",
+                x: activeGroup === "faculty" ? "4px" : "calc(50% + 2px)",
+                width: "calc(50% - 4px)",
               }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             />
 
-            <div className="relative flex space-x-2">
+            <div className="relative flex space-x-1">
               <Button
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("faculty")}
-                className={`relative z-10 px-8 py-3 transition-colors duration-300 ${
+                className={`relative z-10 px-6 py-3 transition-colors duration-300 ${
                   activeGroup === "faculty"
                     ? "text-white"
-                    : "text-white/60 hover:text-white/80"
+                    : "text-white/70 hover:text-white"
                 }`}
               >
                 <Star className="w-5 h-5 mr-2" />
@@ -661,10 +438,10 @@ export default function ModernLuminariesSection() {
                 variant="ghost"
                 size="lg"
                 onClick={() => setActiveGroup("leadership")}
-                className={`relative z-10 px-8 py-3 transition-colors duration-300 ${
+                className={`relative z-10 px-6 py-3 transition-colors duration-300 ${
                   activeGroup === "leadership"
                     ? "text-white"
-                    : "text-white/60 hover:text-white/80"
+                    : "text-white/70 hover:text-white"
                 }`}
               >
                 <Crown className="w-5 h-5 mr-2" />
@@ -708,23 +485,16 @@ export default function ModernLuminariesSection() {
               className="max-w-4xl w-full max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="relative bg-gradient-to-br from-slate-900/95 to-slate-800/95 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
-                style={{
-                  background: selectedMember.isLeadership
-                    ? "linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(124, 58, 237, 0.95) 50%, rgba(251, 191, 36, 0.95) 100%)"
-                    : "linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 50%, rgba(14, 165, 233, 0.95) 100%)",
-                }}
-              >
+              <div className="relative bg-finance-navy-light border border-finance-teal/30 rounded-2xl shadow-2xl overflow-hidden">
                 {/* Header */}
                 <div className="relative p-8 pb-6">
                   <motion.button
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setSelectedMember(null)}
-                    className="absolute top-6 right-6 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors border border-white/20"
+                    className="absolute top-6 right-6 p-2 rounded-full bg-finance-teal/10 hover:bg-finance-teal/20 transition-colors border border-finance-teal/20"
                   >
-                    <X className="w-6 h-6 text-white" />
+                    <X className="w-6 h-6 text-finance-teal" />
                   </motion.button>
 
                   <div className="flex items-start space-x-6">
@@ -734,12 +504,12 @@ export default function ModernLuminariesSection() {
                       transition={{ delay: 0.2, type: "spring", bounce: 0.4 }}
                       className="relative"
                     >
-                      <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                        <Users className="w-12 h-12 text-white/80" />
+                      <div className="w-24 h-24 rounded-2xl bg-finance-teal/20 border border-finance-teal/30 flex items-center justify-center">
+                        <Users className="w-12 h-12 text-finance-teal" />
                       </div>
                       {selectedMember.isLeadership && (
                         <div className="absolute -top-2 -right-2">
-                          <Badge className="bg-gradient-to-r from-purple-500 to-amber-500 text-black font-bold">
+                          <Badge className="bg-finance-teal text-white font-bold">
                             <Crown className="w-3 h-3" />
                           </Badge>
                         </div>
@@ -773,7 +543,7 @@ export default function ModernLuminariesSection() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-white border border-white/30 hover:bg-white/20"
+                          className="text-finance-teal border border-finance-teal/30 hover:bg-finance-teal/10"
                         >
                           <Mail className="w-4 h-4 mr-2" />
                           Contact
@@ -782,7 +552,7 @@ export default function ModernLuminariesSection() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="text-white border border-white/30 hover:bg-white/20"
+                            className="text-finance-teal border border-finance-teal/30 hover:bg-finance-teal/10"
                           >
                             <Linkedin className="w-4 h-4 mr-2" />
                             LinkedIn
@@ -803,7 +573,7 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3">
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3">
                           About
                         </h4>
                         <p className="text-white/80 leading-relaxed">
@@ -815,9 +585,11 @@ export default function ModernLuminariesSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 }}
-                        className="relative p-4 rounded-xl bg-white/5 border border-white/10"
+                        className="relative p-4 rounded-xl bg-finance-teal/5 border border-finance-teal/10"
                       >
-                        <div className="text-4xl text-white/20 mb-2">"</div>
+                        <div className="text-4xl text-finance-teal/20 mb-2">
+                          "
+                        </div>
                         <p className="text-white/90 italic text-sm">
                           {selectedMember.quote}
                         </p>
@@ -831,8 +603,8 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                          <Award className="w-5 h-5 mr-2 text-amber-400" />
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3 flex items-center">
+                          <Award className="w-5 h-5 mr-2 text-finance-teal" />
                           Achievements
                         </h4>
                         <div className="space-y-2">
@@ -845,7 +617,7 @@ export default function ModernLuminariesSection() {
                                 transition={{ delay: 0.9 + index * 0.1 }}
                                 className="flex items-center space-x-2 text-white/80 text-sm"
                               >
-                                <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
+                                <div className="w-1.5 h-1.5 bg-finance-teal rounded-full" />
                                 <span>{achievement}</span>
                               </motion.div>
                             ),
@@ -858,8 +630,8 @@ export default function ModernLuminariesSection() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
                       >
-                        <h4 className="text-lg font-semibold text-white mb-3 flex items-center">
-                          <Brain className="w-5 h-5 mr-2 text-blue-400" />
+                        <h4 className="text-lg font-semibold text-finance-teal mb-3 flex items-center">
+                          <Brain className="w-5 h-5 mr-2 text-finance-teal" />
                           Expertise
                         </h4>
                         <div className="flex flex-wrap gap-2">
@@ -873,7 +645,7 @@ export default function ModernLuminariesSection() {
                                 type: "spring",
                                 bounce: 0.4,
                               }}
-                              className="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-full text-white/90 backdrop-blur-sm"
+                              className="px-3 py-1 text-xs bg-finance-teal/20 border border-finance-teal/30 rounded-lg text-white/90"
                             >
                               {skill}
                             </motion.span>

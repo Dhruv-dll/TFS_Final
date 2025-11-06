@@ -7,7 +7,6 @@ import {
   CheckCircle,
   AlertTriangle,
   DollarSign,
-
   Building2,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
@@ -22,7 +21,6 @@ import {
   FinnhubStockData,
   MarketSentiment,
   CurrencyRate,
-
   safeFormatTimestamp,
 } from "../services/finnhubMarketData";
 import { MarketDataLoader } from "./MarketDataErrorBoundary";
@@ -146,17 +144,15 @@ export default function TabbedMarketDashboard({
     // Create Google search URL for stock current price
     const searchQuery = `${stock.displayName || stock.name} current stock price`;
     const url = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   const handleCurrencyClick = (currency: CurrencyRate) => {
     // Create Google search URL for currency conversion
     const searchQuery = `${currency.name} current exchange rate conversion`;
     const url = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
-
-
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -408,8 +404,6 @@ export default function TabbedMarketDashboard({
                     </div>
                   </motion.div>
                 </TabsContent>
-
-
 
                 <TabsContent value="summary" className="mt-6">
                   <motion.div

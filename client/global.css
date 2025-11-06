@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -105,17 +105,41 @@
     @apply border-border;
   }
 
+  /* Comprehensive Global Font Application - ECC Points Website Fonts */
+  body,
+  h1, h2, h3, h4, h5, h6,
+  .section-title, .card-title, .menu-title, .btn, .navbar, .dashboard-title, .custom-heading,
+  .nav-title, .hero-title, .banner-title, .component-title, .feature-title,
+  button, .button, a, .link,
+  p, .text, .paragraph, .content,
+  span, .label, .caption, .description,
+  div, .container, .wrapper,
+  nav, .navigation, .menu,
+  header, .header, footer, .footer,
+  main, .main, section, .section,
+  article, .article, aside, .aside,
+  input, textarea, select, .form-control,
+  .card, .panel, .widget, .component,
+  .motion-h1, .motion-h2, .motion-h3, .motion-h4, .motion-h5, .motion-h6,
+  .finance-heading, .professional-text, .terminal-font, .data-display {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* Specific heading fonts using Roboto Slab for emphasis */
+  h1, h2, h3, h4, h5, h6,
+  .section-title, .hero-title, .banner-title, .finance-heading,
+  .motion-h1, .motion-h2, .motion-h3, .motion-h4, .motion-h5, .motion-h6 {
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-family:
-      "Inter",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      "Roboto",
-      sans-serif;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -123,51 +147,173 @@
 
   html {
     scroll-behavior: smooth;
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   }
 }
 
 @layer base {
-  /* Bloomberg Terminal Typography */
+  /* ECC Points Typography - Enhanced with !important */
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.3 !important;
   }
 
   .terminal-font {
-    font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
-    font-weight: 500;
-    letter-spacing: 0.02em;
+    font-family: "Roboto", "Consolas", "Monaco", monospace !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02em !important;
   }
 
   .finance-heading {
-    font-family: "Inter", sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
+    font-family: "Roboto Slab", serif !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
   }
 
   .professional-text {
-    font-family: "Inter", sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    line-height: 1.5;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.01em !important;
+    line-height: 1.6 !important;
   }
 
   .data-display {
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 600;
-    letter-spacing: 0.05em;
+    font-family: "Roboto", monospace !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
   }
 }
 
 @layer components {
+  /* Force ECC Points fonts on all component libraries and frameworks */
+  [class*="motion-"],
+  [class*="framer-"],
+  [class*="radix-"],
+  [class*="shadcn-"],
+  [class*="ui-"],
+  [class*="component-"],
+  [data-radix-collection-item],
+  [data-state],
+  .lucide,
+  .icon,
+  svg text,
+  .text-*,
+  .font-*,
+  .typography-*,
+  .prose *,
+  .markdown * {
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  }
+
+  /* Ensure all headings use Roboto Slab */
+  [class*="heading-"],
+  [class*="title-"],
+  [class*="banner-"],
+  [role="heading"],
+  .hero *,
+  .banner *,
+  .title,
+  .heading {
+    font-family: "Roboto Slab", serif !important;
+  }
+
+  /* ECC Points Navigation Specific Styles */
+  .ecc-nav-highlight {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: rgba(0, 212, 204, 0.15);
+    border: 1px solid rgba(0, 212, 204, 0.4);
+    border-radius: 0.5rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ecc-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgb(var(--foreground));
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    z-index: 2;
+  }
+
+  .ecc-nav-item:hover {
+    color: rgb(0, 212, 204);
+  }
+
+  /* Perfect fit highlight bars */
+  .ecc-nav-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Mobile navigation specific */
+  .ecc-mobile-nav {
+    backdrop-filter: blur(16px);
+    background: rgba(11, 20, 38, 0.9);
+    border: 1px solid rgba(0, 212, 204, 0.2);
+    border-radius: 0.75rem;
+  }
+
+  .ecc-mobile-nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    color: rgb(var(--foreground));
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+  }
+
+  .ecc-mobile-nav-item:hover {
+    color: rgb(0, 212, 204);
+    background: rgba(0, 212, 204, 0.1);
+  }
+
+  /* Dropdown menus */
+  .ecc-dropdown {
+    position: absolute;
+    top: 100%;
+    min-width: 200px;
+    backdrop-filter: blur(16px);
+    background: rgba(11, 20, 38, 0.9);
+    border: 1px solid rgba(0, 212, 204, 0.2);
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 50;
+  }
+
+  .ecc-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: rgb(var(--foreground));
+    transition: all 0.2s ease;
+  }
+
+  .ecc-dropdown-item:hover {
+    color: rgb(0, 212, 204);
+    background: rgba(0, 212, 204, 0.1);
+  }
+
   .professional-hover {
     position: relative;
     overflow: hidden;
@@ -282,13 +428,13 @@
     transform: scale(1.1);
   }
 
-  /* Perspective utility for 3D effects */
+  /* Simplified perspective for better performance */
   .perspective-1000 {
-    perspective: 1000px;
+    perspective: none;
   }
 
   .preserve-3d {
-    transform-style: preserve-3d;
+    transform-style: flat;
   }
 
   /* Enhanced button hover effects */
@@ -797,6 +943,61 @@
     }
   }
 
+  /* ECC Points Navigation Responsive Design */
+  @media (max-width: 1024px) {
+    .ecc-nav-item {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .ecc-nav-container {
+      gap: 0.125rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ecc-nav-highlight {
+      display: none; /* Hide highlight on mobile for better UX */
+    }
+
+    .ecc-mobile-nav {
+      margin-top: 1rem;
+      padding: 1rem;
+    }
+
+    .ecc-mobile-nav-item {
+      padding: 1rem;
+      min-height: 48px; /* Touch-friendly */
+    }
+
+    .ecc-dropdown {
+      position: static;
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-left: 1.5rem;
+      box-shadow: none;
+      background: rgba(0, 212, 204, 0.05);
+      border: 1px solid rgba(0, 212, 204, 0.1);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ecc-nav-item {
+      font-size: 0.75rem;
+      padding: 0.5rem;
+    }
+
+    .ecc-mobile-nav-item {
+      padding: 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    .ecc-dropdown-item {
+      padding: 0.625rem 0.875rem;
+      font-size: 0.8rem;
+    }
+  }
+
   /* Mobile Touch Optimizations */
   @media (hover: none) and (pointer: coarse) {
     /* Touch devices */
@@ -1020,32 +1221,24 @@
       }
     }
 
-    /* Comprehensive mobile animation disabling */
+    /* Comprehensive mobile animation optimizations */
     @media (max-width: 768px) {
-      /* Disable most framer-motion animations */
+      /* Optimize animations for mobile performance */
       .mobile-static {
         opacity: 1 !important;
         transform: none !important;
-        transition: none !important;
+        transition: opacity 0.2s ease !important;
         animation: none !important;
       }
 
-      /* Disable entrance animations globally on mobile */
+      /* Reduce animation complexity on mobile */
       * {
-        animation-duration: 0.1s !important;
+        animation-duration: 0.2s !important;
         animation-delay: 0s !important;
+        transition-duration: 0.2s !important;
       }
 
-      /* Specifically target motion components */
-      [style*="opacity: 0"] {
-        opacity: 1 !important;
-      }
-
-      [style*="transform"] {
-        transform: none !important;
-      }
-
-      /* Disable complex transforms and 3D effects */
+      /* Disable expensive effects on mobile */
       .preserve-3d {
         transform-style: flat !important;
       }
@@ -1054,7 +1247,7 @@
         perspective: none !important;
       }
 
-      /* Smooth scroll behavior */
+      /* Ensure smooth scrolling */
       html {
         scroll-behavior: smooth !important;
       }
@@ -1063,20 +1256,38 @@
       * {
         will-change: auto !important;
         backface-visibility: visible !important;
+        transform: translateZ(0) !important;
       }
 
-      /* Disable hover effects on mobile */
+      /* Optimize hover effects for touch devices */
       *:hover {
         transform: none !important;
         scale: 1 !important;
       }
 
-      /* Ensure text is immediately visible */
-      .text-transparent {
-        color: #ffd700 !important;
-        background: none !important;
-        -webkit-background-clip: unset !important;
-        background-clip: unset !important;
+      /* Ensure gradient text is visible on mobile */
+      .bg-gradient-to-r,
+      .bg-gradient-to-br,
+      .bg-gradient-to-l {
+        background-clip: text !important;
+        -webkit-background-clip: text !important;
+        color: transparent !important;
+      }
+
+      /* Mobile-specific optimizations */
+      .mobile-optimized {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Reduce backdrop blur on mobile for performance */
+      .backdrop-blur-xl {
+        backdrop-filter: blur(8px) !important;
+      }
+
+      .backdrop-blur-2xl {
+        backdrop-filter: blur(10px) !important;
       }
     }
   }
@@ -1176,6 +1387,18 @@
   .mobile-scroll-container {
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+  }
+
+  /* Video performance optimization */
+  video {
+    transform: translateZ(0);
+    will-change: auto;
+  }
+
+  /* Improve rendering performance */
+  .performance-optimized {
+    contain: layout style paint;
+    will-change: auto;
   }
 
   .mobile-tap-highlight {

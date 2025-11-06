@@ -8,25 +8,21 @@ const bafFeatures = [
     title: "Programme Overview",
     description:
       "Comprehensive 3-year undergraduate program in accounting and finance",
-    gradient: "from-finance-gold to-orange-400",
   },
   {
     icon: FileText,
     title: "Curriculum Structure",
     description: "Updated content designed for professional development",
-    gradient: "from-finance-electric to-blue-400",
   },
   {
     icon: Briefcase,
     title: "Career Opportunities",
     description: "Transform yourself through professional expertise",
-    gradient: "from-finance-green to-emerald-400",
   },
   {
     icon: GraduationCap,
     title: "University Affiliation",
     description: "Affiliated to the University of Mumbai",
-    gradient: "from-purple-500 to-finance-gold",
   },
 ];
 
@@ -40,8 +36,7 @@ export default function AboutBAFSection() {
       id="about-baf"
       className="relative py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%)",
+        backgroundColor: "#112240", // Solid dark blue background
       }}
     >
       <div className="container mx-auto px-6 relative z-10">
@@ -52,10 +47,10 @@ export default function AboutBAFSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-finance-electric to-finance-gold bg-clip-text text-transparent">
-            About BAF
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            About <span className="text-finance-teal">BAF</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-finance-electric to-finance-gold mx-auto mb-6" />
+          <div className="w-24 h-1 bg-finance-teal mx-auto mb-6" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -65,12 +60,12 @@ export default function AboutBAFSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-3xl font-bold text-finance-electric mb-6">
+            <h3 className="text-3xl font-bold text-finance-teal mb-6">
               Bachelor of Accounting and Finance
             </h3>
             <div className="space-y-6 text-foreground/80 leading-relaxed">
               <div>
-                <h4 className="text-xl font-semibold text-finance-gold mb-3">
+                <h4 className="text-xl font-semibold text-finance-teal mb-3">
                   BAF Programme Foundation
                 </h4>
                 <p className="text-lg">
@@ -101,22 +96,15 @@ export default function AboutBAFSection() {
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                 className="relative group"
               >
-                <div
-                  className={`bg-gradient-to-br ${feature.gradient} p-6 rounded-xl text-center transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl`}
-                >
-                  <feature.icon className="w-8 h-8 mx-auto mb-3 text-white drop-shadow-lg" />
+                <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl text-center transform transition-all duration-300 group-hover:border-finance-teal/50 shadow-lg hover:shadow-xl">
+                  <feature.icon className="w-8 h-8 mx-auto mb-3 text-finance-teal" />
                   <div className="text-lg font-bold text-white mb-2">
                     {feature.title}
                   </div>
-                  <div className="text-white/90 text-xs leading-tight">
+                  <div className="text-white/80 text-xs leading-tight">
                     {feature.description}
                   </div>
                 </div>
-
-                {/* Glow effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} rounded-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10 blur-xl`}
-                />
               </motion.div>
             ))}
           </motion.div>
@@ -129,29 +117,29 @@ export default function AboutBAFSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-electric/20">
-            <h4 className="text-xl font-semibold text-finance-electric mb-3">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Programme Duration
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-white/80">
               3-year undergraduate program with comprehensive curriculum
             </p>
           </div>
 
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-gold/20">
-            <h4 className="text-xl font-semibold text-finance-gold mb-3">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               University Affiliation
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-white/80">
               Affiliated to the University of Mumbai with recognized degree
             </p>
           </div>
 
-          <div className="bg-finance-navy/30 backdrop-blur-sm p-6 rounded-xl border border-finance-green/20">
-            <h4 className="text-xl font-semibold text-finance-green mb-3">
+          <div className="bg-finance-navy-light/95 border border-finance-teal/30 p-6 rounded-xl shadow-lg">
+            <h4 className="text-xl font-semibold text-finance-teal mb-3">
               Professional Focus
             </h4>
-            <p className="text-foreground/80">
+            <p className="text-white/80">
               Designed for career transformation in accounting and finance
             </p>
           </div>

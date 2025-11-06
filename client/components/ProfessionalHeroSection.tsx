@@ -147,7 +147,7 @@ function ProfessionalMarketTicker() {
           </div>
 
           <div className="flex-1 overflow-hidden ml-8">
-            <div className="flex space-x-6 animate-scroll">
+            <div className="flex space-x-6 animate-scroll will-change-transform">
               {stockData.map((stock, index) => (
                 <div
                   key={`${stock.symbol}-${index}`}
@@ -217,64 +217,70 @@ export default function ProfessionalHeroSection() {
   };
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Professional Background Image */}
+    <section className="relative h-screen w-full overflow-hidden performance-optimized bg-finance-navy">
+      {/* Professional Background Video */}
       <motion.div
         className="absolute inset-0 z-0"
         style={{ opacity: videoOpacity }}
       >
-        <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url('https://cdn.builder.io/api/v1/image/assets%2F36935fa7f48a46018f23cf61a4fdb3c0%2Fd9eef1906b5249c48c2b4343dc694cba?format=webp&width=1920')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+        <video
+          className="w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+        >
+          <source
+            src="https://cdn.builder.io/o/assets%2Fe85dfdd564234742bab315fb42ca6cc0%2Fcdaa0c914f444ba09397c133c8f6cab0?alt=media&token=89c8ffc7-fcb7-4ac8-95e3-4e03a2ebfee4&apiKey=e85dfdd564234742bab315fb42ca6cc0"
+            type="video/mp4"
+          />
+          {/* Fallback background color matching our palette */}
+          <div className="w-full h-full bg-finance-navy" />
+        </video>
       </motion.div>
 
-      {/* Professional Overlay */}
+      {/* Professional Overlay - Enhanced for video background */}
       <motion.div
         className="absolute inset-0 z-10"
         style={{
           background:
-            "linear-gradient(135deg, rgba(11, 20, 38, 0.6) 0%, rgba(26, 43, 66, 0.4) 50%, rgba(30, 58, 95, 0.3) 100%)",
+            "linear-gradient(135deg, rgba(11, 20, 38, 0.8) 0%, rgba(26, 43, 66, 0.6) 50%, rgba(30, 58, 95, 0.5) 100%)",
           opacity: overlayOpacity,
         }}
       />
 
-      {/* Geometric wireframe pattern overlay */}
+      {/* Additional overlay for better text contrast */}
       <div
-        className="absolute inset-0 z-10 opacity-15"
+        className="absolute inset-0 z-15"
         style={{
-          backgroundImage: `
-            linear-gradient(rgba(0, 212, 204, 0.4) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 212, 204, 0.4) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px),
-            linear-gradient(-45deg, rgba(0, 255, 255, 0.2) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px, 60px 60px, 30px 30px, 30px 30px",
+          background: "rgba(0, 0, 0, 0.3)",
         }}
       />
 
+      {/* Geometric wireframe pattern overlay - Using CSS classes instead of inline styles */}
+      <div className="absolute inset-0 z-20 opacity-15 bg-gradient-to-br from-finance-teal/20 via-transparent to-finance-cyan/10" />
+
       {/* Hero Content */}
       <motion.div
-        className="relative z-20 h-full flex items-center justify-center"
+        className="relative z-30 h-full flex items-center justify-center"
         style={{ y: textY }}
       >
         <div className="text-center px-6 max-w-6xl mx-auto">
           {/* Professional Typography */}
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight finance-heading"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            <span className="block text-finance-cyan font-light mb-2">
+            <span className="block text-finance-cyan font-light mb-2 drop-shadow-lg">
               The Finance
             </span>
-            <span className="block text-white font-bold">Symposium</span>
-            <span className="block text-finance-teal text-2xl md:text-4xl lg:text-5xl font-normal mt-4">
+            <span className="block text-white font-bold drop-shadow-xl">
+              Symposium
+            </span>
+            <span className="block text-finance-teal text-2xl md:text-4xl lg:text-5xl font-normal mt-4 drop-shadow-lg">
               2025-2026
             </span>
           </motion.h1>
