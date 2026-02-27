@@ -750,7 +750,10 @@ export default function EnhancedHeroSection() {
             <p className="relative text-xl md:text-2xl text-foreground/90 font-medium mb-2">
               Bridging Present & Future of Finance
             </p>
-            <p className="relative text-lg md:text-xl text-finance-gold">
+            <p className="relative text-lg md:text-xl text-finance-gold mb-1">
+              An Initiative by Department of Accounting and Finance
+            </p>
+            <p className="relative text-sm md:text-base text-finance-teal/80">
               St. Xavier's College Mumbai
             </p>
           </motion.div>

@@ -1,17 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Mail,
   MapPin,
-  Send,
   MessageCircle,
   Instagram,
   Linkedin,
   ExternalLink,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 
 const contactInfo = [
   {
@@ -58,27 +54,6 @@ const socialLinks = [
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
 
   return (
     <section
@@ -86,8 +61,7 @@ export default function ContactSection() {
       id="contact"
       className="relative py-20 overflow-hidden"
       style={{
-        background:
-          "linear-gradient(135deg, #000012 0%, #1a1a2e 50%, #0a0a23 100%)",
+        backgroundColor: "#12333E", // Solid dark teal background
       }}
     >
       <div className="container mx-auto px-6 relative z-10">
@@ -98,12 +72,13 @@ export default function ContactSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-finance-gold to-finance-electric bg-clip-text text-transparent">
-            Get In Touch
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            Get In <span className="text-finance-teal">Touch</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-finance-gold to-finance-electric mx-auto mb-6" />
+          <div className="w-24 h-1 bg-finance-teal mx-auto mb-6" />
           <p className="text-xl text-foreground/80 max-w-2xl mx-auto">
-            Ready to join our financial community? We'd love to hear from you.
+            Ready to join our financial community? TFS is proudly organized by
+            the Department of Accounting and Finance.
           </p>
         </motion.div>
 
@@ -115,7 +90,7 @@ export default function ContactSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
-            <h3 className="text-3xl font-bold text-finance-gold mb-8">
+            <h3 className="text-3xl font-bold text-finance-teal mb-8">
               Let's Connect
             </h3>
 
@@ -127,21 +102,17 @@ export default function ContactSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className="flex items-start space-x-4 p-6 bg-finance-navy/30 backdrop-blur-sm rounded-xl border border-finance-gold/20 hover:border-finance-gold/40 transition-all duration-300"
+                  className="flex items-start space-x-4 p-6 bg-finance-navy-light/95 rounded-xl border border-finance-teal/30 hover:border-finance-teal/50 transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-r from-finance-gold to-finance-electric rounded-lg flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-6 h-6 text-finance-navy" />
+                  <div className="w-12 h-12 bg-finance-teal rounded-lg flex items-center justify-center flex-shrink-0">
+                    <info.icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-finance-gold mb-1">
+                    <h4 className="text-lg font-semibold text-finance-teal mb-1">
                       {info.title}
                     </h4>
-                    <p className="text-foreground font-medium">
-                      {info.details}
-                    </p>
-                    <p className="text-foreground/60 text-sm">
-                      {info.subDetails}
-                    </p>
+                    <p className="text-white/90 font-medium">{info.details}</p>
+                    <p className="text-white/70 text-sm">{info.subDetails}</p>
                   </div>
                 </motion.div>
               ))}
@@ -154,7 +125,7 @@ export default function ContactSection() {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="pt-8"
             >
-              <h4 className="text-xl font-semibold text-finance-electric mb-4">
+              <h4 className="text-xl font-semibold text-finance-teal mb-4">
                 Follow Us
               </h4>
               <div className="flex space-x-4">
@@ -162,7 +133,7 @@ export default function ContactSection() {
                   <motion.a
                     key={social.label}
                     href={social.href}
-                    className={`w-12 h-12 bg-finance-navy/50 backdrop-blur-sm rounded-lg flex items-center justify-center border border-finance-gold/20 transition-all duration-300 ${social.color} hover:border-finance-gold/60 hover:scale-110`}
+                    className="w-12 h-12 bg-finance-navy-light/95 rounded-lg flex items-center justify-center border border-finance-teal/30 transition-all duration-300 text-finance-teal hover:border-finance-teal/60 hover:scale-110 shadow-lg"
                     whileHover={{ y: -2 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -173,82 +144,44 @@ export default function ContactSection() {
             </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Google Maps Embed */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-finance-navy/30 backdrop-blur-sm rounded-xl p-8 border border-finance-gold/20"
+            className="bg-finance-navy-light/95 rounded-xl p-8 border border-finance-teal/30 shadow-lg"
           >
-            <h3 className="text-2xl font-bold text-finance-electric mb-6">
-              Send us a Message
+            <h3 className="text-2xl font-bold text-finance-teal mb-6">
+              Find Us Here
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="relative w-full h-96 rounded-lg overflow-hidden border border-finance-teal/30">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.0349235985793!2d72.82962687501657!3d18.93014558218769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sSt.%20Xavier's%20College%20%E2%80%93%20Autonomous%2C%20Mumbai!5e0!3m2!1sen!2sin!4v1698765432100!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="St. Xavier's College, Mumbai Location"
+                className="filter brightness-90 contrast-110"
+              />
+            </div>
+
+            <div className="mt-6 p-4 bg-finance-navy-medium/50 rounded-lg border border-finance-teal/20">
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-5 h-5 text-finance-teal flex-shrink-0" />
                 <div>
-                  <label className="block text-sm font-medium text-finance-gold mb-2">
-                    Name
-                  </label>
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    placeholder="Your name"
-                    className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-finance-gold mb-2">
-                    Email
-                  </label>
-                  <Input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="your@email.com"
-                    className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
-                  />
+                  <p className="text-white/90 font-medium">
+                    St. Xavier's College, Mumbai
+                  </p>
+                  <p className="text-white/70 text-sm">
+                    5, Mahapalika Marg, Mumbai 400001
+                  </p>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-finance-gold mb-2">
-                  Subject
-                </label>
-                <Input
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  placeholder="What's this about?"
-                  className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-finance-gold mb-2">
-                  Message
-                </label>
-                <Textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  placeholder="Tell us more..."
-                  rows={6}
-                  className="bg-finance-navy/50 border-finance-gold/30 text-foreground placeholder-foreground/50 focus:border-finance-gold resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full bg-gradient-to-r from-finance-gold to-finance-electric text-finance-navy hover:scale-105 transition-all duration-300"
-                size="lg"
-              >
-                Send Message
-                <Send className="w-4 h-4 ml-2" />
-              </Button>
-            </form>
+            </div>
           </motion.div>
         </div>
       </div>

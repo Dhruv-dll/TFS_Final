@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ProfessionalNavigation from "../components/ProfessionalNavigation";
+import ECCStyleNavigation from "../components/ECCStyleNavigation";
 import ProfessionalHeroSection from "../components/ProfessionalHeroSection";
 import TerminalLoader from "../components/TerminalLoader";
 import ModernLuminariesSection from "../components/ModernLuminariesSection";
@@ -13,7 +13,6 @@ import AboutBAFSection from "../components/AboutBAFSection";
 import ContactSection from "../components/ContactSection";
 import SponsorsSection from "../components/SponsorsSection";
 import FloatingMarketIcon from "../components/FloatingMarketIcon";
-import ScrollProgressIndicator from "../components/ScrollProgressIndicator";
 import AdminEventsPanel from "../components/AdminEventsPanel";
 import AdminLogin from "../components/AdminLogin";
 import { EventPopupProvider } from "../hooks/useEventPopup";
@@ -376,14 +375,13 @@ export default function Index() {
           {/* Main Content */}
           {!showLoader && (
             <>
-              <ProfessionalNavigation scrolled={scrolled} />
-              <ScrollProgressIndicator />
+              <ECCStyleNavigation scrolled={scrolled} />
               <NetworkStatusIndicator isOnline={isOnline} />
               <FloatingMarketIcon />
 
               {/* Hero Section */}
               <MarketDataErrorBoundary>
-                <section id="hero">
+                <section id="home">
                   <ProfessionalHeroSection />
                 </section>
               </MarketDataErrorBoundary>
@@ -399,7 +397,7 @@ export default function Index() {
               </section>
 
               {/* Meet the Team Section */}
-              <section id="team">
+              <section id="luminaries">
                 <ModernLuminariesSection />
               </section>
 
